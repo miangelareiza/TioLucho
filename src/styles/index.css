@@ -1,0 +1,41 @@
+/* Index styles */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    font-family: 'Urbanist', sans-serif;
+}
+body::-webkit-scrollbar{
+    display: none;
+}
+:root{
+    --principal: #F2A819;
+    --secondary: #8C5F4D;
+    --tertiary: #C22327;
+    --white: #FFFFFF;
+    --black: #000000;
+    --dark: #201C2A;
+    --wrap: #323232ee;
+    --inputs: #F4F4F4;
+    --cards: #D9D9D950;
+    --border: #E0E0E0;
+}
+body {
+    margin: 0;
+    background: var(--white);
+    font-family: -apple-system, BlinkMacSystemFont, 'Urbanist', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.swal2-background-custom {
+    border-radius: 3vh;
+    background: var(--dark);
+    color: var(--white);
+}
+.swal2-background-custom-white{
+    border-radius: 3vh;
+    background: var(--white);
+    color: var(--dark);
+}

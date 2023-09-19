@@ -1,0 +1,76 @@
+/* Spinner styles */
+.spinner_wrap{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    width: 100vw;
+    height: 100vh;
+    background: var(--wrap);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999999999;
+}
+.spinner_image{
+    width: 150px;
+}
+.spinner_item{
+    width: 100%;
+    margin-top: -5px;
+}
+.spinner_item > .item{
+    width: 180px;
+    height: 100px;
+    margin: 0 auto;
+    text-align: center;
+}
+.spinner_item > .item > .dot{
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    margin-top: 30px;
+    border-radius: 50%;
+}
+.spinner_item > .item > .dot:nth-child(odd){
+    background: var(--principal);
+}
+.spinner_item > .item > .dot:nth-child(even){
+    background: var(--secondary);
+}
+.dot1{
+    animation: boing 1s infinite;
+}
+.dot2{
+    animation: boing 1s ease-out;
+    animation-iteration-count: infinite;
+    animation-delay: 0.2s;
+}
+.dot3{
+    animation: boing 1s ease-out;
+    animation-iteration-count: infinite;
+    animation-delay: 0.4s;
+}
+.dot4{
+    animation: boing 1s ease-out;
+    animation-iteration-count: infinite;
+    animation-delay: 0.6s;
+}
+.dot5{
+    animation: boing 1s ease-out;
+    animation-iteration-count: infinite;
+    animation-delay: 0.8s;
+}
+
+/* Animations */
+@keyframes boing {
+    0%, 100% {
+        transform: translateY(0px);
+        animation-timing-function: ease-out;
+    }
+    50% {
+        transform: translateY(-30px);
+        animation-timing-function: ease-in;
+        opacity: 0.5;
+    }
+}
