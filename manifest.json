@@ -1,0 +1,110 @@
+{
+	"short_name": "Tío Lucho",
+	"name": "Tío Lucho",
+	"description": "Aplicación para gestión y administración de arepas el Tío Lucho",
+	"start_url": "/",
+	"id": "/",
+	"display_override": [
+		"standalone",
+		"fullscreen"
+	],
+	"display": "standalone",
+	"theme_color": "#fefefe",
+	"background_color": "#fefefe",
+  	"icons": [
+		{
+			"src": "icon-512.png",
+			"type": "image/png",
+			"sizes": "512x512",
+			"purpose": "any"
+		},
+		{
+			"src": "icon-180.png",
+			"type": "image/png",
+			"sizes": "180x180",
+			"purpose": "any"
+		},
+		{
+			"src": "icon-192.png",
+			"type": "image/png",
+			"sizes": "192x192",
+			"purpose": "any"
+		},
+		{
+			"src": "favicon.ico",
+			"sizes": "64x64",
+			"type": "image/x-icon",
+			"purpose": "any"
+		},
+		{
+			"src": "icon-512.png",
+			"sizes": "512x512",
+			"type": "image/png",
+			"purpose": "maskable"
+		},
+		{
+			"src": "icon-192.png",
+			"sizes": "192x192",
+			"type": "image/png",
+			"purpose": "maskable"
+		}
+	],
+	"author": "Miguel Ángel Areiza",
+	"version": "1.0.0",
+	"categories": [
+		"productivity",
+		"business"
+	],
+	"dir": "ltr",
+	"lang": "es-CO",
+	"orientation": "portrait",
+	"serviceworker":"/service-worker.js",
+	"prefer_related_applications": false,
+	"protocol_handlers": [		
+	],
+	"scope": "/",
+	"screenshots": [
+		{
+			"src": "splash-screen1.png",
+			"type": "image/png",
+			"sizes": "335x616",
+			"platform": "wide",
+			"label": "LandingPage"
+		},
+		{
+			"src": "splash-screen2.png",
+			"type": "image/png",
+			"sizes": "335x616",
+			"platform": "wide",
+			"label": "Domicilios"
+		},
+		{
+			"src": "splash-screen3.png",
+			"type": "image/png",
+			"sizes": "335x616",
+			"platform": "wide",
+			"label": "Login"
+		},
+		{
+			"src": "splash-screen4.png",
+			"type": "image/png",
+			"sizes": "813x461",
+			"platform": "wide",
+			"label": "LandingPage"
+		},
+		{
+			"src": "splash-screen5.png",
+			"type": "image/png",
+			"sizes": "813x461",
+			"platform": "wide",
+			"label": "Domicilios"
+		},
+		{
+			"src": "splash-screen6.png",
+			"type": "image/png",
+			"sizes": "813x461",
+			"platform": "wide",
+			"label": "Login"
+		}
+	]
+}
