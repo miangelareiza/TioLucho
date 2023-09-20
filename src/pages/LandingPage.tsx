@@ -11,7 +11,6 @@ import { Footer } from '../components/Footer';
 import '../styles/LandingPage.css';
 // Sources
 import imgBanner from '../assets/images/Logo.png';
-import imgSedeItagüi from '../assets/images/landingPage/Sede-Itagüi.png';
 
 function LandingPage() {
     const { setIsLoading, addToastr, setMenuConfig } = useAppStates();
@@ -54,18 +53,6 @@ function LandingPage() {
                 </p>
 
                 <Button type='button' name='Domicilios' icon='next' onClick={handleclickDeliveries} />
-            </div>
-
-            <div className='section headquarters_section'>
-                <h2 className='section_title'>Sedes</h2>
-                <div className='headquarter_card'>
-                    <div className='headquarter_image'>
-                        <img src={imgSedeItagüi} alt='Imagen sede santa monica' draggable='false' width='260px' height='260px' />
-                    </div>
-                    <h3 className='headquarter_title'>Itagüi</h3>
-                    <p className='headquarter_address'>Cl. 73A #50-51, El Carmelo, Itagüi, Antioquia</p>
-                    <a className='headquarter_route' href='https://maps.app.goo.gl/Fsrp5L4XyTfH3bKB7' target='_blank' rel='noopener noreferrer'>Cómo llegar</a>
-                </div>
             </div>
 
             <div className='section us_section'>

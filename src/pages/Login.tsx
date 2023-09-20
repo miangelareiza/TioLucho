@@ -5,7 +5,6 @@ import { Navigate, Link } from 'react-router-dom';
 import { useAppStates } from '../helpers/states';
 import { useApi } from '../helpers/api';
 import { useAuth } from '../helpers/auth';
-import { Header } from '../components/Header';
 import { Button } from '../components/Button';
 // Styles
 import '../styles/Auth.css';
@@ -70,7 +69,7 @@ function Login() {
 
     return (
         <form className='auth_form' onSubmit={handleSubmit}>
-            <Header logoUrl={imgLogo} title='AREPAS' titleColor='var(--white)' />
+            <img className='auth_image' src={imgLogo} alt="Logo Tío Lucho" draggable='false' width='140px' />
             <h2 className='auth_title'>Iniciar Sesión</h2>
 
             <input 

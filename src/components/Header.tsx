@@ -119,17 +119,14 @@ function Header({ isLandingPage, logoUrl, title, titleColor = 'var(--principal)'
                 <div className='header_left'>
                     <img onClick={handleclickLogo} src={imgLogo} alt='Logo arepas el Tío Lucho' draggable='false' width='50px' height='50px' />
                     <div>
-                        <h1>Tío Lucho</h1>
-                        <h2>AREPAS</h2>
+                        <h1>AREPAS</h1>
+                        <h2>Tío Lucho</h2>
                     </div>
                 </div>
                 <nav className='header_center'>
                     <ul className='web_menu'>
                         <li>
                             <Link className='opt_web_menu selected' to='/' onClick={e => handleClickBasicOpt(e, 'home')}>Inicio</Link>
-                        </li>
-                        <li>
-                            <Link className='opt_web_menu' to='/' onClick={e => handleClickBasicOpt(e, 'headquarters')}>Sedes</Link>
                         </li>
                         <li>
                             <Link className='opt_web_menu' to='/' onClick={e => handleClickBasicOpt(e, 'us')}>Nosotros</Link>
@@ -147,9 +144,6 @@ function Header({ isLandingPage, logoUrl, title, titleColor = 'var(--principal)'
                     <ul className='mobile_menu'>                                
                         <li>
                             <Link className='opt_mobile_menu selected' to='/' onClick={ e => handleClickBasicOpt(e, 'home')}>Inicio</Link>
-                        </li>
-                        <li>
-                            <Link className='opt_mobile_menu' to='/' onClick={ e => handleClickBasicOpt(e, 'headquarters')}>Sedes</Link>
                         </li>
                         <li>
                             <Link className='opt_mobile_menu' to='/' onClick={ e => handleClickBasicOpt(e, 'us')}>Nosotros</Link>

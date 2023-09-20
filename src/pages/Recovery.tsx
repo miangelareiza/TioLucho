@@ -5,7 +5,6 @@ import { Navigate } from 'react-router-dom';
 import { useAppStates } from '../helpers/states';
 import { useApi } from '../helpers/api';
 import { useAuth } from '../helpers/auth';
-import { Header } from '../components/Header';
 import { Button } from '../components/Button';
 // Styles
 import '../styles/Auth.css';
@@ -125,7 +124,7 @@ function Recovery() {
     return (
         <>
             <form className='auth_form form_user' onSubmit={handleSubmitUser}>
-                <Header logoUrl={imgLogo} title='AREPAS' titleColor='var(--white)' />
+                <img className='auth_image' src={imgLogo} alt="Logo Tío Lucho" draggable='false' width='140px' />
                 <h2 className='auth_title'>Recuperar contraseña</h2>
                 <input 
                     className='auth_input user' 
@@ -141,7 +140,7 @@ function Recovery() {
             </form>
 
             <form className='auth_form form_code' onSubmit={handleSubmitOTP}>
-                <Header logoUrl={imgLogo} title='AREPAS' titleColor='var(--white)' />
+                <img className='auth_image' src={imgLogo} alt="Logo Tío Lucho" draggable='false' width='140px' />
                 <h2 className='auth_title'>Restablecer contraseña</h2>
                 <input 
                     className='auth_input code' 
@@ -157,7 +156,7 @@ function Recovery() {
             </form>
 
             <form className='auth_form form_pass' onSubmit={handleSubmitPass}>
-                <Header logoUrl={imgLogo} title='AREPAS' titleColor='var(--white)' />
+                <img className='auth_image' src={imgLogo} alt="Logo Tío Lucho" draggable='false' width='140px' />
                 <h2 className='auth_title'>Restablecer contraseña</h2>                
                 <input 
                     className='auth_input password'

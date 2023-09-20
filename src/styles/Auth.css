@@ -34,6 +34,10 @@
     transform: rotate(-25deg);
     z-index: -1;
 }
+.auth_image{
+    width: 140px;
+    margin: 4vh auto 2vh;
+}
 .auth_title{
     display: block;
     width: 100%;

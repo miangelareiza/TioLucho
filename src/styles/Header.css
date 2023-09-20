@@ -52,12 +52,13 @@ header{
     margin: 0 2vh;
 }
 .header_left > div > h1{
-    font-size: 2.2rem;
+    font-size: 1.2rem;
+    text-align: center;
     font-weight: 900;
     white-space: nowrap;
 }
 .header_left > div > h2{
-    font-size: .8rem;
+    font-size: 2.2rem;
     font-weight: 900;
     margin-top: -6px;
     color: var(--principal);

@@ -9,19 +9,19 @@ function Footer() {
     return (
         <footer>
             <span className='section_title reverse' style={{margin:'0'}}></span>
-            <img src={imgLogo} alt='Logotipo de El Piloncito' draggable='false' width='10px' />
+            <img src={imgLogo} alt='Logotipo de El Piloncito' draggable='false' width='180px' />
             <div>
-                <h1>Tío Lucho</h1>
-                <h2>AREPAS</h2>
+                <h1>AREPAS</h1>
+                <h2>Tío Lucho</h2>
             </div>
             <div className='socialnetworks_container'>
-                <a href='https://www.facebook.com/p/El-Piloncito-Familiar-belencito-sede-principal-100057274638791/?locale=es_LA' target='_blank' rel='noopener noreferrer'>
+                <a href='/' target='_blank' rel='noopener noreferrer'>
                     <BsFacebook size={30} color='var(--white)'/>
                 </a>
-                <a href='https://instagram.com/piloncito_belenlasplayas?igshid=MzRIODBiNWFIZA' target='_blank' rel='noopener noreferrer'>
+                <a href='/' target='_blank' rel='noopener noreferrer'>
                     <BsInstagram size={30} color='var(--white)' />
                 </a>
-                <a href='https://api.whatsapp.com/send?phone=573113175229&text=%C2%A1Vi%20su%20delicioso%20menu%20desde%20la%20carta%20digital!' target='_blank' rel='noopener noreferrer'>
+                <a href='https://api.whatsapp.com/send?phone=573137593407&text=%C2%A1Deseo%20solicitar%20un%20servicio%20de%20domicilio!' target='_blank' rel='noopener noreferrer'>
                     <BsWhatsapp size={30} color='var(--white)' />
                 </a>
             </div>
