@@ -1,4 +1,4 @@
-import React, {  } from 'react';
+import React, { useCallback } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 
 // Components
@@ -11,21 +11,21 @@ import imgMenu0 from '../assets/images/icons/Menu0.svg';
 import imgMenu1 from '../assets/images/icons/Menu1.svg';
 
 interface Props {
-    landingPage?: boolean
-    logo?: string
+    isLandingPage?: boolean
+    logoUrl?: string
     title?: string
     titleColor?: string
 }
 
-function Header({ landingPage = false, logo, title, titleColor = 'var(--principal)'}: Props) {
+function Header({ isLandingPage, logoUrl, title, titleColor = 'var(--principal)'}: Props) {
     const { setIsLoading } = useAppStates();
     const navigate = useNavigate();
     const location = useLocation();
-    const subtitle = location.pathname.includes('/new') ? 'Crear ' : location.pathname.includes('/edit') ? 'Editar ' :  ''
+    const prefix = location.pathname.includes('/new') ? 'Crear ' : location.pathname.includes('/edit') ? 'Editar ' :  ''
     
-    const handleClickMenu: React.MouseEventHandler<HTMLImageElement> = e => {
-        let menu = e.currentTarget.nextElementSibling as HTMLElement;
-        let button = e.currentTarget;
+    const handleClickMenu: React.MouseEventHandler<HTMLImageElement> = useCallback((e) => {
+        const button = e.currentTarget;
+        const menu = e.currentTarget.nextElementSibling as HTMLUListElement;
 
         if (menu.style.display === 'none' || menu.style.display === '') {            
             button.style.transform = 'rotate(270deg)';
@@ -46,34 +46,20 @@ function Header({ landingPage = false, logo, title, titleColor = 'var(--principa
                 menu.style.display = 'none';
             }, 1100);
         }
-    }
+    }, []);
 
-    const handleClickBasicOpt = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, name?: string) => {
-        const type = (e.currentTarget as HTMLElement).classList.contains('opt_web_menu')?'web':'mobile';
-        const continer = document.querySelector(`.${name}_section`) as HTMLDivElement;
-        selectOpt(e.currentTarget, type);
-        if (name) {
-            setTimeout(() => {
-                window.scrollTo({
-                    top: continer.offsetTop - 110,
-                    behavior: 'smooth'
-                });
-            }, type === 'mobile' ? 1600 : 300 );
-        }
-    }
-
-    const selectOpt = (opt: HTMLElement, type: string) => {
+    const selectOpt = useCallback((opt: HTMLAnchorElement, type: string) => {
         if (type === 'web') {
-            const menuOpts = document.querySelectorAll('.opt_web_menu');
-            menuOpts.forEach(element => {
+            document.querySelectorAll('.opt_web_menu').forEach(element => {
                 element.classList.remove('selected');
             });
+              
             opt.classList.add('selected');
         } else if (type === 'mobile') {            
-            const menuOpts = document.querySelectorAll('.opt_mobile_menu');
-            menuOpts.forEach(element => {
+            document.querySelectorAll('.opt_mobile_menu').forEach(element => {
                 element.classList.remove('selected');
             });
+
             opt.classList.add('selected');
 
             setTimeout(() => {
@@ -90,9 +76,27 @@ function Header({ landingPage = false, logo, title, titleColor = 'var(--principa
                 }, 1100);
             }, 300);
         }
-    }
+    }, []);
+
+    const handleClickBasicOpt = useCallback((e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, name: string) => {
+        const type = e.currentTarget.classList.contains('opt_web_menu') ? 'web' : 'mobile';
+        const continer = document.querySelector(`.${name}_section`) as HTMLDivElement;
+
+        selectOpt(e.currentTarget, type);
+
+        if (name) {
+            setTimeout(() => {
+                window.scrollTo({
+                    top: continer.offsetTop - 110,
+                    behavior: 'smooth'
+                });
+            }, type === 'mobile' ? 1600 : 300 );
+        }
+    }, [selectOpt]);
 
     const handleclickLogo = () => {
+        document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#F2A819');
+        document.querySelector('meta[name="background-color"]')?.setAttribute('content', '#F2A819');
         setIsLoading(true);
         navigate('/auth/login');
     }
@@ -104,19 +108,19 @@ function Header({ landingPage = false, logo, title, titleColor = 'var(--principa
     return (
         <>
         {
-        !landingPage ? 
-            <div className='header'>                
-                <img className='header_logo' src={logo} alt={'logo' + title} draggable='false' width='90px' height='90px' />
-                <h1 className='header_name'>El Piloncito</h1>
-                <h2 style={{color: titleColor}} className='header_title'>{subtitle + title}</h2>
+        !isLandingPage ? 
+            <div className='header'>
+                <img className='header_logo' src={logoUrl} alt={'logo ' + title} draggable='false' width='90px' height='90px' />
+                <h1 className='header_name'>Tío Lucho</h1>
+                <h2 style={{color: titleColor || 'var(--principal)'}} className='header_title'>{prefix + title}</h2>
             </div>                    
         :
             <header>
                 <div className='header_left'>
-                    <img onClick={handleclickLogo} src={imgLogo} alt='Logo el piloncito' draggable='false' width='50px' height='50px' />
+                    <img onClick={handleclickLogo} src={imgLogo} alt='Logo arepas el Tío Lucho' draggable='false' width='50px' height='50px' />
                     <div>
-                        <h1>El Piloncito</h1>
-                        <h2>COMIDAS RAPIDAS</h2>
+                        <h1>Tío Lucho</h1>
+                        <h2>AREPAS</h2>
                     </div>
                 </div>
                 <nav className='header_center'>
@@ -134,15 +138,12 @@ function Header({ landingPage = false, logo, title, titleColor = 'var(--principa
                             <Link className='opt_web_menu' to='/' onClick={e => handleClickBasicOpt(e, 'contact')}>Contacto</Link>
                         </li>
                         <li>
-                            <a className='opt_web_menu' href='https://piloncito.maddiapp.com' target='_blank' rel='noopener noreferrer' onClick={e => handleClickBasicOpt(e)}>Carta</a>
-                        </li>
-                        <li>
                             <Link className='opt_web_menu' to='/delivery' onClick={handleclickDelivery}>Domicilios</Link>
                         </li>
                     </ul>
                 </nav>
                 <nav className='header_rigth'>
-                    <img src={imgMenu1} onClick={handleClickMenu} alt='Menu MaddiFood' draggable='false' />
+                    <img src={imgMenu1} onClick={handleClickMenu} alt='Menu Tío Lucho' draggable='false' />
                     <ul className='mobile_menu'>                                
                         <li>
                             <Link className='opt_mobile_menu selected' to='/' onClick={ e => handleClickBasicOpt(e, 'home')}>Inicio</Link>
@@ -155,9 +156,6 @@ function Header({ landingPage = false, logo, title, titleColor = 'var(--principa
                         </li>
                         <li>
                             <Link className='opt_mobile_menu' to='/' onClick={ e => handleClickBasicOpt(e, 'contact')}>Contacto</Link>
-                        </li>
-                        <li>
-                            <a className='opt_mobile_menu' href='https://piloncito.maddiapp.com' target='_blank' rel='noopener noreferrer' onClick={e => handleClickBasicOpt(e)}>Carta</a>
                         </li>
                         <li>
                             <Link className='opt_mobile_menu' to='/delivery' onClick={handleclickDelivery}>Domicilios</Link>

@@ -143,15 +143,6 @@
     flex-wrap: wrap;
     justify-content: center;
 }
-.contact_form{
-    width: 100%;
-    max-width: 630px;
-    margin: auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: flex-start;
-}
 
 /* Responsive */
 @media (max-width: 600px) {

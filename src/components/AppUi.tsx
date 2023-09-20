@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 
 // Components
 import { StatesProvider } from '../helpers/states';
@@ -11,7 +11,7 @@ import { LandingPage } from '../pages/LandingPage';
 
 function AppUi() { 
     return (
-        <BrowserRouter basename='/'>
+        <HashRouter basename='/'>
 			<StatesProvider>
 				<AuthProvider>
 					<ApiProvider>
@@ -25,7 +25,7 @@ function AppUi() {
 					</ApiProvider>
 				</AuthProvider>
 			</StatesProvider>
-        </BrowserRouter>
+        </HashRouter>
     )
 };
 

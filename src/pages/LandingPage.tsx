@@ -5,20 +5,22 @@ import { useNavigate } from 'react-router-dom';
 import { useAppStates } from '../helpers/states';
 import { Header } from '../components/Header';
 import { Button } from '../components/Button';
-import { ContactForm } from '../components/ContactForm';
+import { FormForContact } from '../components/FormForContact';
 import { Footer } from '../components/Footer';
 // Styles
 import '../styles/LandingPage.css';
 // Sources
 import imgBanner from '../assets/images/Logo.png';
-// import imgSedeLasPlayas from '../assets/images/landingPage/SedeLasPlayas.jpg';
-// import imgSedeSantaMonica from '../assets/images/landingPage/SedeSantaMonica.jpg';
+import imgSedeItagüi from '../assets/images/landingPage/Sede-Itagüi.png';
 
 function LandingPage() {
     const { setIsLoading, addToastr, setMenuConfig } = useAppStates();
     const navigate = useNavigate();
-
+    
     useEffect( () => {
+        document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#FEFEFE');
+        document.querySelector('meta[name="background-color"]')?.setAttribute('content', '#FEFEFE');
+        
         setMenuConfig({
             active: false
         });
@@ -36,10 +38,10 @@ function LandingPage() {
 
     return (
         <div className='landingPage'>
-            <Header landingPage />
-            
+            <Header isLandingPage />
+
             <div className='section home_section'>
-                <img src={imgBanner} alt='Banner inicio arepas Tío Lucho' width='350px' height='350px' />
+                <img src={imgBanner} alt='Banner inicio arepas Tío Lucho' width='350px' />
                 <div className='fastOptions'>
                     <Button type='button' name='Clientes' icon='next' />
                     <Button type='button' name='Domicilios' icon='next' onClick={handleclickDeliveries} template='dark' />
@@ -58,20 +60,12 @@ function LandingPage() {
                 <h2 className='section_title'>Sedes</h2>
                 <div className='headquarter_card'>
                     <div className='headquarter_image'>
-                        {/* <img src={imgSedeSantaMonica} alt='Imagen sede santa monica' draggable='false' width='260px' height='260px' /> */}
+                        <img src={imgSedeItagüi} alt='Imagen sede santa monica' draggable='false' width='260px' height='260px' />
                     </div>
-                    <h3 className='headquarter_title'>Santa monica</h3>
-                    <p className='headquarter_address'>Cra. 90#42c-26, Santa Monica, Medellín</p>
-                    <a className='headquarter_route' href='https://goo.gl/maps/s2Z8aA17jkyz13SH7' target='_blank' rel='noopener noreferrer'>Cómo llegar</a>
+                    <h3 className='headquarter_title'>Itagüi</h3>
+                    <p className='headquarter_address'>Cl. 73A #50-51, El Carmelo, Itagüi, Antioquia</p>
+                    <a className='headquarter_route' href='https://maps.app.goo.gl/Fsrp5L4XyTfH3bKB7' target='_blank' rel='noopener noreferrer'>Cómo llegar</a>
                 </div>
-                {/* <div className='headquarter_card'>
-                    <div className='headquarter_image'>
-                        <img src={imgSedeLasPlayas} alt='Imagen sede belen' draggable='false' width='260px' height='260px' />
-                    </div>
-                    <h3 className='headquarter_title'>Belen las playas</h3>
-                    <p className='headquarter_address'>Cra. 72 #18-00, Belén, Medellín</p>
-                    <a className='headquarter_route' href='https://goo.gl/maps/AMkgkZ32dAPUq3NY9' target='_blank' rel='noopener noreferrer'>Cómo llegar</a>
-                </div> */}
             </div>
 
             <div className='section us_section'>
@@ -84,7 +78,7 @@ function LandingPage() {
 
             <div className='section contact_section'>
                 <h2 className='section_title'>Contacto</h2>
-                <ContactForm />
+                <FormForContact />
             </div>
             
             <Footer />

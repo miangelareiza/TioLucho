@@ -35,7 +35,7 @@
     background: var(--dark);
 }
 .button_template.gradient{
-    background: linear-gradient(45deg, var(--dark) 60%, var(--principal));
+    background: linear-gradient(45deg, var(--dark) 60%, var(--tertiary));
 }
 .button_template > .button_icon{
     position: absolute;
