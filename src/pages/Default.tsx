@@ -14,6 +14,9 @@ function Default() {
     const navigate = useNavigate();
 
     useEffect(() => {
+        document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#FEFEFE');
+        document.querySelector('meta[name="background-color"]')?.setAttribute('content', '#FEFEFE');
+
         setMenuConfig({
             active: false
         });
@@ -24,6 +27,9 @@ function Default() {
     }, []);
 
     const handleClickReturn = useCallback(() => {
+        document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#F2A819');
+        document.querySelector('meta[name="background-color"]')?.setAttribute('content', '#F2A819');
+
         setIsLoading(true);
         navigate(-1);
     }, [setIsLoading, navigate]);

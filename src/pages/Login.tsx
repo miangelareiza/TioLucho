@@ -20,6 +20,9 @@ function Login() {
     const [password, setPasword] = useState<string>('');
 
     useEffect( () => {
+        document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#FEFEFE');
+        document.querySelector('meta[name="background-color"]')?.setAttribute('content', '#FEFEFE');
+
         setMenuConfig({
             basic: true,
             active: true,
@@ -49,9 +52,16 @@ function Login() {
             };
             const data = await postApiData('Auth/Login', body, false, 'application/json');
             auth.login(data.appUser, data.token);
+            
+            document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#F2A819');
+            document.querySelector('meta[name="background-color"]')?.setAttribute('content', '#F2A819');
         } catch (error: any) {
             addToastr(error.message, error.type || 'error');
         }
+    }
+
+    const handleRecovery = () => {
+        setIsLoading(true);
     }
 
     if (auth.user && auth.token) {
@@ -60,8 +70,9 @@ function Login() {
 
     return (
         <form className='auth_form' onSubmit={handleSubmit}>
-            <Header logoUrl={imgLogo} title='COMIDAS RAPIDAS' titleColor='var(--white)' />
+            <Header logoUrl={imgLogo} title='AREPAS' titleColor='var(--white)' />
             <h2 className='auth_title'>Iniciar Sesión</h2>
+
             <input 
                 className='auth_input user'
                 id='input_user'
@@ -82,8 +93,9 @@ function Login() {
                 required
                 autoComplete='off'
             />
-            <Button name='Ingresar' type='submit' />
-            <Link className='recovery_link' to='/auth/recovery' >¿Olvidaste tu contraseña?</Link>
+            <Button name='Ingresar' type='submit' icon='next' />
+
+            <Link className='recovery_link' to='/auth/recovery' onClick={handleRecovery} >¿Olvidaste tu contraseña?</Link>
         </form>
     );
 }

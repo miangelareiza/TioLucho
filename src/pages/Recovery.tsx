@@ -110,6 +110,9 @@ function Recovery() {
             const data = await postApiData('Auth/ChangePasswordByOTP', body, false, 'application/json');
             addToastr(data.rpta);
             login(data.appUser, data.token);
+
+            document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#F2A819');
+            document.querySelector('meta[name="background-color"]')?.setAttribute('content', '#F2A819');
         } catch (error: any) {
             addToastr(error.message, error.type || 'error');
         }
@@ -122,8 +125,8 @@ function Recovery() {
     return (
         <>
             <form className='auth_form form_user' onSubmit={handleSubmitUser}>
-                <Header logoUrl={imgLogo} title='COMIDAS RAPIDAS' titleColor='var(--white)' />
-                <h2 className='auth_title'>Restablecer</h2>
+                <Header logoUrl={imgLogo} title='AREPAS' titleColor='var(--white)' />
+                <h2 className='auth_title'>Recuperar contraseña</h2>
                 <input 
                     className='auth_input user' 
                     id='input_user'
@@ -134,12 +137,12 @@ function Recovery() {
                     required
                     autoComplete='username'
                 />
-                <Button name='Enviar código' type='submit' />
+                <Button name='Enviar código' type='submit' icon='next' />
             </form>
 
             <form className='auth_form form_code' onSubmit={handleSubmitOTP}>
-                <Header logoUrl={imgLogo} title='COMIDAS RAPIDAS' titleColor='var(--white)' />
-                <h2 className='auth_title'>Restablecer</h2>
+                <Header logoUrl={imgLogo} title='AREPAS' titleColor='var(--white)' />
+                <h2 className='auth_title'>Restablecer contraseña</h2>
                 <input 
                     className='auth_input code' 
                     id='input_code'
@@ -150,12 +153,12 @@ function Recovery() {
                     required
                     autoComplete='off'
                 />
-                <Button name='Validar código' type='submit' />
+                <Button name='Validar código' type='submit' icon='next' />
             </form>
 
             <form className='auth_form form_pass' onSubmit={handleSubmitPass}>
-                <Header logoUrl={imgLogo} title='COMIDAS RAPIDAS' titleColor='var(--white)' />
-                <h2 className='auth_title'>Restablecer</h2>                
+                <Header logoUrl={imgLogo} title='AREPAS' titleColor='var(--white)' />
+                <h2 className='auth_title'>Restablecer contraseña</h2>                
                 <input 
                     className='auth_input password'
                     id='input_pass1'
@@ -176,7 +179,7 @@ function Recovery() {
                     required
                     autoComplete='off'
                 />
-                <Button name='Cambiar contraseña' type='submit' />
+                <Button name='Cambiar contraseña' type='submit' icon='next' />
             </form>
         </>        
     );

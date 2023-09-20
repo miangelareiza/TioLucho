@@ -16,7 +16,7 @@ interface Props {
         active?: boolean;
         option?: string;
     };
-    role: string; // Ajusta el tipo de 'role' según tu aplicación
+    role: string;
 }
 
 declare global {
@@ -25,7 +25,7 @@ declare global {
     }
 }
 
-function Menu({ config:{ path = '/', home, basic, active, option='home' }, role }: Props) {    
+function Menu({ config:{ path = '/', home, basic, active = true, option='home' }, role }: Props) {    
     const { setIsLoading } = useAppStates();
     const auth = useAuth();
     const navigate = useNavigate();
@@ -33,31 +33,26 @@ function Menu({ config:{ path = '/', home, basic, active, option='home' }, role 
     
     useEffect(() => {
         window.addEventListener('beforeinstallprompt', (e) => {            
-            // Prevent the mini-infobar from appearing on mobile.
             e.preventDefault();
-            // Stash the event so it can be triggered later.
             window.deferredPrompt = e;
-            // Remove the 'hidden' class from the install button container.
             setIsReadyForInstall(true);
         });
     }, []);
   
-    async function handleClickDownloadApp() {
+    const handleClickDownloadApp = async () => {
         const promptEvent = window.deferredPrompt;
+        
         if (!promptEvent) {
-            // The deferred prompt isn't available.
             console.log('oops, no prompt event guardado en window');
             return;
         }
-        // Show the install prompt.
-        promptEvent.prompt();
-        // Log the result
-        await promptEvent.userChoice;
-        // Reset the deferred prompt variable, since
-        // prompt() can only be called once.
-        window.deferredPrompt = null;
-        // Hide the install button.
-        setIsReadyForInstall(false);
+        
+        const userChoice = await promptEvent.prompt();
+
+        if (userChoice.outcome === 'accepted') {
+            window.deferredPrompt = null;
+            setIsReadyForInstall(false);
+        }
     }
 
     const handleClickLogOut = () => {
@@ -66,23 +61,23 @@ function Menu({ config:{ path = '/', home, basic, active, option='home' }, role 
 
     const handleClickBack = () => {
         setIsLoading(true);
-        navigate(path ? path : '/home');
+        navigate(path || '/home');
     }
 
     const handleClickOpt: React.MouseEventHandler<HTMLAnchorElement> = e => {
         if (!e.currentTarget.classList.contains('selected')) {
             setIsLoading(true);
-            const menuOpts = document.querySelectorAll('.complete_option');
-            menuOpts.forEach(element => {
+
+            document.querySelectorAll('.complete_option').forEach(element => {
                 element.classList.remove('selected');
             });
+
             e.currentTarget.classList.add('selected');
         }
     }
 
     return active ? (
-        <>
-        {
+        <>{
             !basic ?
                 <>
                     {
@@ -135,12 +130,9 @@ function Menu({ config:{ path = '/', home, basic, active, option='home' }, role 
             :   
                 <div className='fast_menu'>
                     <button onClick={handleClickBack} type='button' className='fast_option return' aria-label='Ir atras' ><BiRedo size={30} /></button>
-                    {
-                        isReadyForInstall && (<button onClick={handleClickDownloadApp} type='button' className='fast_option download' aria-label='Descargar la app' ><BiCloudDownload size={30} /></button>)
-                    }
+                    { isReadyForInstall && <button onClick={handleClickDownloadApp} type='button' className='fast_option download' aria-label='Descargar la app' ><BiCloudDownload size={30} /></button> }
                 </div>
-        }
-        </>
+        }</>
     ) : null;
 }
 

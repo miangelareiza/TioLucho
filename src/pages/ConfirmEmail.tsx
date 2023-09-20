@@ -18,6 +18,9 @@ function ConfirmEmail() {
     const navigate = useNavigate();
 
     useEffect( () => {
+        document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#FEFEFE');
+        document.querySelector('meta[name="background-color"]')?.setAttribute('content', '#FEFEFE');
+
         setMenuConfig({
             basic: true,
             path: '/auth/login'
@@ -47,7 +50,8 @@ function ConfirmEmail() {
         <form className='auth_form' onSubmit={handleSubmit}>
             <Header logoUrl={imgLogo} title='COMIDAS RAPIDAS' titleColor='var(--white)' />
             <h2 className='auth_title'>Confirmar Email</h2>
-            <Button name='Confirmar' type='submit' />
+            
+            <Button name='Confirmar' type='submit' icon='next' />
         </form>
     );
 }
