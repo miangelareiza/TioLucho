@@ -3,7 +3,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 
 // Components
 import { useAppStates } from './states';
-// import { Menu } from '../components/Menu';
+import { Menu } from '../components/Menu';
 
 type AuthContextType = {
 	path: string
@@ -38,7 +38,7 @@ interface AppUser {
 
 function AuthProvider({ children }: AuthProviderProps) {	
 	const navigate = useNavigate();
-	const { setIsLoading } = useAppStates();
+	const { setIsLoading, menuConfig } = useAppStates();
 	const [user, setUser] = useState<AppUser | null>(JSON.parse(sessionStorage.getItem('appUser')!) || null);
 	const [token, setToken] = useState<string | null>(JSON.parse(sessionStorage.getItem('token')!) || null);
 	// const path = 'https://localhost:7027/';
@@ -65,7 +65,7 @@ function AuthProvider({ children }: AuthProviderProps) {
 
 	return (
 		<AuthContext.Provider value={auth}>
-			{/* <Menu config={menuConfig} role={auth.user ? auth.user.roleId.toUpperCase() : ''} /> */}
+			<Menu config={menuConfig} role={auth.user ? auth.user.roleId.toUpperCase() : ''} />
 			{children}
 		</AuthContext.Provider>		
 	);

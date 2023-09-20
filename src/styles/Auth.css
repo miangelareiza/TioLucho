@@ -1,0 +1,96 @@
+/* Login styles */
+.auth_form{
+    width: 100%;
+    height: 100vh;
+    max-height: 100vh;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    padding: calc(48vh - 275px) 0;
+    display: flex;
+    flex-direction: column;
+}
+.auth_form.form_code, .auth_form.form_pass{
+    display: none;
+}
+.auth_form::before {
+    content: '';
+    width: 100%;
+    height: 550px;
+    position: absolute;
+    top: calc(50vh - 275px);
+    left: 0;
+    background: var(--principal);
+    z-index: -2;
+}
+.auth_form::after {
+    content: '';
+    width: 200vw;
+    height: 550px;
+    position: absolute;
+    top: calc(50vh - 275px);
+    left: -50vw;
+    background: var(--secondary);
+    transform: rotate(-25deg);
+    z-index: -1;
+}
+.auth_title{
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-top: -1vh;
+    color: var(--black);
+}
+.auth_input{
+    display: block;
+    width: 300px;
+    margin: 2vh auto 0;
+    background: var(--inputs);
+    border: none;
+    border-radius: 1vh;
+    border-bottom: 2px solid var(--white);
+    font-size: 1.1rem;
+    background-repeat: no-repeat;
+    background-size: 20px;
+    background-position: center left 20px;
+    padding: 1rem 1rem 1rem 60px;
+    outline: none;
+}
+.auth_input:focus{
+    border-bottom: 2px solid var(--principal);
+}
+.auth_input.user{
+    background-image: url('../assets/images/icons/User.svg');
+}
+.auth_input.password{
+    background-image: url('../assets/images/icons/Password.svg');
+}
+.auth_input.code{
+    background-image: url('../assets/images/icons/Code.svg');
+}
+.recovery_link{
+    display: block;
+    color: var(--dark);
+    margin: -1vh auto;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* Responsive */
+@media (min-width: 500px) {
+    .auth_form{
+        padding: calc(48vh - 250px) 0;
+    }
+    .auth_form::before {
+        height: 500px;
+        top: calc(50vh - 250px);
+    }
+    .auth_form::after {
+        height: 500px;
+        top: calc(50vh - 250px);
+        transform: rotate(-20deg);
+    }
+}

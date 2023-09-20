@@ -110,7 +110,7 @@ function Header({ isLandingPage, logoUrl, title, titleColor = 'var(--principal)'
         {
         !isLandingPage ? 
             <div className='header'>
-                <img className='header_logo' src={logoUrl} alt={'logo ' + title} draggable='false' width='90px' height='90px' />
+                <img className='header_logo' src={logoUrl} alt={'logo ' + title} draggable='false' width='90px' />
                 <h1 className='header_name'>Tío Lucho</h1>
                 <h2 style={{color: titleColor || 'var(--principal)'}} className='header_title'>{prefix + title}</h2>
             </div>                    

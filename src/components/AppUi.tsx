@@ -6,8 +6,9 @@ import { AuthProvider } from '../helpers/auth';
 import { ApiProvider } from '../helpers/api';
 // Routes
 import { LandingPage } from '../pages/LandingPage';
+import { Login } from '../pages/Login';
 // import { Home } from '../pages/Home';
-// import { Default } from '../pages/Default';
+import { Default } from '../pages/Default';
 
 function AppUi() { 
     return (
@@ -18,9 +19,13 @@ function AppUi() {
 						<Routes>
 							<Route path='/' element={<LandingPage />} />
 
+							<Route path='/auth/login' element={<Login />} />
+							{/* <Route path='/auth/recovery' element={<Recovery />} />
+							<Route path='/auth/confirmEmail/:id' element={<ConfirmEmail />} /> */}
+
 							{/* <Route path='/home' element={<AuthRoute> <Home /> </AuthRoute>} /> */}
 
-							{/* <Route path='*' element={<Default />} /> */}
+							<Route path='*' element={<Default />} />
 						</Routes>
 					</ApiProvider>
 				</AuthProvider>
