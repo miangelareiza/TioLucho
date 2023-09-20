@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.a7d03785.css",
-    "main.js": "/static/js/main.e1367d7e.js",
+    "main.css": "/static/css/main.face846e.css",
+    "main.js": "/static/js/main.c585b913.js",
     "static/js/787.12944412.chunk.js": "/static/js/787.12944412.chunk.js",
     "static/media/Logo.png": "/static/media/Logo.7a5a5172749fe22f0396.png",
     "static/media/Sede-Itagüi.png": "/static/media/Sede-Itagüi.ddd569a984ab3103909c.png",
@@ -19,12 +19,12 @@
     "static/media/Warning.svg": "/static/media/Warning.e32e22df8aad158f48651a24d194f5ef.svg",
     "static/media/Upload.svg": "/static/media/Upload.f9b824bdb27ddca1e132.svg",
     "static/media/Menu1.svg": "/static/media/Menu1.d4e4fdc2c2bb4744a85ea39d260b4ec6.svg",
-    "main.a7d03785.css.map": "/static/css/main.a7d03785.css.map",
-    "main.e1367d7e.js.map": "/static/js/main.e1367d7e.js.map",
+    "main.face846e.css.map": "/static/css/main.face846e.css.map",
+    "main.c585b913.js.map": "/static/js/main.c585b913.js.map",
     "787.12944412.chunk.js.map": "/static/js/787.12944412.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a7d03785.css",
-    "static/js/main.e1367d7e.js"
+    "static/css/main.face846e.css",
+    "static/js/main.c585b913.js"
   ]
 }
