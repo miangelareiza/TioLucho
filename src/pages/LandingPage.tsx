@@ -15,7 +15,28 @@ import imgBanner from '../assets/images/Logo.png';
 function LandingPage() {
     const { setIsLoading, addToastr, setMenuConfig } = useAppStates();
     const navigate = useNavigate();
-    
+
+    // if ("geolocation" in navigator) {
+    //     var options = {
+    //         enableHighAccuracy: true, // Habilita la precisión alta si está disponible
+    //         maximumAge: 0, // No utilizar la ubicación en caché
+    //         timeout: 5000 // Tiempo máximo de espera para obtener la ubicación
+    //     };
+        
+    //     var watchId = navigator.geolocation.watchPosition(function (position) {
+    //         var latitude = position.coords.latitude;
+    //         var longitude = position.coords.longitude;
+            
+    //         // Aquí puedes utilizar las coordenadas de latitud y longitud en tiempo real
+    //         console.log("Latitud: " + latitude);
+    //         console.log("Longitud: " + longitude);
+    //     }, function (error) {
+    //         console.error("Error al obtener la ubicación: " + error.message);
+    //     }, options);
+    // } else {
+    //     alert("La geolocalización no está disponible en este navegador.");
+    // }
+
     useEffect( () => {
         document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#FEFEFE');
         document.querySelector('meta[name="background-color"]')?.setAttribute('content', '#FEFEFE');
