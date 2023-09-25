@@ -1,12 +1,21 @@
 {
   "files": {
-    "main.css": "/static/css/main.3b27e39a.css",
-    "main.js": "/static/js/main.4726191a.js",
+    "main.css": "/static/css/main.f45bc322.css",
+    "main.js": "/static/js/main.3b6f0c5e.js",
     "static/js/787.12944412.chunk.js": "/static/js/787.12944412.chunk.js",
     "static/media/Logo.png": "/static/media/Logo.2e6fecf689aad6dc077d.png",
+    "static/media/Products.svg": "/static/media/Products.368b4f2613885722294d003345b92952.svg",
     "static/media/Page404.png": "/static/media/Page404.9df3264bf1204c60bd91.png",
     "service-worker.js": "/service-worker.js",
-    "static/media/CashRegister.svg": "/static/media/CashRegister.68dd4c3d8029f0c2e640029aaea224ca.svg",
+    "static/media/NotSales.svg": "/static/media/NotSales.2168dc46a2f48715c774a5dbe62649f9.svg",
+    "static/media/Liquidation.svg": "/static/media/Liquidation.1eafb7283e9e2110e07d72f1b0e6efd0.svg",
+    "static/media/Costs.svg": "/static/media/Costs.2e44f92a7de35139ace1fd3b545a1224.svg",
+    "static/media/Inventory.svg": "/static/media/Inventory.fd1d37c90b83340433842359f2cdaf4a.svg",
+    "static/media/Sales.svg": "/static/media/Sales.e65853a5757741b4293c9cb2ea389557.svg",
+    "static/media/Categories.svg": "/static/media/Categories.24ce4a1caa2043917d68d7d8c9e28b95.svg",
+    "static/media/Clients.svg": "/static/media/Clients.fe53ab7120211441527b0d3330402017.svg",
+    "static/media/Users.svg": "/static/media/Users.f9e6883864c7bbccfe81f486be2a1099.svg",
+    "static/media/Routes.svg": "/static/media/Routes.33091af5f0fba5bed65d9cfd8ab0d7e7.svg",
     "static/media/Expenses.svg": "/static/media/Expenses.7f71fd0a2c37af136fb7f1ba7d6f41f4.svg",
     "index.html": "/index.html",
     "static/media/Income.svg": "/static/media/Income.f1d1b4e665932e30e2648ff297738cd3.svg",
@@ -21,12 +30,12 @@
     "static/media/DefaultUser.svg": "/static/media/DefaultUser.7d2dc3e56822c71daee22915218c7b31.svg",
     "static/media/Upload.svg": "/static/media/Upload.f9b824bdb27ddca1e132.svg",
     "static/media/Menu1.svg": "/static/media/Menu1.d4e4fdc2c2bb4744a85ea39d260b4ec6.svg",
-    "main.3b27e39a.css.map": "/static/css/main.3b27e39a.css.map",
-    "main.4726191a.js.map": "/static/js/main.4726191a.js.map",
+    "main.f45bc322.css.map": "/static/css/main.f45bc322.css.map",
+    "main.3b6f0c5e.js.map": "/static/js/main.3b6f0c5e.js.map",
     "787.12944412.chunk.js.map": "/static/js/787.12944412.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.3b27e39a.css",
-    "static/js/main.4726191a.js"
+    "static/css/main.f45bc322.css",
+    "static/js/main.3b6f0c5e.js"
   ]
 }
