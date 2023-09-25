@@ -23,7 +23,7 @@ function Login() {
         document.querySelector('meta[name="background-color"]')?.setAttribute('content', '#FEFEFE');
 
         setMenuConfig({
-            basic: true,
+            isBasic: true,
             active: true,
             path: '/'
         });

@@ -37,11 +37,11 @@ interface StatesProviderProps {
 };
 
 interface MenuConfig {
-	path?: string
-	home?: boolean
-	basic?: boolean
-	option?: string
-	active?: boolean
+	path?: string;
+	isBasic?: boolean;
+	isHome?: boolean;
+	active?: boolean;
+	tabOption?: string;
 }
 
 function StatesProvider({ children }: StatesProviderProps) {
@@ -50,7 +50,7 @@ function StatesProvider({ children }: StatesProviderProps) {
         libraries: libraries
     });
 	const [isLoading, setIsLoading] = useState<boolean>(true);
-	const [menuConfig, setMenuConfig] = useState<MenuConfig>({ path:'', home:false, basic:false, active:true });
+	const [menuConfig, setMenuConfig] = useState<MenuConfig>({ path:'', isBasic:false, isHome:false, active:true });
 	const [isOnline, setIsOnline] = useState<boolean>(navigator.onLine);
 	// const [cookiesConsent, setCookiesConsent] = useState<boolean>(JSON.parse(localStorage.getItem('Allow-Cookies')!));
 	// const [notificationConsent, setNotificationConsent] = useState<boolean>(JSON.parse(localStorage.getItem('Allow-Notifications')!));

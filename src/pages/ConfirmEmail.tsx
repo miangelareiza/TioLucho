@@ -21,7 +21,7 @@ function ConfirmEmail() {
         document.querySelector('meta[name="background-color"]')?.setAttribute('content', '#FEFEFE');
 
         setMenuConfig({
-            basic: true,
+            isBasic: true,
             path: '/auth/login'
         });
         setTimeout(() => {            

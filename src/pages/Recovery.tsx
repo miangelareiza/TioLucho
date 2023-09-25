@@ -23,7 +23,7 @@ function Recovery() {
 
     useEffect(() => {
         setMenuConfig({
-            basic: true,
+            isBasic: true,
             path: '/auth/login'
         });
         setTimeout(() => {

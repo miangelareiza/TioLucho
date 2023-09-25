@@ -19,8 +19,8 @@ function Home() {
         document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#F2A819');
         document.querySelector('meta[name="background-color"]')?.setAttribute('content', '#F2A819');
         setMenuConfig({
-            home: true,
-            option: 'home'
+            isHome: true,
+            tabOption: 'home'
         });
 
         setTimeout(() => {

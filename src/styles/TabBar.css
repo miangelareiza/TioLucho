@@ -1,7 +1,4 @@
 /* TabBar styles */
-:root{
-    --primary: #275EFE;
-}
 .tabBar_container{
     width: 100vw;
     height: 240px;
@@ -78,7 +75,7 @@
     width: 32px;
     height: 32px;
     fill: var(--secondary);
-    stroke-width: .4px;
+    stroke-width: .5;
     stroke: var(--secondary);
 }
 .tabBar li.active a div{
@@ -86,7 +83,6 @@
 }
 .tabBar li.active a div svg{
     fill: var(--white);
-    stroke-width: .2;
 }
 .tabBar li:not(.active) a div{
     transition: transform 0.4s ease;
@@ -227,35 +223,37 @@
     30% {
         fill: rgba(255, 255, 255, 0);
         transform: translateY(0);
-        stroke-width: 1.2;
+        stroke-width: 1;
     }
     40% {
         transform: translateY(-36px);
     }
     70% {
+        fill: rgba(255, 255, 255, 0);
         transform: translateY(-56px);
         stroke-width: 1;
     }
     85%, 100% {
-        fill: var(--white);
         transform: translateY(0);
+        stroke-width: 0;
     }
 }
 @keyframes svg {
     30% {
         fill: rgba(255, 255, 255, 0);
         transform: translateY(0);
-        stroke-width: 1.2;
+        stroke-width: 1;
     }
     40% {
         transform: translateY(-36px);
     }
     70% {
+        fill: rgba(255, 255, 255, 0);
         transform: translateY(-56px);
         stroke-width: 1;
     }
     85%, 100% {
-        fill: var(--white);
         transform: translateY(0);
+        stroke-width: 0;
     }
 }

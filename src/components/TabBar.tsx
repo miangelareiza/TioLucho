@@ -1,6 +1,7 @@
 // import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BiHome, BiMoneyWithdraw, BiUser } from 'react-icons/bi';
+import { BsBox, BsBox2, BsBoxSeam } from 'react-icons/bs';
 
 // Components
 
@@ -22,12 +23,14 @@ function TabBar() {
             li.classList.add('move');
             ul.classList.add('move');
 
-            setTimeout(function() {
-                ul.classList.remove('move');
-                li.classList.remove('move');
+            setTimeout(() => {
                 li.classList.add('active');
-                ul.style.setProperty('--x', li.offsetLeft + li.offsetWidth / 2 + 'px');
-            }, 1200);
+                setTimeout(() => {
+                    ul.classList.remove('move');
+                    li.classList.remove('move');
+                    ul.style.setProperty('--x', li.offsetLeft + li.offsetWidth / 2 + 'px');
+                }, 300);
+            }, 900);
         }        
     }
 
@@ -37,7 +40,7 @@ function TabBar() {
                 <li>
                     <Link to='#' onClick={handleClickOpt}>
                         <div>
-                            <BiUser />
+                            <BsBox2 />
                         </div>
                     </Link>
                 </li>
