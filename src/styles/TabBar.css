@@ -1,13 +1,12 @@
 /* TabBar styles */
 .tabBar_container{
     width: 100vw;
-    height: 240px;
     margin: auto;
     position: fixed;
     left: 0;
     bottom: 0;
-    overflow: hidden;
     display: flex;
+    z-index: 1000;
     justify-content: center;
     align-items: flex-end;
 }
@@ -20,7 +19,6 @@
     box-shadow: 0 5px 10px var(--secondary);
     list-style: none;
     position: relative;
-    z-index: 1000;
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
     background: var(--principal);   

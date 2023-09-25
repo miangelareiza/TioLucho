@@ -156,7 +156,6 @@ function Header({ isLandingPage }: Props) {
                     <div>
                         <Button name='Editar perfil' type='button' icon='next' template='dark' />
                         <Button name='Cambiar contraseña' type='button' icon='next' template='dark' />
-                        { user?.roleId.toUpperCase() === 'D1141F51-D57B-4376-915D-9D45DC29078C' && <Button name='Administrar' type='button' icon='next' template='gradient' /> }
                     </div>
                 </div> }
             </nav>

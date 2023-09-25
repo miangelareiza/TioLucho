@@ -4,27 +4,20 @@ import { BiCube, BiUserPin, BiHomeAlt, BiMoneyWithdraw, BiCartDownload } from 'r
 
 // Components
 import { useAppStates } from '../helpers/states';
+import { useAuth } from '../helpers/auth';
 
 // Styles
 import '../styles/TabBar.css';
 
 interface Props {
-    tabOption: 'inventory' | 'clients' | 'home' | 'transactions' | 'invoice'
+    tabOption: 'inventory' | 'clients' | 'home' | 'transactions' | 'invoice' | 'admin'
 }
 
 function TabBar({ tabOption }: Props) {    
     const { setIsLoading } = useAppStates();
+    const { user } = useAuth();
 
-    useEffect(() => {
-        const opt = document.querySelector(`.tab_${tabOption}`) as HTMLAnchorElement;
-        opt.click();        
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [tabOption]);
-
-    const handleClickOpt: React.MouseEventHandler<HTMLAnchorElement> = useCallback((e) => {
-        let li = e.currentTarget.parentElement as HTMLLIElement;
-        let ul = li.parentElement as HTMLUListElement;
-        
+    const animationMove = useCallback((ul: HTMLUListElement, li: HTMLLIElement) => {
         if (!ul.classList.contains('move') && !li.classList.contains('active')) {
             setIsLoading(true);
             Array.from(ul.children).forEach( child => {
@@ -43,8 +36,22 @@ function TabBar({ tabOption }: Props) {
                     ul.style.setProperty('--x', li.offsetLeft + li.offsetWidth / 2 + 'px');
                 }, 300);
             }, 900);
-        }        
+        }
     }, [setIsLoading]);
+
+    useEffect(() => {
+        const opt = document.querySelector(`.tab_${tabOption}`) as HTMLAnchorElement;
+        let li = opt.parentElement as HTMLLIElement;
+        let ul = li.parentElement as HTMLUListElement;
+        animationMove(ul, li);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [tabOption]);
+
+    const handleClickOpt: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
+        let li = e.currentTarget.parentElement as HTMLLIElement;
+        let ul = li.parentElement as HTMLUListElement;
+        animationMove(ul, li);
+    };
 
     return(
         <div className='tabBar_container'>
@@ -64,7 +71,7 @@ function TabBar({ tabOption }: Props) {
                     </Link>
                 </li>
                 <li className='active'>
-                    <Link to='/home' onClick={handleClickOpt} className='tab_home'>
+                    <Link to={user?.roleId.toUpperCase() !== 'D1141F51-D57B-4376-915D-9D45DC29078C' ? '/home' : '/home/admin'} onClick={handleClickOpt} className='tab_home tab_admin'>
                         <div>
                             <BiHomeAlt />
                         </div>

@@ -25,6 +25,9 @@
     cursor: pointer;
 }
 .income_and_expense{
+    width: 100%;
+}
+.income_and_expense_container{
     width: 90%;
     max-width: 500px;
     margin: auto;
@@ -34,7 +37,7 @@
     border-radius: 3vh;
     padding: 2vh;
 }
-.income_and_expense > .income, .income_and_expense > .expense{
+.income_and_expense_container > .income, .income_and_expense_container > .expense{
     width: 50%;
     display: flex;
     flex-wrap: wrap;
@@ -44,17 +47,17 @@
     font-size: 1.3rem;
     font-weight: 700;
 }
-.income_and_expense > .income > h3, .income_and_expense > .expense > h3{
+.income_and_expense_container > .income > h3, .income_and_expense_container > .expense > h3{
     display: block;
     width: 100%;
     color: var(--green);
     text-align: center;
     font-size: 1.1rem;
 }
-.income_and_expense > .expense{
+.income_and_expense_container > .expense{
     border-left: 2px dashed var(--border);
 }
-.income_and_expense > .expense > h3{
+.income_and_expense_container > .expense > h3{
     color: var(--tertiary);
 }
 .see_transactions{
@@ -76,8 +79,8 @@
 .transactions{
     width: 90%;
     height: 0;
-    overflow: hidden;
     max-width: 500px;
+    overflow: hidden;
     margin: 5vh auto 120px;
     border-radius: 3vh;
     transition: all 1s ease-in-out;

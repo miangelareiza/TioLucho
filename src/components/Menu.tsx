@@ -15,7 +15,7 @@ interface Props {
         isBasic?: boolean;
         isHome?: boolean;
         active?: boolean;
-        tabOption?: 'inventory' | 'clients' | 'home' | 'transactions' | 'invoice';
+        tabOption?: 'inventory' | 'clients' | 'home' | 'transactions' | 'invoice' | 'admin';
     }
 }
 

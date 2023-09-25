@@ -41,7 +41,7 @@ interface MenuConfig {
 	isBasic?: boolean;
 	isHome?: boolean;
 	active?: boolean;
-	tabOption?: 'inventory' | 'clients' | 'home' | 'transactions' | 'invoice';
+	tabOption?: 'inventory' | 'clients' | 'home' | 'transactions' | 'invoice' | 'admin';
 }
 
 function StatesProvider({ children }: StatesProviderProps) {

@@ -2,7 +2,7 @@ import { HashRouter, Routes, Route } from 'react-router-dom';
 
 // Components
 import { StatesProvider } from '../helpers/states';
-import { AuthProvider, AuthRoute } from '../helpers/auth';
+import { AuthProvider, AuthRoute, AdminRoute } from '../helpers/auth';
 import { ApiProvider } from '../helpers/api';
 
 // Routes
@@ -13,6 +13,9 @@ import { Recovery } from '../pages/Recovery';
 import { ConfirmEmail } from '../pages/ConfirmEmail';
 
 import { Home } from '../pages/Home';
+
+import { Admin } from '../pages/Admin';
+import { Clients } from '../pages/Admin/Clients';
 
 import { Transactions } from '../pages/Transactions';
 import { IncomeAndExpense } from '../pages/IncomeAndExpense';
@@ -38,6 +41,9 @@ function AppUi() {
 								<Route path='income' element={<AuthRoute> <IncomeAndExpense /> </AuthRoute>} />
 								<Route path='expense' element={<AuthRoute> <IncomeAndExpense /> </AuthRoute>} />
 							</Route>
+
+							<Route path='/home/admin' element={<AdminRoute> <Admin /> </AdminRoute>} />
+							<Route path='/home/admin/clients' element={<AdminRoute> <Clients /> </AdminRoute>} />
 
 							<Route path='*' element={<Default />} />
 						</Routes>

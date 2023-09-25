@@ -91,8 +91,19 @@ function AuthRoute({children}: AuthProviderProps): any {
 	return children;
 }
 
+function AdminRoute({children}: AuthProviderProps): any {
+	const auth = useAuth();
+	if (!auth.user || !auth.token || auth.user.roleId.toUpperCase() !== 'D1141F51-D57B-4376-915D-9D45DC29078C') {
+		document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#FEFEFE');
+		document.querySelector('meta[name="background-color"]')?.setAttribute('content', '#FEFEFE');
+		return <Navigate to='/auth/login' />;
+	}
+	return children;
+}
+
 export {
 	AuthProvider,
 	AuthRoute,
+	AdminRoute,
 	useAuth,
 };

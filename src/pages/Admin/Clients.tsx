@@ -1,18 +1,18 @@
 import { useEffect } from 'react';
 
 // Components
-import { useAppStates } from '../helpers/states';
-import { Header } from '../components/Header';
+import { useAppStates } from '../../helpers/states';
+import { Header } from '../../components/Header';
+import { TitlePage } from '../../components/TitlePage';
 
-function Home() {
+function Clients() {
     const { setIsLoading, setMenuConfig } = useAppStates();
 
     useEffect(() => {
         document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#F2A819');
         document.querySelector('meta[name="background-color"]')?.setAttribute('content', '#F2A819');
         setMenuConfig({
-            isHome: true,
-            tabOption: 'home'
+            tabOption: 'admin'
         });
 
         setTimeout(() => {
@@ -24,9 +24,10 @@ function Home() {
     return (
         <>
             <Header />
+            <TitlePage image='clients' title='Clientes' />
             
         </>
     );
 }
 
-export { Home };
+export { Clients };

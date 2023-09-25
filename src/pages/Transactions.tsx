@@ -11,7 +11,7 @@ import '../styles/Transactions.css';
 // Sources
 import imgIncome from '../assets/images/icons/Income.svg';
 import imgExpenses from '../assets/images/icons/Expenses.svg';
-import imgCashRegister from '../assets/images/icons/CashRegister.svg';
+import imgCashRegister from '../assets/images/cards/Sales.svg';
 
 interface Transaction {
     Id: string
@@ -111,19 +111,21 @@ function Transactions() {
             </div>
 
             <div className='income_and_expense'>
-                <div className='income'>
-                    <h3>Ingresos</h3>
-                    {valueToCurrency(income)}
+                <div className='income_and_expense_container'>                    
+                    <div className='income'>
+                        <h3>Ingresos</h3>
+                        {valueToCurrency(income)}
+                    </div>
+                    <div className='expense'>
+                        <h3>Egresos</h3>
+                        {valueToCurrency(expense)}
+                    </div>
+                    <button className='see_transactions' onClick={handleShowTransactions}>
+                        Ver movimientos
+                    </button>
                 </div>
-                <div className='expense'>
-                    <h3>Egresos</h3>
-                    {valueToCurrency(expense)}
-                </div>
-                <button className='see_transactions' onClick={handleShowTransactions}>
-                    Ver movimientos
-                </button>
             </div>
-
+            
             <div className={`transactions ${showTransactions ? 'active' : ''}`}>
                 <div className='titles'>
                     <h2>Ingresos</h2>
