@@ -4,7 +4,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 // Components
 import { useAppStates } from '../helpers/states';
 import { useApi } from '../helpers/api';
-import { Header } from '../components/Header';
 import { Button } from '../components/Button';
 // Styles
 import '../styles/Auth.css';
@@ -47,8 +46,8 @@ function ConfirmEmail() {
     }
 
     return (
-        <form className='auth_form' onSubmit={handleSubmit}>
-            <Header logoUrl={imgLogo} title='COMIDAS RAPIDAS' titleColor='var(--white)' />
+        <form className='auth_form' onSubmit={handleSubmit}>            
+            <img className='auth_image' src={imgLogo} alt="Logo Tío Lucho" draggable='false' width='140px' />
             <h2 className='auth_title'>Confirmar Email</h2>
             
             <Button name='Confirmar' type='submit' icon='next' />

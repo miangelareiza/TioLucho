@@ -57,7 +57,7 @@ function LandingPage() {
     }, [setIsLoading, navigate]);
 
     return (
-        <div className='landingPage'>
+        <>
             <Header isLandingPage />
 
             <div className='section home_section'>
@@ -90,7 +90,7 @@ function LandingPage() {
             </div>
             
             <Footer />
-        </div>
+        </>
     );
 }
 

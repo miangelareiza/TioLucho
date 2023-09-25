@@ -1,13 +1,4 @@
 /* LandingPage styles */
-.landingPage{
-    width: 100%;
-    min-height: 100vh;
-    padding-top: 110px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-content: flex-start;
-}
 .section{
     width: 100%;
     max-width: 100%;

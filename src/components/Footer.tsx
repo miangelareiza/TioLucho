@@ -25,7 +25,7 @@ function Footer() {
                     <BsWhatsapp size={30} color='var(--white)' />
                 </a>
             </div>
-            <p className='copyrigth'>Copyright &copy; 2023 Tío Lucho. Todos los derechos reservados.</p>
+            <p className='copyrigth'>Copyright &copy; 2023 Tío Lucho.<br />Todos los derechos reservados.</p>
         </footer>
     );
 }

@@ -1,0 +1,261 @@
+/* TabBar styles */
+:root{
+    --primary: #275EFE;
+}
+.tabBar_container{
+    width: 100vw;
+    height: 240px;
+    margin: auto;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+.tabBar{
+    --x: calc(50vw - 1vh);
+    width: calc(100% - 2vh);
+    padding: 0 2vh;
+    border-radius: 4rem;
+    margin-bottom: 1vh;
+    box-shadow: 0 5px 10px var(--secondary);
+    list-style: none;
+    position: relative;
+    z-index: 1000;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    background: var(--principal);   
+}
+.tabBar:before, .tabBar:after{
+    content: "";
+    position: absolute;
+    left: 0;
+    border-radius: 50%;
+    transform: translateX(var(--x));
+}
+.tabBar:before{
+    width: 64px;
+    height: 64px;
+    margin-left: -32px;
+    background: var(--secondary);
+    top: -16px;
+    z-index: 1;
+}
+.tabBar:after{
+    width: 84px;
+    height: 84px;
+    margin-left: -42px;
+    background: #8C5F4D33;
+    top: -26px;
+}
+.tabBar.move:before {
+    -webkit-animation: move 1.2s linear forwards;
+            animation: move 1.2s linear forwards;
+}
+.tabBar.move:after {
+    -webkit-animation: move-after 1.2s linear forwards;
+            animation: move-after 1.2s linear forwards;
+}
+.tabBar li a{
+    display: block;
+    padding: 24px 0;
+    transition: transform 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+.tabBar li a div{
+    --y: 0;
+    width: 32px;
+    height: 32px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    transform: translateY(var(--y));
+}
+.tabBar li a div svg{
+    display: block;
+    width: 32px;
+    height: 32px;
+    fill: var(--secondary);
+    stroke-width: .4px;
+    stroke: var(--secondary);
+}
+.tabBar li.active a div{
+    --y: -24px;
+}
+.tabBar li.active a div svg{
+    fill: var(--white);
+    stroke-width: .2;
+}
+.tabBar li:not(.active) a div{
+    transition: transform 0.4s ease;
+}
+.tabBar li:not(.active) a div svg{
+    transition: fill 0.4s ease;
+}
+.tabBar li:not(.active) a:active{
+    transform: scale(0.92);
+}
+.tabBar li.move a div{
+    -webkit-animation: icon 1.2s linear forwards;
+            animation: icon 1.2s linear forwards;
+}
+.tabBar li.move a div svg{
+    -webkit-animation: svg 1.2s linear forwards;
+            animation: svg 1.2s linear forwards;
+}
+
+/* Responsive */
+@media (min-width: 800px) {
+    .tabBar{
+        --x: 350px;
+        width: 700px;
+    }
+}
+
+/* Animations */
+@-webkit-keyframes move {
+    10%, 15% {
+        transform: translate(var(--x), 84px);
+    }
+    30% {
+        transform: translate(var(--x-n), 84px);
+    }
+    42%, 70% {
+        transform: translate(var(--x-n), -16px);
+    }
+    85% {
+        transform: translate(var(--x-n), 4px);
+    }
+    100% {
+        transform: translate(var(--x-n), 0);
+    }
+}
+@keyframes move {
+    10%, 15% {
+        transform: translate(var(--x), 84px);
+    }
+    30% {
+        transform: translate(var(--x-n), 84px);
+    }
+    42%, 70% {
+        transform: translate(var(--x-n), -16px);
+    }
+    85% {
+        transform: translate(var(--x-n), 4px);
+    }
+    100% {
+        transform: translate(var(--x-n), 0);
+    }
+}
+@-webkit-keyframes move-after {
+    10%, 15% {
+        transform: translate(var(--x), 84px) scale(0.82);
+    }
+    30% {
+        transform: translate(var(--x-n), 84px) scale(0.82);
+    }
+    42% {
+        transform: translate(var(--x-n), -16px) scale(0.82);
+    }
+    60% {
+        transform: translate(var(--x-n), -16px) scale(1);
+    }
+    70% {
+        transform: translate(var(--x-n), -16px) scale(1);
+    }
+    85% {
+        transform: translate(var(--x-n), 4px) scale(1);
+    }
+    100% {
+        transform: translate(var(--x-n), 0) scale(1);
+    }
+}
+@keyframes move-after {
+    10%, 15% {
+        transform: translate(var(--x), 84px) scale(0.82);
+    }
+    30% {
+        transform: translate(var(--x-n), 84px) scale(0.82);
+    }
+    42% {
+        transform: translate(var(--x-n), -16px) scale(0.82);
+    }
+    60% {
+        transform: translate(var(--x-n), -16px) scale(1);
+    }
+    70% {
+        transform: translate(var(--x-n), -16px) scale(1);
+    }
+    85% {
+        transform: translate(var(--x-n), 4px) scale(1);
+    }
+    100% {
+        transform: translate(var(--x-n), 0) scale(1);
+    }
+}
+@-webkit-keyframes icon {
+    30% {
+        transform: translateY(0px);
+    }
+    40%, 70% {
+        transform: translateY(-100px);
+    }
+    85% {
+        transform: translateY(-20px);
+    }
+    100% {
+        transform: translateY(-24px);
+    }
+}
+@keyframes icon {
+    30% {
+        transform: translateY(0px);
+    }
+    40%, 70% {
+        transform: translateY(-100px);
+    }
+    85% {
+        transform: translateY(-20px);
+    }
+    100% {
+        transform: translateY(-24px);
+    }
+}
+@-webkit-keyframes svg {
+    30% {
+        fill: rgba(255, 255, 255, 0);
+        transform: translateY(0);
+        stroke-width: 1.2;
+    }
+    40% {
+        transform: translateY(-36px);
+    }
+    70% {
+        transform: translateY(-56px);
+        stroke-width: 1;
+    }
+    85%, 100% {
+        fill: var(--white);
+        transform: translateY(0);
+    }
+}
+@keyframes svg {
+    30% {
+        fill: rgba(255, 255, 255, 0);
+        transform: translateY(0);
+        stroke-width: 1.2;
+    }
+    40% {
+        transform: translateY(-36px);
+    }
+    70% {
+        transform: translateY(-56px);
+        stroke-width: 1;
+    }
+    85%, 100% {
+        fill: var(--white);
+        transform: translateY(0);
+    }
+}

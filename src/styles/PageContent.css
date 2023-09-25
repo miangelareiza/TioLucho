@@ -2,6 +2,7 @@
 .page_content{
     background: var(--white);
     min-height: 100vh;
+    padding-top: 90px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;

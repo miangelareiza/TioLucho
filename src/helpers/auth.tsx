@@ -1,9 +1,10 @@
-import { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 
 // Components
 import { useAppStates } from './states';
 import { Menu } from '../components/Menu';
+import { getCookie, setCookie, deleteCookie } from './functions';
 
 type AuthContextType = {
 	path: string
@@ -21,8 +22,8 @@ interface AuthProviderProps {
 
 interface AppUser {	
 	id: string,
-	restaurantId: string,
 	roleId: string,
+	routeId: string,
 	imageUrl?: string,
 	name: string,
 	user: string,
@@ -33,31 +34,32 @@ interface AppUser {
 	biPhoneConfirm: boolean,
 	birthDay: string,
 	gender: string,
+	active: boolean,
 	remark: string
 }
 
 function AuthProvider({ children }: AuthProviderProps) {	
 	const navigate = useNavigate();
 	const { setIsLoading, menuConfig } = useAppStates();
-	const [user, setUser] = useState<AppUser | null>(JSON.parse(sessionStorage.getItem('appUser')!) || null);
-	const [token, setToken] = useState<string | null>(JSON.parse(sessionStorage.getItem('token')!) || null);
-	// const path = 'https://localhost:7027/';
+	const [user, setUser] = useState<AppUser | null>(JSON.parse(getCookie('appUser')!) || null);
+	const [token, setToken] = useState<string | null>(JSON.parse(getCookie('token')!) || null);
 	const path = 'https://tiolucho.somee.com/';
 
 	const login = (appUser: AppUser, token: string) => {		
 		setUser(appUser);
 		setToken(token);
-		sessionStorage.setItem('appUser', JSON.stringify(appUser));
-		sessionStorage.setItem('token', JSON.stringify(token));
+		setCookie('appUser', JSON.stringify(appUser), 1);
+		setCookie('token', JSON.stringify(token), 1);
 		navigate('/home');
 	};
+	
 	
 	const logout = () => {
 		setIsLoading(true);
 		setUser(null);
 		setToken(null);
-		sessionStorage.removeItem('appUser');
-		sessionStorage.removeItem('token');
+		deleteCookie('appUser');
+		deleteCookie('token');
 		navigate('/auth/login');
 	};
 	
@@ -65,7 +67,7 @@ function AuthProvider({ children }: AuthProviderProps) {
 
 	return (
 		<AuthContext.Provider value={auth}>
-			<Menu config={menuConfig} role={auth.user ? auth.user.roleId.toUpperCase() : ''} />
+			<Menu config={menuConfig} />
 			{children}
 		</AuthContext.Provider>		
 	);
@@ -79,9 +81,11 @@ function useAuth(): AuthContextType {
 	return auth;
 }
 
-function AuthRoute({children}: AuthProviderProps) {
+function AuthRoute({children}: AuthProviderProps): any {
 	const auth = useAuth();
 	if (!auth.user || !auth.token) {
+		document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#FEFEFE');
+		document.querySelector('meta[name="background-color"]')?.setAttribute('content', '#FEFEFE');
 		return <Navigate to='/auth/login' />;
 	}
 	return children;

@@ -36,4 +36,29 @@ const transformToOptions = (options: Array<any>): Array<SelectOption> => {
     });
 };
 
-export { valueToCurrency, formatDateTime, transformToOptions };
+function setCookie(name: string, value: string | number | boolean, daysToExpire: number) {
+	var expirationDate = new Date();
+	expirationDate.setDate(expirationDate.getDate() + daysToExpire);
+
+	var cookieValue = encodeURIComponent(value) + "; expires=" + expirationDate.toUTCString();
+	document.cookie = name + "=" + cookieValue;
+}
+
+function getCookie(name: string) {
+	var cookies = document.cookie.split(';');
+	for (var i = 0; i < cookies.length; i++) {
+		var cookie = cookies[i].trim();
+		if (cookie.startsWith(name + '=')) {
+			return decodeURIComponent(cookie.substring(name.length + 1));
+		}
+	}
+	return null;
+}
+
+function deleteCookie(name: string) {
+    // Establece la fecha de expiración en el pasado (1 de enero de 1970)
+    var expirationDate = new Date(0).toUTCString();
+    document.cookie = name + "=; expires=" + expirationDate;
+}
+
+export { valueToCurrency, formatDateTime, transformToOptions, setCookie, getCookie, deleteCookie };
