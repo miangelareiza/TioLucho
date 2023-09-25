@@ -72,6 +72,7 @@ header.managementApp_header{
     padding: 9px;
     cursor: pointer;
     text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
 }
 .opt_web_menu:hover{
     color: var(--principal);
@@ -156,6 +157,7 @@ header.managementApp_header{
     border-bottom: 1px dashed #00000030;
     padding: 1.2rem 2rem;
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
     transition: .3s ease-in;
 }
 .mobile_menu > li:first-child{

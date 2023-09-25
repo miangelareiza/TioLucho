@@ -10,7 +10,8 @@
     z-index: 1000;
 }
 .fast_menu.home{
-    top: calc(90px + 2rem);
+    top: calc(90px + 1rem);
+    left: 1rem;
 }
 .fast_option{
     width: 60px;

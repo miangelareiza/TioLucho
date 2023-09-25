@@ -21,7 +21,7 @@ function Header({ isLandingPage }: Props) {
     const { setIsLoading } = useAppStates();
     const navigate = useNavigate();
     const { user, path } = useAuth();
-    const imgPath = user?.imageUrl ? `${path}AssetsImage/${user.imageUrl}` : imgDefaultUser;
+    const imgPath = user?.imageUrl ? `${path}AssetsImages/${user.imageUrl}` : imgDefaultUser;
     
     const handleClickMenu: React.MouseEventHandler<HTMLImageElement> = useCallback((e) => {
         const button = e.currentTarget;

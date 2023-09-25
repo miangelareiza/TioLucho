@@ -15,7 +15,7 @@ interface Props {
         isBasic?: boolean;
         isHome?: boolean;
         active?: boolean;
-        tabOption?: string;
+        tabOption?: 'inventory' | 'clients' | 'home' | 'transactions' | 'invoice';
     }
 }
 
@@ -25,7 +25,7 @@ declare global {
     }
 }
 
-function Menu({ config:{ path = '/', isBasic, isHome, active = true, tabOption='home' } }: Props) {    
+function Menu({ config:{ path = '/home', isBasic, isHome, active = true, tabOption } }: Props) {    
     const { setIsLoading } = useAppStates();
     const auth = useAuth();
     const navigate = useNavigate();
@@ -66,7 +66,7 @@ function Menu({ config:{ path = '/', isBasic, isHome, active = true, tabOption='
 
     return active ? (
         <>{
-            !isBasic ?
+            !isBasic && tabOption ?
                 <>
                     {
                         isHome ?
@@ -78,7 +78,7 @@ function Menu({ config:{ path = '/', isBasic, isHome, active = true, tabOption='
                                 <button onClick={handleClickBack} type='button' className='fast_option return' aria-label='Ir atras' ><BiRedo size={30} /></button>
                             </div>
                     }
-                    <TabBar />
+                    <TabBar tabOption={tabOption} />
                 </>
             :   
                 <div className='fast_menu'>

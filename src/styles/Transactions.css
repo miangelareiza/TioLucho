@@ -1,0 +1,145 @@
+/* Accounting styles */
+.transactions_actions{
+    width: 100vw;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    margin: 5vh 0;
+}
+.transactions_actions > a > img{
+    width: 45px;
+    margin: 0 5vh;
+    -webkit-tap-highlight-color: transparent;
+    transition: all .6s ease-in-out;
+}
+.transactions_actions > a > img:hover{
+    transform: scale(1.1);
+}
+.cash_register{
+    border: none;
+    background: none;    
+}
+.cash_register > img{
+    width: 100px;
+    margin: 0 2vh;
+    cursor: pointer;
+}
+.income_and_expense{
+    width: 90%;
+    max-width: 500px;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    background: var(--inputs);
+    border-radius: 3vh;
+    padding: 2vh;
+}
+.income_and_expense > .income, .income_and_expense > .expense{
+    width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-bottom: 2vh;
+    color: var(--dark);
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+.income_and_expense > .income > h3, .income_and_expense > .expense > h3{
+    display: block;
+    width: 100%;
+    color: var(--green);
+    text-align: center;
+    font-size: 1.1rem;
+}
+.income_and_expense > .expense{
+    border-left: 2px dashed var(--border);
+}
+.income_and_expense > .expense > h3{
+    color: var(--tertiary);
+}
+.see_transactions{
+    width: 100%;
+    background: none;
+    padding-top: 2vh;
+    border: none;
+    border-top: 2px dashed var(--border);
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--dark);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: all .6s ease-in-out;
+}
+.see_transactions:hover{
+    color: var(--principal);
+}
+.transactions{
+    width: 90%;
+    height: 0;
+    overflow: hidden;
+    max-width: 500px;
+    margin: 5vh auto 120px;
+    border-radius: 3vh;
+    transition: all 1s ease-in-out;
+}
+.transactions.active{
+    height: 500px;
+    background: var(--inputs);
+}
+.transactions > .titles > h2{
+    display: inline-block;
+    width: 50%;
+    text-align: center;
+    padding: 2vh 0;
+    color: var(--green);
+    font-size: 1.5rem;
+    font-weight: 800;
+    cursor: default;
+}
+.transactions > .titles > h2:last-child{
+    color: var(--tertiary);
+    border-left: 2px dashed var(--border);
+}
+.container_transactions{
+    width: 100%;
+    height: calc(100% - 4vh - 1.5rem);
+    padding: 2vh;
+    border-top: 2px dashed var(--border);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
+    overflow-y: scroll;
+}
+.container_transactions::-webkit-scrollbar{
+    display: none;
+}
+.container_transactions > .transaction{
+    width: 280px;
+    background: var(--cards);
+    display: flex;
+    flex-direction: column;
+    margin: 3px;
+    padding: 1vh 2vh;
+    cursor: default;
+}
+.container_transactions > .transaction.income{
+    margin-right: auto;
+    color: var(--green);
+    border-radius: 2vh 2vh 2vh 0;
+    text-align: left;
+}
+.container_transactions > .transaction.expense{
+    margin-left: auto;
+    color: var(--tertiary);
+    border-radius: 2vh 2vh 0 2vh;
+    text-align: right;
+}
+.transaction_amount{
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+.transaction_detail{
+    font-size: .9rem;
+    color: var(--dark);
+}

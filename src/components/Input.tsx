@@ -326,9 +326,9 @@ function TypeBasic({id, value, setValue, name, required, disabled, onChange, aut
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [value]);
 
-	const handleChange: React.ChangeEventHandler<HTMLInputElement> = useCallback((e)=>{		
+	const handleChange: React.ChangeEventHandler<HTMLInputElement> = useCallback((e)=>{
 		if (type === 'money' && (typeof(value) === 'string' || typeof(value) === 'number')) {	
-			setValue(valueToCurrency(value));
+			setValue(valueToCurrency(e.currentTarget.value));
 		} else if (type === 'checkbox') {
 			setValue(e.currentTarget.checked)
 		} else {
