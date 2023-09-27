@@ -17,42 +17,40 @@ import Swal from 'sweetalert2';
 import { Table, InputRef } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 
-interface Client {
+interface Product {
     Id: string
-    Route: string
+    Category: string
     Name: string
-    Phone: string
-    Contact: string
-    Address: string
+    Cost: number | string
+    Price: number | string
     Active: boolean
-    Delivery: boolean
 }
 
-interface GetClientsData {
-    clients: Array<Client>;
+interface GetProductsData {
+    products: Array<Product>;
     cod: string;
 }
 
-function Clients() {
+function Products() {
     const { setIsLoading, addToastr, setMenuConfig } = useAppStates();
     const { getApiData, postApiData } = useApi();
     const navigate = useNavigate();
     const [isLoadingData, setIsLoadingData] = useState(true);
-    const [clients, setClients] = useState<Array<Client>>([]);  
+    const [products, setProducts] = useState<Array<Product>>([]);  
     const [searchedColumn, setSearchedColumn] = useState('');
     const searchInput = useRef<InputRef>(null);
     const MemoizedTiDelete = memo(TiDelete);
     const MemoizedEdit = memo(BiSolidMessageSquareEdit);
     const MemoizedDelete = memo(FaDeleteLeft);
 
-    const getClients = useCallback(async () => {
+    const getProducts = useCallback(async () => {
         setIsLoadingData(true);
         try {
-            const data: GetClientsData = await getApiData('Client/GetClients', true);
-            if (!data.clients.length) {
-                addToastr('Registra tu primer cliente', 'info');
+            const data: GetProductsData = await getApiData('Product/GetProducts', true);
+            if (!data.products.length) {
+                addToastr('Registra tu primer producto', 'info');
             }
-            setClients(data.clients);
+            setProducts(data.products);
             setIsLoadingData(false);
         } catch (error: any) {
             addToastr(error.message, error.type || 'error');
@@ -70,34 +68,26 @@ function Clients() {
         setTimeout(() => {
             setIsLoading(false);
         }, 300);
-        getClients();
+        getProducts();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [window.location.href]);
     
-    const columns: ColumnsType<Client> = [
+    const columns: ColumnsType<Product> = [
         { 
             title: 'Nombre', 
             ...getTableColumnProps('Name', searchInput, searchedColumn, setSearchedColumn)
         },
         { 
-            title: 'Ruta', 
-            ...getTableColumnProps('Route', searchInput, searchedColumn, setSearchedColumn)
+            title: 'Categoría', 
+            ...getTableColumnProps('Category', searchInput, searchedColumn, setSearchedColumn)
         },
         { 
-            title: 'Teléfono', 
-            ...getTableColumnProps('Phone', searchInput, searchedColumn, setSearchedColumn)
+            title: 'Costo', 
+            ...getTableColumnProps('Cost', searchInput, searchedColumn, setSearchedColumn, 'money')
         },
         { 
-            title: 'Contacto', 
-            ...getTableColumnProps('Contact', searchInput, searchedColumn, setSearchedColumn)
-        },
-        { 
-            title: 'Es domicilio', 
-            ...getTableColumnProps('Delivery', searchInput, searchedColumn, setSearchedColumn),
-        },
-        { 
-            title: 'Dirección', 
-            ...getTableColumnProps('Address', searchInput, searchedColumn, setSearchedColumn)
+            title: 'Precio', 
+            ...getTableColumnProps('Price', searchInput, searchedColumn, setSearchedColumn, 'money')
         },
         { 
             title: 'Activo', 
@@ -108,27 +98,27 @@ function Clients() {
             width: 150,
             render: (value) => (
                 <div className='table_action_container'>
-                    <MemoizedEdit size={30} color='var(--principal)' onClick={()=> handleEditClient(value.Id)} />
-                    <MemoizedDelete size={30} color='var(--tertiary)' onClick={()=> handleDeleteClient(value.Id)} />
+                    <MemoizedEdit size={30} color='var(--principal)' onClick={()=> handleEditProduct(value.Id)} />
+                    <MemoizedDelete size={30} color='var(--tertiary)' onClick={()=> handleDeleteProduct(value.Id)} />
                 </div>
             )
         }
     ];
 
-    const handleAddClient = useCallback(() => {   
+    const handleAddProduct = useCallback(() => {   
         setIsLoading(true);
         navigate('new');
     }, [setIsLoading, navigate]);
 
-    const handleEditClient = useCallback((id: string) => {
+    const handleEditProduct = useCallback((id: string) => {
         setIsLoading(true);
         navigate(`edit/${id}`);
     }, [setIsLoading, navigate]);
 
-    const handleDeleteClient = useCallback(async (id: string) => {
+    const handleDeleteProduct = useCallback(async (id: string) => {
         const { isConfirmed } = await Swal.fire({
             html: `${renderToString(<MemoizedTiDelete size={130} color='var(--tertiary)' />)}
-                   <div style='font-size: 1.5rem; font-weight: 700;'>¿Estas seguro de <b style='color:#C22327;'>Eliminar</b> el cliente?</div>`,
+                   <div style='font-size: 1.5rem; font-weight: 700;'>¿Estas seguro de <b style='color:#C22327;'>Eliminar</b> el producto?</div>`,
             showCancelButton: true,
             confirmButtonColor: '#E94040',
             confirmButtonText: 'Eliminar',
@@ -140,9 +130,9 @@ function Clients() {
 
         if (isConfirmed) {
             try {
-                const body = { 'Client_Id': id};
-                const data: ResponseApi = await postApiData('Client/DeleteClient', body, true, 'application/json');
-                setClients(prevClients => prevClients.filter(client => client.Id !== id));              
+                const body = { 'Product_Id': id};
+                const data: ResponseApi = await postApiData('Product/DeleteProduct', body, true, 'application/json');
+                setProducts(prevProducts => prevProducts.filter(product => product.Id !== id));              
                 addToastr(data.rpta);
             } catch (error: any) {
                 addToastr(error.message, error.type || 'error');
@@ -153,13 +143,13 @@ function Clients() {
     return (
         <>
             <Header />
-            <TitlePage image='clients' title='Clientes' />
+            <TitlePage image='products' title='Productos' />
 
-            <Button name='Agregar cliente' type='button' onClick={handleAddClient} icon='add' template='dark' />
+            <Button name='Agregar producto' type='button' onClick={handleAddProduct} icon='add' template='dark' />
             
             <Table 
                 rowKey={record => record.Id}
-                dataSource={clients} 
+                dataSource={products}
                 columns={columns}
                 scroll={{x: 1300}}
                 style={{marginBottom: '120px'}} 
@@ -172,4 +162,4 @@ function Clients() {
     );
 }
 
-export { Clients };
+export { Products };

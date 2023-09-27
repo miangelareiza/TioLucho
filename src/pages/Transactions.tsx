@@ -35,9 +35,6 @@ function Transactions() {
     const [expense, setExpense] = useState(0);
 
     const getTransactions = useCallback(async () => {
-        if (transactions.length !== 0) {
-            return;
-        }
         try {
             const data: GetTransactionsData = await getApiData('CashTransaction/GetCashTransactionsByUser', true);
             if (!data.cashTransactions.length) {
@@ -57,7 +54,7 @@ function Transactions() {
         } catch (error: any) {
             addToastr(error.message, error.type || 'error');
         }
-    }, [transactions, addToastr, getApiData]);
+    }, [addToastr, getApiData]);
 
     useEffect(() => {
         document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#F2A819');
@@ -70,7 +67,7 @@ function Transactions() {
         }, 300);
         getTransactions();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [window.location.href]);
 
     const handleClickTo = useCallback(() => {
         setIsLoading(true);

@@ -85,7 +85,7 @@ function TabBar({ tabOption }: Props) {
                     </Link>
                 </li>
                 <li>
-                    <Link to='/home/invoice' onClick={handleClickOpt} className='tab_invoice'>
+                    <Link to='/home/newInvoice' onClick={handleClickOpt} className='tab_invoice'>
                         <div>
                             <BiCartDownload />
                         </div>

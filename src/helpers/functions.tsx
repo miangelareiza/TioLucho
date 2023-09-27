@@ -1,3 +1,8 @@
+// Sources
+import { Button, Input, Space, Tooltip } from 'antd';
+import type { ColumnType } from 'antd/es/table';
+import { SearchOutlined } from '@ant-design/icons';
+import type { InputRef } from 'antd';
 
 const valueToCurrency = (value: string | number): string => {
     const cleanValue = value.toString().replace(/[^0-9]/g, '');
@@ -61,4 +66,82 @@ function deleteCookie(name: string) {
     document.cookie = name + "=; expires=" + expirationDate;
 }
 
-export { valueToCurrency, formatDateTime, transformToOptions, setCookie, getCookie, deleteCookie };
+const getTableColumnProps = (dataIndex: any, searchInput: React.RefObject<InputRef>, searchedColumn: string, setSearchedColumn: React.Dispatch<React.SetStateAction<string>>, formatValue?: 'money'): ColumnType<any> => ({
+    dataIndex: dataIndex,
+    key: dataIndex,
+    ellipsis: { 
+        showTitle: false 
+    },
+    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
+        <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
+            <Input
+                ref={searchInput}
+                placeholder={`Buscar ${dataIndex}`}
+                value={selectedKeys[0]}
+                onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+                onPressEnter={() => {confirm(); setSearchedColumn(dataIndex)}}
+                style={{ marginBottom: 8, display: 'block' }}
+            />
+            <Space>
+                <Button 
+                    type='primary' 
+                    onClick={() => {confirm(); setSearchedColumn(dataIndex)}} icon={<SearchOutlined />} 
+                    size='small' 
+                    style={{ width: 90 }} 
+                >
+                    Buscar
+                </Button>
+                <Button 
+                    onClick={() => {clearFilters && clearFilters(); confirm({closeDropdown: false}); setSearchedColumn(dataIndex)}} 
+                    size='small'
+                >
+                    Limpiar
+                </Button>
+                <Button 
+                    type='link' 
+                    size='small' 
+                    onClick={() => close()} danger 
+                >
+                    cerrar
+                </Button>
+            </Space>
+        </div>
+    ),
+    filterIcon: (filtered: boolean) => (
+        <SearchOutlined style={{ color: filtered ? '#1677ff' : undefined }} />
+    ),
+    onFilter: (value, record) => (
+        record[dataIndex].toString().toLowerCase().includes((value as string).toLowerCase())
+    ),
+    onFilterDropdownOpenChange: (visible) => {
+        if (visible) {
+            setTimeout(() => searchInput.current?.select(), 100);
+        }
+    },
+    render: (text) => (
+        <Tooltip 
+            placement="topLeft" 
+            title={
+                typeof(text) === 'boolean' ? (text ? 'Si' : 'No') :
+                formatValue === 'money' ? valueToCurrency(text) :
+                text
+            }
+        >
+            {searchedColumn === dataIndex ?
+                <b style={{color: '#1677ff'}}>
+                    {
+                        typeof(text) === 'boolean' ? (text ? 'Si' : 'No') :
+                        formatValue === 'money' ? valueToCurrency(text) :
+                        text
+                    }
+                </b>
+            :
+                typeof(text) === 'boolean' ? (text ? 'Si' : 'No') :
+                formatValue === 'money' ? valueToCurrency(text) :
+                text
+            }
+        </Tooltip>
+    )
+});
+
+export { valueToCurrency, formatDateTime, transformToOptions, setCookie, getCookie, deleteCookie, getTableColumnProps };

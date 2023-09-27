@@ -26,20 +26,24 @@ const Map = ({ center, setCenter, address, setAddress, onlyView = false, zoom = 
 
     useEffect( () => {
         if (!onlyView && setCenter) {
-            if (address) {
-                const geocoder = new window.google.maps.Geocoder();
-                geocoder.geocode({ address }, (results, status) => {
-                    if (status === 'OK' && results && results.length > 0) {
-                        const { lat, lng } = results[0].geometry.location;
-                        setCenter({ lat: lat(), lng: lng() });
-                    } else {
-                        console.error('Geocode was not successful for the following reason: ', status);
-                    }
-                });
-            }
-            if (!center) {
-                setCenter({ lat: 6.2227608, lng: -75.5940676 });
-            }
+            setTimeout(() => {
+                if (address) {
+                    const geocoder = new window.google.maps.Geocoder();
+                    geocoder.geocode({ address }, (results, status) => {
+                        if (status === 'OK' && results && results.length > 0) {
+                            const { lat, lng } = results[0].geometry.location;
+                            setCenter({ lat: lat(), lng: lng() });
+                        } else {
+                            console.error('Geocode was not successful for the following reason: ', status);
+                        }
+                    });
+                } 
+                setTimeout(() => {
+                    if (!center) {
+                        setCenter({ lat: 6.1753777, lng: -75.6345297 });
+                    }                
+                }, 100);
+            }, 2000);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -78,7 +82,7 @@ const Map = ({ center, setCenter, address, setAddress, onlyView = false, zoom = 
 
     return apiMapsIsLoaded ? (
         <GoogleMap
-            center={center || { lat: 6.2227608, lng: -75.5940676 }}
+            center={center || { lat: 6.1753777, lng: -75.6345297 }}
             zoom={zoom}
             mapContainerClassName={`map_for_${className}`}
             options={{

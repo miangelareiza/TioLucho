@@ -1,8 +1,11 @@
 /* PageContent styles */
 .page_content{
-    background: var(--white);
+    width: 100vw;
+    max-width: 100vw;
     min-height: 100vh;
     padding-top: 90px;
+    background: var(--white);
+    overflow: hidden;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -19,4 +22,18 @@
     font-size: 2.3rem;
     font-weight: 900;
     color: var(--principal);
+}
+.table_action_container{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+.QRCode_container{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.table_action_container > svg{
+    cursor: pointer;
 }

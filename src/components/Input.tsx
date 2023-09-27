@@ -117,9 +117,8 @@ interface TypeSelectProps {
 }
 
 function TypeSelect({id, value, setValue, name, required, disabled, onChange, options, defaultValue, isSearchable, isMultiSelect}: TypeSelectProps) {
-	const menuPortalTarget = document.body;
 	const [newValue, setNewValue] = useState<SelectOption | null>(null);
-
+	
 	const styles = {
 		control: (provided: any) => ({
 			...provided,
@@ -134,28 +133,29 @@ function TypeSelect({id, value, setValue, name, required, disabled, onChange, op
 			textAlign: 'center',
 			fontSize: '1rem',
 			padding: '0 2vh',
-			display: 'flex'
+			display: 'flex',
 		}),
 	};	
 
 	useEffect(() => {
-		if (defaultValue) {
-			const filterValue = options.filter((opt: SelectOption) => opt.value === defaultValue)[0];
-			setNewValue(filterValue);
-			setValue(filterValue);
+		if (defaultValue && typeof(value) === 'string') {
+			setTimeout(() => {
+				const filterValue = options.filter((opt: SelectOption) => opt.value === defaultValue)[0];
+				setNewValue(filterValue);
+				setValue(filterValue);				
+			}, 100);
 		}
         // eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [defaultValue]);
 
 	const handleChange = useCallback((e: any)=>{
-		if (!e) e = [];
 		setValue(e);
 
         if (onChange) onChange(e);
 	}, [setValue, onChange]);
 
 	return(
-		<div className='input_field'>
+		<div className='input_field' >
 			<label className='field_name' htmlFor={id} >{name}</label>
 			<Select
 				styles={styles}
@@ -174,7 +174,6 @@ function TypeSelect({id, value, setValue, name, required, disabled, onChange, op
 				noOptionsMessage={() => `Sin resultados de ${name}`}
 				closeMenuOnSelect={isMultiSelect ? false : true}
 				tabSelectsValue
-				menuPortalTarget={menuPortalTarget}
 			/>
 		</div>
 	)

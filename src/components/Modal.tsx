@@ -56,6 +56,8 @@ function Modal({children, name, closeUrl, isOpen, setIsOpen}: Props) {
                 <div className='modal_body'>
                     {children}
                 </div>
+                <div className='modal_footer'>
+                </div>
             </div>
         </div>,
         document.getElementById('modal-root')!

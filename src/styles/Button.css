@@ -26,7 +26,7 @@
 }
 .button_template.short{
     width: 130px;
-    margin: 3vh;
+    margin: 3vh auto;
     border-radius: 1vh;
     font-size: 1.1rem;
     padding: .7rem;

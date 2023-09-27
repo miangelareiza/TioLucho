@@ -86,7 +86,7 @@
 }
 .field_type_slider:before{
     content: 'SI';
-    color: var(--principal);
+    color: var(--green);
     position: absolute;
     left: 8px;
     top: 7px;
@@ -118,8 +118,8 @@
 .field_type_slider > input[type=checkbox]{
     visibility: hidden;
 }
-input[type=checkbox]:checked + label{
-    background: var(--principal);
+.field_type_slider > input[type=checkbox]:checked + label{
+    background: var(--green);
     left: 38px;
 }
 .field_type_input[type="file"]{
@@ -219,6 +219,9 @@ textarea:-webkit-autofill:hover,
 textarea:-webkit-autofill:focus{
   -webkit-box-shadow: 0 0 0px 1000px var(--inputs) inset !important;
   transition: background-color 5000s ease-in-out 0s !important;
+}
+.css-1nmdiq5-menu{
+    z-index: 10 !important;
 }
 
 /* Responsive */

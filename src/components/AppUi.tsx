@@ -16,6 +16,11 @@ import { Home } from '../pages/Home';
 
 import { Admin } from '../pages/Admin';
 import { Clients } from '../pages/Admin/Clients';
+import { ClientsForm } from '../pages/Admin/ClientsForm';
+import { Categories } from '../pages/Admin/Categories';
+import { CategoriesForm } from '../pages/Admin/CategoriesForm';
+import { Products } from '../pages/Admin/Products';
+import { ProductsForm } from '../pages/Admin/ProductsForm';
 
 import { Transactions } from '../pages/Transactions';
 import { IncomeAndExpense } from '../pages/IncomeAndExpense';
@@ -43,7 +48,18 @@ function AppUi() {
 							</Route>
 
 							<Route path='/home/admin' element={<AdminRoute> <Admin /> </AdminRoute>} />
-							<Route path='/home/admin/clients' element={<AdminRoute> <Clients /> </AdminRoute>} />
+							<Route path='/home/admin/clients' element={<AdminRoute> <Clients /> </AdminRoute>} >
+								<Route path='new' element={<AdminRoute> <ClientsForm /> </AdminRoute>} />
+								<Route path='edit/:id' element={<AdminRoute> <ClientsForm /> </AdminRoute>} />
+							</Route>
+							<Route path='/home/admin/categories' element={<AdminRoute> <Categories /> </AdminRoute>} >
+								<Route path='new' element={<AdminRoute> <CategoriesForm /> </AdminRoute>} />
+								<Route path='edit/:id' element={<AdminRoute> <CategoriesForm /> </AdminRoute>} />
+							</Route>
+							<Route path='/home/admin/products' element={<AdminRoute> <Products /> </AdminRoute>} >
+								<Route path='new' element={<AdminRoute> <ProductsForm /> </AdminRoute>} />
+								<Route path='edit/:id' element={<AdminRoute> <ProductsForm /> </AdminRoute>} />
+							</Route>
 
 							<Route path='*' element={<Default />} />
 						</Routes>

@@ -17,42 +17,36 @@ import Swal from 'sweetalert2';
 import { Table, InputRef } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 
-interface Client {
+interface Category {
     Id: string
-    Route: string
     Name: string
-    Phone: string
-    Contact: string
-    Address: string
-    Active: boolean
-    Delivery: boolean
 }
 
-interface GetClientsData {
-    clients: Array<Client>;
+interface GetCategoriesData {
+    categories: Array<Category>;
     cod: string;
 }
 
-function Clients() {
+function Categories() {
     const { setIsLoading, addToastr, setMenuConfig } = useAppStates();
     const { getApiData, postApiData } = useApi();
     const navigate = useNavigate();
     const [isLoadingData, setIsLoadingData] = useState(true);
-    const [clients, setClients] = useState<Array<Client>>([]);  
+    const [categories, setCategories] = useState<Array<Category>>([]);  
     const [searchedColumn, setSearchedColumn] = useState('');
     const searchInput = useRef<InputRef>(null);
     const MemoizedTiDelete = memo(TiDelete);
     const MemoizedEdit = memo(BiSolidMessageSquareEdit);
     const MemoizedDelete = memo(FaDeleteLeft);
 
-    const getClients = useCallback(async () => {
+    const getCategories = useCallback(async () => {
         setIsLoadingData(true);
         try {
-            const data: GetClientsData = await getApiData('Client/GetClients', true);
-            if (!data.clients.length) {
-                addToastr('Registra tu primer cliente', 'info');
+            const data: GetCategoriesData = await getApiData('Category/GetCategories', true);
+            if (!data.categories.length) {
+                addToastr('Registra tu primer categoria', 'info');
             }
-            setClients(data.clients);
+            setCategories(data.categories);
             setIsLoadingData(false);
         } catch (error: any) {
             addToastr(error.message, error.type || 'error');
@@ -70,65 +64,41 @@ function Clients() {
         setTimeout(() => {
             setIsLoading(false);
         }, 300);
-        getClients();
+        getCategories();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [window.location.href]);
     
-    const columns: ColumnsType<Client> = [
+    const columns: ColumnsType<Category> = [
         { 
             title: 'Nombre', 
             ...getTableColumnProps('Name', searchInput, searchedColumn, setSearchedColumn)
-        },
-        { 
-            title: 'Ruta', 
-            ...getTableColumnProps('Route', searchInput, searchedColumn, setSearchedColumn)
-        },
-        { 
-            title: 'Teléfono', 
-            ...getTableColumnProps('Phone', searchInput, searchedColumn, setSearchedColumn)
-        },
-        { 
-            title: 'Contacto', 
-            ...getTableColumnProps('Contact', searchInput, searchedColumn, setSearchedColumn)
-        },
-        { 
-            title: 'Es domicilio', 
-            ...getTableColumnProps('Delivery', searchInput, searchedColumn, setSearchedColumn),
-        },
-        { 
-            title: 'Dirección', 
-            ...getTableColumnProps('Address', searchInput, searchedColumn, setSearchedColumn)
-        },
-        { 
-            title: 'Activo', 
-            ...getTableColumnProps('Active', searchInput, searchedColumn, setSearchedColumn),
         },
         { 
             title: 'Acciones', 
             width: 150,
             render: (value) => (
                 <div className='table_action_container'>
-                    <MemoizedEdit size={30} color='var(--principal)' onClick={()=> handleEditClient(value.Id)} />
-                    <MemoizedDelete size={30} color='var(--tertiary)' onClick={()=> handleDeleteClient(value.Id)} />
+                    <MemoizedEdit size={30} color='var(--principal)' onClick={()=> handleEditCategory(value.Id)} />
+                    <MemoizedDelete size={30} color='var(--tertiary)' onClick={()=> handleDeleteCategory(value.Id)} />
                 </div>
             )
         }
     ];
 
-    const handleAddClient = useCallback(() => {   
+    const handleAddCategory = useCallback(() => {   
         setIsLoading(true);
         navigate('new');
     }, [setIsLoading, navigate]);
 
-    const handleEditClient = useCallback((id: string) => {
+    const handleEditCategory = useCallback((id: string) => {
         setIsLoading(true);
         navigate(`edit/${id}`);
     }, [setIsLoading, navigate]);
 
-    const handleDeleteClient = useCallback(async (id: string) => {
+    const handleDeleteCategory = useCallback(async (id: string) => {
         const { isConfirmed } = await Swal.fire({
             html: `${renderToString(<MemoizedTiDelete size={130} color='var(--tertiary)' />)}
-                   <div style='font-size: 1.5rem; font-weight: 700;'>¿Estas seguro de <b style='color:#C22327;'>Eliminar</b> el cliente?</div>`,
+                   <div style='font-size: 1.5rem; font-weight: 700;'>¿Estas seguro de <b style='color:#C22327;'>Eliminar</b> la categoría?</div>`,
             showCancelButton: true,
             confirmButtonColor: '#E94040',
             confirmButtonText: 'Eliminar',
@@ -140,9 +110,9 @@ function Clients() {
 
         if (isConfirmed) {
             try {
-                const body = { 'Client_Id': id};
-                const data: ResponseApi = await postApiData('Client/DeleteClient', body, true, 'application/json');
-                setClients(prevClients => prevClients.filter(client => client.Id !== id));              
+                const body = { 'Category_Id': id};
+                const data: ResponseApi = await postApiData('Category/DeleteCategory', body, true, 'application/json');
+                setCategories(prevCategories => prevCategories.filter(category => category.Id !== id));              
                 addToastr(data.rpta);
             } catch (error: any) {
                 addToastr(error.message, error.type || 'error');
@@ -153,13 +123,13 @@ function Clients() {
     return (
         <>
             <Header />
-            <TitlePage image='clients' title='Clientes' />
+            <TitlePage image='categories' title='Categorías' />
 
-            <Button name='Agregar cliente' type='button' onClick={handleAddClient} icon='add' template='dark' />
+            <Button name='Agregar categoría' type='button' onClick={handleAddCategory} icon='add' template='dark' />
             
             <Table 
                 rowKey={record => record.Id}
-                dataSource={clients} 
+                dataSource={categories} 
                 columns={columns}
                 scroll={{x: 1300}}
                 style={{marginBottom: '120px'}} 
@@ -172,4 +142,4 @@ function Clients() {
     );
 }
 
-export { Clients };
+export { Categories };

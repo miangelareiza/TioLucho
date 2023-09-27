@@ -8,7 +8,7 @@ import axios, { AxiosInstance } from 'axios';
 
 type ApiContextType = {
     getApiData: (endPoint: string, isAuth: boolean) => Promise<any>;
-    postApiData: (path: string, body: {} | FormData, isAuth: boolean, type: string) => Promise<any>;
+    postApiData: (path: string, body: {} | FormData, isAuth: boolean, type: 'application/json' | 'multipart/form-data') => Promise<any>;
 };
 
 const ApiContext = createContext<ApiContextType | undefined>(undefined);

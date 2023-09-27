@@ -61,7 +61,7 @@ function IncomeAndExpense() {
                 };
                 const data: ResponseApi = await postApiData('CashTransaction/CreateCashTransaction', body, true, 'application/json');
                 addToastr(data.rpta);
-                navigate('/home');
+                navigate('/home/transactions');
             } catch (error: any) {
                 addToastr(error.message, error.type || 'error');
             }            
