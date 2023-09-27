@@ -3,7 +3,13 @@
     <!-- Home page -->
     <url>
         <loc>https://tiolucho.com/</loc>
-        <changefreq>weekly</changefreq>
-        <lastmod>2023-09-10</lastmod>
+        <changefreq>monthly</changefreq>
+        <lastmod>2023-09-24</lastmod>
+    </url>
+    <!-- Auth  -->
+    <url>
+        <loc>https://tiolucho.com/#/auth/login</loc>
+        <changefreq>yearly</changefreq>
+        <lastmod>2023-09-26</lastmod>
     </url>
 </urlset>
