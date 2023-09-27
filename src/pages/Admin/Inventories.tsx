@@ -33,7 +33,7 @@ interface GetClientsData {
     cod: string;
 }
 
-function Clients() {
+function Inventories() {
     const { setIsLoading, addToastr, setMenuConfig } = useAppStates();
     const { getApiData, postApiData } = useApi();
     const navigate = useNavigate();
@@ -172,4 +172,4 @@ function Clients() {
     );
 }
 
-export { Clients };
+export { Inventories };

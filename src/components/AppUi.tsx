@@ -1,4 +1,4 @@
-import { HashRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes as RoutesContainer, Route } from 'react-router-dom';
 
 // Components
 import { StatesProvider } from '../helpers/states';
@@ -21,6 +21,12 @@ import { Categories } from '../pages/Admin/Categories';
 import { CategoriesForm } from '../pages/Admin/CategoriesForm';
 import { Products } from '../pages/Admin/Products';
 import { ProductsForm } from '../pages/Admin/ProductsForm';
+import { Routes } from '../pages/Admin/Routes';
+import { RoutesForm } from '../pages/Admin/RoutesForm';
+import { Users } from '../pages/Admin/Users';
+import { UsersForm } from '../pages/Admin/UsersForm';
+import { Inventories } from '../pages/Admin/Inventories';
+import { InventoriesForm } from '../pages/Admin/InventoriesForm';
 
 import { Transactions } from '../pages/Transactions';
 import { IncomeAndExpense } from '../pages/IncomeAndExpense';
@@ -33,7 +39,7 @@ function AppUi() {
 			<StatesProvider>
 				<AuthProvider>
 					<ApiProvider>
-						<Routes>
+						<RoutesContainer>
 							<Route path='/' element={<LandingPage />} />
 
 							<Route path='/auth/login' element={<Login />} />
@@ -60,9 +66,21 @@ function AppUi() {
 								<Route path='new' element={<AdminRoute> <ProductsForm /> </AdminRoute>} />
 								<Route path='edit/:id' element={<AdminRoute> <ProductsForm /> </AdminRoute>} />
 							</Route>
+							<Route path='/home/admin/routes' element={<AdminRoute> <Routes /> </AdminRoute>} >
+								<Route path='new' element={<AdminRoute> <RoutesForm /> </AdminRoute>} />
+								<Route path='edit/:id' element={<AdminRoute> <RoutesForm /> </AdminRoute>} />
+							</Route>
+							<Route path='/home/admin/users' element={<AdminRoute> <Users /> </AdminRoute>} >
+								<Route path='new' element={<AdminRoute> <UsersForm /> </AdminRoute>} />
+								<Route path='edit/:id' element={<AdminRoute> <UsersForm /> </AdminRoute>} />
+							</Route>
+							<Route path='/home/admin/inventories' element={<AdminRoute> <Inventories /> </AdminRoute>} >
+								<Route path='new' element={<AdminRoute> <InventoriesForm /> </AdminRoute>} />
+								<Route path='edit/:id' element={<AdminRoute> <InventoriesForm /> </AdminRoute>} />
+							</Route>
 
 							<Route path='*' element={<Default />} />
-						</Routes>
+						</RoutesContainer>
 					</ApiProvider>
 				</AuthProvider>
 			</StatesProvider>

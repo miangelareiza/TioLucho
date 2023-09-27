@@ -43,6 +43,7 @@ function AuthProvider({ children }: AuthProviderProps) {
 	const { setIsLoading, menuConfig } = useAppStates();
 	const [user, setUser] = useState<AppUser | null>(JSON.parse(getCookie('appUser')!) || null);
 	const [token, setToken] = useState<string | null>(JSON.parse(getCookie('token')!) || null);
+	// const path = 'https://localhost:7078/';
 	const path = 'https://tiolucho.somee.com/';
 
 	const login = (appUser: AppUser, token: string) => {		

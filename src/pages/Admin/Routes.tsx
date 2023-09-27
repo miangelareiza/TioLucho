@@ -17,42 +17,37 @@ import Swal from 'sweetalert2';
 import { Table, InputRef } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 
-interface Client {
+interface Route {
     Id: string
-    Route: string
     Name: string
-    Phone: string
-    Contact: string
-    Address: string
-    Active: boolean
-    Delivery: boolean
+    Description: string
 }
 
-interface GetClientsData {
-    clients: Array<Client>;
+interface GetRoutesData {
+    routes: Array<Route>;
     cod: string;
 }
 
-function Clients() {
+function Routes() {
     const { setIsLoading, addToastr, setMenuConfig } = useAppStates();
     const { getApiData, postApiData } = useApi();
     const navigate = useNavigate();
     const [isLoadingData, setIsLoadingData] = useState(true);
-    const [clients, setClients] = useState<Array<Client>>([]);  
+    const [routes, setRoutes] = useState<Array<Route>>([]);  
     const [searchedColumn, setSearchedColumn] = useState('');
     const searchInput = useRef<InputRef>(null);
     const MemoizedTiDelete = memo(TiDelete);
     const MemoizedEdit = memo(BiSolidMessageSquareEdit);
     const MemoizedDelete = memo(FaDeleteLeft);
 
-    const getClients = useCallback(async () => {
+    const getRoutes = useCallback(async () => {
         setIsLoadingData(true);
         try {
-            const data: GetClientsData = await getApiData('Client/GetClients', true);
-            if (!data.clients.length) {
-                addToastr('Registra tu primer cliente', 'info');
+            const data: GetRoutesData = await getApiData('Route/GetRoutes', true);
+            if (!data.routes.length) {
+                addToastr('Registra tu primer ruta', 'info');
             }
-            setClients(data.clients);
+            setRoutes(data.routes);
             setIsLoadingData(false);
         } catch (error: any) {
             addToastr(error.message, error.type || 'error');
@@ -70,65 +65,45 @@ function Clients() {
         setTimeout(() => {
             setIsLoading(false);
         }, 300);
-        getClients();
+        getRoutes();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [window.location.href]);
     
-    const columns: ColumnsType<Client> = [
+    const columns: ColumnsType<Route> = [
         { 
             title: 'Nombre', 
             ...getTableColumnProps('Name', searchInput, searchedColumn, setSearchedColumn)
         },
         { 
-            title: 'Ruta', 
-            ...getTableColumnProps('Route', searchInput, searchedColumn, setSearchedColumn)
-        },
-        { 
-            title: 'Teléfono', 
-            ...getTableColumnProps('Phone', searchInput, searchedColumn, setSearchedColumn)
-        },
-        { 
-            title: 'Contacto', 
-            ...getTableColumnProps('Contact', searchInput, searchedColumn, setSearchedColumn)
-        },
-        { 
-            title: 'Es domicilio', 
-            ...getTableColumnProps('Delivery', searchInput, searchedColumn, setSearchedColumn),
-        },
-        { 
-            title: 'Dirección', 
-            ...getTableColumnProps('Address', searchInput, searchedColumn, setSearchedColumn)
-        },
-        { 
-            title: 'Activo', 
-            ...getTableColumnProps('Active', searchInput, searchedColumn, setSearchedColumn),
+            title: 'Descripción', 
+            ...getTableColumnProps('Description', searchInput, searchedColumn, setSearchedColumn)
         },
         { 
             title: 'Acciones', 
             width: 110,
             render: (value) => (
                 <div className='table_action_container'>
-                    <MemoizedEdit size={30} color='var(--principal)' onClick={()=> handleEditClient(value.Id)} />
-                    <MemoizedDelete size={30} color='var(--tertiary)' onClick={()=> handleDeleteClient(value.Id)} />
+                    <MemoizedEdit size={30} color='var(--principal)' onClick={()=> handleEditRoute(value.Id)} />
+                    <MemoizedDelete size={30} color='var(--tertiary)' onClick={()=> handleDeleteRoute(value.Id)} />
                 </div>
             )
         }
     ];
 
-    const handleAddClient = useCallback(() => {   
+    const handleAddRoute = useCallback(() => {   
         setIsLoading(true);
         navigate('new');
     }, [setIsLoading, navigate]);
 
-    const handleEditClient = useCallback((id: string) => {
+    const handleEditRoute = useCallback((id: string) => {
         setIsLoading(true);
         navigate(`edit/${id}`);
     }, [setIsLoading, navigate]);
 
-    const handleDeleteClient = useCallback(async (id: string) => {
+    const handleDeleteRoute = useCallback(async (id: string) => {
         const { isConfirmed } = await Swal.fire({
             html: `${renderToString(<MemoizedTiDelete size={130} color='var(--tertiary)' />)}
-                   <div style='font-size: 1.5rem; font-weight: 700;'>¿Estas seguro de <b style='color:var(--tertiary);'>Eliminar</b> el cliente?</div>`,
+                   <div style='font-size: 1.5rem; font-weight: 700;'>¿Estas seguro de <b style='color:var(--tertiary);'>Eliminar</b> la ruta?</div>`,
             showCancelButton: true,
             confirmButtonColor: 'var(--tertiary)',
             confirmButtonText: 'Eliminar',
@@ -140,9 +115,9 @@ function Clients() {
 
         if (isConfirmed) {
             try {
-                const body = { 'Client_Id': id};
-                const data: ResponseApi = await postApiData('Client/DeleteClient', body, true, 'application/json');
-                setClients(prevClients => prevClients.filter(client => client.Id !== id));              
+                const body = { 'Route_Id': id};
+                const data: ResponseApi = await postApiData('Route/DeleteRoute', body, true, 'application/json');
+                setRoutes(prevRoutes => prevRoutes.filter(route => route.Id !== id));              
                 addToastr(data.rpta);
             } catch (error: any) {
                 addToastr(error.message, error.type || 'error');
@@ -153,13 +128,13 @@ function Clients() {
     return (
         <>
             <Header />
-            <TitlePage image='clients' title='Clientes' />
+            <TitlePage image='routes' title='Rutas' />
 
-            <Button name='Agregar cliente' type='button' onClick={handleAddClient} icon='add' template='dark' />
+            <Button name='Agregar ruta' type='button' onClick={handleAddRoute} icon='add' template='dark' />
             
             <Table 
                 rowKey={record => record.Id}
-                dataSource={clients} 
+                dataSource={routes} 
                 columns={columns}
                 scroll={{x: 1300}}
                 style={{marginBottom: '120px'}} 
@@ -172,4 +147,4 @@ function Clients() {
     );
 }
 
-export { Clients };
+export { Routes };

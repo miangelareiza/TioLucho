@@ -95,7 +95,7 @@ function Products() {
         },
         { 
             title: 'Acciones', 
-            width: 150,
+            width: 110,
             render: (value) => (
                 <div className='table_action_container'>
                     <MemoizedEdit size={30} color='var(--principal)' onClick={()=> handleEditProduct(value.Id)} />
@@ -118,9 +118,9 @@ function Products() {
     const handleDeleteProduct = useCallback(async (id: string) => {
         const { isConfirmed } = await Swal.fire({
             html: `${renderToString(<MemoizedTiDelete size={130} color='var(--tertiary)' />)}
-                   <div style='font-size: 1.5rem; font-weight: 700;'>¿Estas seguro de <b style='color:#C22327;'>Eliminar</b> el producto?</div>`,
+                   <div style='font-size: 1.5rem; font-weight: 700;'>¿Estas seguro de <b style='color:var(--tertiary);'>Eliminar</b> el producto?</div>`,
             showCancelButton: true,
-            confirmButtonColor: '#E94040',
+            confirmButtonColor: 'var(--tertiary)',
             confirmButtonText: 'Eliminar',
             cancelButtonText: 'Cancelar',
             customClass: {

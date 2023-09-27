@@ -1,5 +1,6 @@
 // Sources
-import { Button, Input, Space, Tooltip } from 'antd';
+import imgDefaul from '../assets/images/Logo.png'
+import { Avatar, Button, Input, Space, Tooltip } from 'antd';
 import type { ColumnType } from 'antd/es/table';
 import { SearchOutlined } from '@ant-design/icons';
 import type { InputRef } from 'antd';
@@ -66,11 +67,11 @@ function deleteCookie(name: string) {
     document.cookie = name + "=; expires=" + expirationDate;
 }
 
-const getTableColumnProps = (dataIndex: any, searchInput: React.RefObject<InputRef>, searchedColumn: string, setSearchedColumn: React.Dispatch<React.SetStateAction<string>>, formatValue?: 'money'): ColumnType<any> => ({
+const getTableColumnProps = (dataIndex: any, searchInput: React.RefObject<InputRef>, searchedColumn: string, setSearchedColumn: React.Dispatch<React.SetStateAction<string>>, formatValue?: 'money' | 'date' | 'photo'): ColumnType<any> => ({
     dataIndex: dataIndex,
     key: dataIndex,
     ellipsis: { 
-        showTitle: false 
+        showTitle: true 
     },
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
         <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
@@ -111,7 +112,7 @@ const getTableColumnProps = (dataIndex: any, searchInput: React.RefObject<InputR
         <SearchOutlined style={{ color: filtered ? '#1677ff' : undefined }} />
     ),
     onFilter: (value, record) => (
-        record[dataIndex].toString().toLowerCase().includes((value as string).toLowerCase())
+        record[dataIndex] && record[dataIndex].toString().toLowerCase().includes((value as string).toLowerCase())
     ),
     onFilterDropdownOpenChange: (visible) => {
         if (visible) {
@@ -124,6 +125,8 @@ const getTableColumnProps = (dataIndex: any, searchInput: React.RefObject<InputR
             title={
                 typeof(text) === 'boolean' ? (text ? 'Si' : 'No') :
                 formatValue === 'money' ? valueToCurrency(text) :
+                formatValue === 'date' ? new Date(text).toLocaleDateString() :
+                formatValue === 'photo' ? <Avatar icon={<img src={text ? `https://tiolucho.somee.com/AssetsImages/${text}` : imgDefaul} alt='imagen del usuario tio lucho' />} />:
                 text
             }
         >
@@ -132,12 +135,16 @@ const getTableColumnProps = (dataIndex: any, searchInput: React.RefObject<InputR
                     {
                         typeof(text) === 'boolean' ? (text ? 'Si' : 'No') :
                         formatValue === 'money' ? valueToCurrency(text) :
+                        formatValue === 'date' ? new Date(text).toLocaleDateString() :
+                        formatValue === 'photo' ? <Avatar icon={<img src={text ? `https://tiolucho.somee.com/AssetsImages/${text}` : imgDefaul} alt='imagen del usuario tio lucho' />} />:
                         text
                     }
                 </b>
             :
                 typeof(text) === 'boolean' ? (text ? 'Si' : 'No') :
                 formatValue === 'money' ? valueToCurrency(text) :
+                formatValue === 'date' ? new Date(text).toLocaleDateString() :
+                formatValue === 'photo' ? <Avatar icon={<img src={text ? `https://tiolucho.somee.com/AssetsImages/${text}` : imgDefaul} alt='imagen del usuario tio lucho' />} />:
                 text
             }
         </Tooltip>

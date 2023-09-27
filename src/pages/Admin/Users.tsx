@@ -17,42 +17,46 @@ import Swal from 'sweetalert2';
 import { Table, InputRef } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 
-interface Client {
+interface User {
     Id: string
-    Route: string
-    Name: string
-    Phone: string
-    Contact: string
-    Address: string
-    Active: boolean
-    Delivery: boolean
+    Role: string,
+    Route: string,
+    ImageUrl: string,
+    Name: string,
+    User: string,
+    Document: string,
+    Email: string,
+    Phone: string,
+    BirthDay: string,
+    Gender: string,
+    Active: boolean,
 }
 
-interface GetClientsData {
-    clients: Array<Client>;
+interface GetUsersData {
+    users: Array<User>;
     cod: string;
 }
 
-function Clients() {
+function Users() {
     const { setIsLoading, addToastr, setMenuConfig } = useAppStates();
     const { getApiData, postApiData } = useApi();
     const navigate = useNavigate();
     const [isLoadingData, setIsLoadingData] = useState(true);
-    const [clients, setClients] = useState<Array<Client>>([]);  
+    const [users, setUsers] = useState<Array<User>>([]);
     const [searchedColumn, setSearchedColumn] = useState('');
     const searchInput = useRef<InputRef>(null);
     const MemoizedTiDelete = memo(TiDelete);
     const MemoizedEdit = memo(BiSolidMessageSquareEdit);
     const MemoizedDelete = memo(FaDeleteLeft);
 
-    const getClients = useCallback(async () => {
+    const getUsers = useCallback(async () => {
         setIsLoadingData(true);
         try {
-            const data: GetClientsData = await getApiData('Client/GetClients', true);
-            if (!data.clients.length) {
-                addToastr('Registra tu primer cliente', 'info');
+            const data: GetUsersData = await getApiData('User/GetUsers', true);
+            if (!data.users.length) {
+                addToastr('Registra tu primer usuario', 'info');
             }
-            setClients(data.clients);
+            setUsers(data.users);
             setIsLoadingData(false);
         } catch (error: any) {
             addToastr(error.message, error.type || 'error');
@@ -70,65 +74,82 @@ function Clients() {
         setTimeout(() => {
             setIsLoading(false);
         }, 300);
-        getClients();
+        getUsers();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [window.location.href]);
     
-    const columns: ColumnsType<Client> = [
+    const columns: ColumnsType<User> = [
+        { 
+            title: 'Foto', 
+            width: 80,
+            ...getTableColumnProps('ImageUrl', searchInput, searchedColumn, setSearchedColumn, 'photo')
+        },
         { 
             title: 'Nombre', 
             ...getTableColumnProps('Name', searchInput, searchedColumn, setSearchedColumn)
+        },
+        { 
+            title: 'Rol', 
+            ...getTableColumnProps('Role', searchInput, searchedColumn, setSearchedColumn)
         },
         { 
             title: 'Ruta', 
             ...getTableColumnProps('Route', searchInput, searchedColumn, setSearchedColumn)
         },
         { 
+            title: 'Usuario', 
+            ...getTableColumnProps('User', searchInput, searchedColumn, setSearchedColumn)
+        },
+        { 
+            title: 'Documento', 
+            ...getTableColumnProps('Document', searchInput, searchedColumn, setSearchedColumn)
+        },
+        { 
+            title: 'Correo', 
+            ...getTableColumnProps('Email', searchInput, searchedColumn, setSearchedColumn),
+        },
+        { 
             title: 'Teléfono', 
-            ...getTableColumnProps('Phone', searchInput, searchedColumn, setSearchedColumn)
+            ...getTableColumnProps('Phone', searchInput, searchedColumn, setSearchedColumn),
         },
         { 
-            title: 'Contacto', 
-            ...getTableColumnProps('Contact', searchInput, searchedColumn, setSearchedColumn)
+            title: 'Cumpleaños', 
+            ...getTableColumnProps('BirthDay', searchInput, searchedColumn, setSearchedColumn, 'date')
         },
         { 
-            title: 'Es domicilio', 
-            ...getTableColumnProps('Delivery', searchInput, searchedColumn, setSearchedColumn),
-        },
-        { 
-            title: 'Dirección', 
-            ...getTableColumnProps('Address', searchInput, searchedColumn, setSearchedColumn)
+            title: 'Genero', 
+            ...getTableColumnProps('Gender', searchInput, searchedColumn, setSearchedColumn)
         },
         { 
             title: 'Activo', 
-            ...getTableColumnProps('Active', searchInput, searchedColumn, setSearchedColumn),
+            ...getTableColumnProps('Active', searchInput, searchedColumn, setSearchedColumn)
         },
         { 
             title: 'Acciones', 
             width: 110,
             render: (value) => (
                 <div className='table_action_container'>
-                    <MemoizedEdit size={30} color='var(--principal)' onClick={()=> handleEditClient(value.Id)} />
-                    <MemoizedDelete size={30} color='var(--tertiary)' onClick={()=> handleDeleteClient(value.Id)} />
+                    <MemoizedEdit size={30} color='var(--principal)' onClick={()=> handleEditUser(value.Id)} />
+                    <MemoizedDelete size={30} color='var(--tertiary)' onClick={()=> handleDeleteUser(value.Id)} />
                 </div>
             )
         }
     ];
 
-    const handleAddClient = useCallback(() => {   
+    const handleAddUser = useCallback(() => {   
         setIsLoading(true);
         navigate('new');
     }, [setIsLoading, navigate]);
 
-    const handleEditClient = useCallback((id: string) => {
+    const handleEditUser = useCallback((id: string) => {
         setIsLoading(true);
         navigate(`edit/${id}`);
     }, [setIsLoading, navigate]);
 
-    const handleDeleteClient = useCallback(async (id: string) => {
+    const handleDeleteUser = useCallback(async (id: string) => {
         const { isConfirmed } = await Swal.fire({
             html: `${renderToString(<MemoizedTiDelete size={130} color='var(--tertiary)' />)}
-                   <div style='font-size: 1.5rem; font-weight: 700;'>¿Estas seguro de <b style='color:var(--tertiary);'>Eliminar</b> el cliente?</div>`,
+                   <div style='font-size: 1.5rem; font-weight: 700;'>¿Estas seguro de <b style='color:var(--tertiary);'>Eliminar</b> el usuario?</div>`,
             showCancelButton: true,
             confirmButtonColor: 'var(--tertiary)',
             confirmButtonText: 'Eliminar',
@@ -140,9 +161,9 @@ function Clients() {
 
         if (isConfirmed) {
             try {
-                const body = { 'Client_Id': id};
-                const data: ResponseApi = await postApiData('Client/DeleteClient', body, true, 'application/json');
-                setClients(prevClients => prevClients.filter(client => client.Id !== id));              
+                const body = { 'User_Id': id };
+                const data: ResponseApi = await postApiData('User/DeleteUser', body, true, 'application/json');
+                setUsers(prevUsers => prevUsers.filter(user => user.Id !== id));              
                 addToastr(data.rpta);
             } catch (error: any) {
                 addToastr(error.message, error.type || 'error');
@@ -153,13 +174,13 @@ function Clients() {
     return (
         <>
             <Header />
-            <TitlePage image='clients' title='Clientes' />
+            <TitlePage image='users' title='Usuarios' />
 
-            <Button name='Agregar cliente' type='button' onClick={handleAddClient} icon='add' template='dark' />
+            <Button name='Agregar usuario' type='button' onClick={handleAddUser} icon='add' template='dark' />
             
             <Table 
                 rowKey={record => record.Id}
-                dataSource={clients} 
+                dataSource={users} 
                 columns={columns}
                 scroll={{x: 1300}}
                 style={{marginBottom: '120px'}} 
@@ -172,4 +193,4 @@ function Clients() {
     );
 }
 
-export { Clients };
+export { Users };

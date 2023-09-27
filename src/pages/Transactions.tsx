@@ -11,7 +11,7 @@ import '../styles/Transactions.css';
 // Sources
 import imgIncome from '../assets/images/icons/Income.svg';
 import imgExpenses from '../assets/images/icons/Expenses.svg';
-import imgCashRegister from '../assets/images/cards/Sales.svg';
+import imgMovements from '../assets/images/cards/Movements.svg';
 
 interface Transaction {
     Id: string
@@ -99,7 +99,7 @@ function Transactions() {
                 </Link>
 
                 <button className='cash_register'>
-                    <img src={imgCashRegister} alt='Cash register icon' width='100px'/>
+                    <img src={imgMovements} alt='Cash register icon' width='100px'/>
                 </button>
 
                 <Link to='expense' onClick={handleClickTo}>

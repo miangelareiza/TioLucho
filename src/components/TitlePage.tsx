@@ -1,5 +1,5 @@
 // Sources
-import imgAdmin from '../assets/images/cards/Clients.svg'
+import imgAdmin from '../assets/images/cards/Admin.svg'
 import imgClients from '../assets/images/cards/Clients.svg'
 import imgCategories from '../assets/images/cards/Categories.svg'
 import imgProducts from '../assets/images/cards/Products.svg'
@@ -9,10 +9,10 @@ import imgNotSales from '../assets/images/cards/NotSales.svg'
 import imgInventories from '../assets/images/cards/Inventory.svg'
 import imgLiquidations from '../assets/images/cards/Liquidation.svg'
 import imgUsers from '../assets/images/cards/Users.svg'
-import imgCosts from '../assets/images/cards/Costs.svg'
+import imgMovements from '../assets/images/cards/Movements.svg'
 
 interface Props {
-    image: 'admin' | 'clients' | 'categories' | 'products' |'routes' | 'sales' | 'notSales' | 'inventories' | 'liquidations' | 'users' | 'costs' 
+    image: 'admin' | 'clients' | 'categories' | 'products' |'routes' | 'sales' | 'notSales' | 'inventories' | 'liquidations' | 'users' | 'movements' 
     title: string
 }
 
@@ -28,7 +28,7 @@ function TitlePage({ image, title }: Props) {
         inventories: imgInventories,
         liquidations: imgLiquidations,
         users: imgUsers,
-        costs: imgCosts,
+        movements: imgMovements,
     };
     
     return(

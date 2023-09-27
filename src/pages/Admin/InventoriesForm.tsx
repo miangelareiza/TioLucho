@@ -11,7 +11,7 @@ import { Modal } from '../../components/Modal';
 import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
 // Sources
-import imgLogo from '../../assets/images/LogoQr.png'
+import imgLogo from '../../assets/images/Logo.png'
 import Swal from 'sweetalert2';
 import { QRCode } from 'antd';
 
@@ -47,7 +47,7 @@ interface GetRoutesData {
     cod: string;
 }
 
-function ClientsForm() {
+function InventoriesForm() {
     const { setIsLoading, addToastr } = useAppStates();
     const { postApiData, getApiData } = useApi();
     const params = useParams();
@@ -106,53 +106,21 @@ function ClientsForm() {
         }, 300);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-    
+
     const downloadQRCode = () => {
         setQRCodeSize(1106);
         setTimeout(() => {
-            const qrCodeCanvas = document.querySelector<HTMLCanvasElement>('.QRCode_container canvas');
-            
-            if (qrCodeCanvas) {
-                const qrCodeImage = new Image();
-                qrCodeImage.src = qrCodeCanvas.toDataURL();
-                
-                qrCodeImage.onload = () => {
-                    const canvas = document.createElement('canvas');
-                    canvas.width = qrCodeCanvas.width + 200;
-                    canvas.height = qrCodeCanvas.height + 300;
-                    const ctx = canvas.getContext('2d');
-                    
-                    if(ctx?.fillStyle) ctx.fillStyle = '#F2A819'
-                    ctx?.fillRect(0, 0, canvas.width, canvas.height);
-
-                    if(ctx?.fillStyle) ctx.fillStyle = 'rgba(0, 0, 0)';
-                    if(ctx?.font) ctx.font = 'bold 150px Urbanist';
-                    const watermarkText = name;
-                    const textWidth = ctx?.measureText(watermarkText).width;
-                    const textX = (canvas.width - textWidth!) / 2;
-                    ctx?.fillText(watermarkText, textX, (canvas.height - 50));
-
-                    ctx?.drawImage(qrCodeImage, 100, 100);
-                                    
-                    const image = new Image();
-                    image.src = imgLogo;
-                    image.onload = () => {
-                        const centerX = canvas.width / 2 - image.width / 2;
-                        const centerY = (canvas.height - 100) / 2 - image.height / 2;
-                        ctx?.drawImage(image, centerX, centerY);
-                
-                        // Descarga el canvas combinado con el logotipo
-                        const url = canvas.toDataURL();
-                        const a = document.createElement('a');
-                        a.download = 'QRCodeWithLogo.png';
-                        a.href = url;
-                        document.body.appendChild(a);
-                        a.click();
-                        document.body.removeChild(a);
-                        setQRCodeSize(180);
-                    };
-                };
-            }
+            const canvas = document.querySelector<HTMLCanvasElement>('.QRCode_container canvas');
+            if (canvas) {
+                const url = canvas.toDataURL();
+                const a = document.createElement('a');
+                a.download = 'QRCode.png';
+                a.href = url;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                setQRCodeSize(200);
+            }   
         }, 100);
     };
 
@@ -214,7 +182,7 @@ function ClientsForm() {
         <Modal isOpen={openModal} setIsOpen={setOpenModal} closeUrl='/home/admin/clients' name={`${params.id ? 'Editar' : 'Crear'} cliente`}>
             <form className='form_inputs' onSubmit={handleSubmit}>
                 {params.id && <div className='QRCode_container'>
-                    <QRCode value={`https://tiolucho.com/#/home/newInovice/${params.id}`} bordered={false} /*icon={imgLogo} iconSize={QRCodeSize / 4}*/ size={QRCodeSize} bgColor='#F2A819' errorLevel='H' />
+                    <QRCode value={`https://tiolucho.com/#/home/newInovice/${params.id}`} bordered={false} icon={imgLogo} iconSize={QRCodeSize / 4} size={QRCodeSize} bgColor='#F2A819' errorLevel='H' />
                     <Button name='Descargar' type='button' template='short dark' onClick={downloadQRCode} />
                 </div>}
 
@@ -232,4 +200,4 @@ function ClientsForm() {
     );
 }
 
-export { ClientsForm };
+export { InventoriesForm };

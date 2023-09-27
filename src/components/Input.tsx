@@ -4,6 +4,7 @@ import { FaMapMarkerAlt } from 'react-icons/fa';
 
 // Components
 import { useAppStates } from '../helpers/states';
+import { useAuth } from '../helpers/auth';
 import { valueToCurrency } from '../helpers/functions';
 import { Map } from './Map';
 // Styles
@@ -13,8 +14,8 @@ import { Autocomplete } from '@react-google-maps/api';
 
 interface TypePhotoProps {
 	id: string;
-	value: string | null;
-	setValue: React.Dispatch<React.SetStateAction<string | null>>;
+	value: File | string | null;
+	setValue: React.Dispatch<React.SetStateAction<File | string | null>>;
 	name: string;
 	required: boolean;
 	disabled?: boolean;
@@ -22,6 +23,8 @@ interface TypePhotoProps {
 }
 
 function TypePhoto({ id, value, setValue, name, required, disabled, onChange }: TypePhotoProps) {
+	const [imageIsNew, setImageIsNew] = useState(true);
+	const { path } = useAuth();
 	const inputRef = useRef<HTMLInputElement>(null);
 
 	const handleClickImageContainer = useCallback(() => {
@@ -64,7 +67,8 @@ function TypePhoto({ id, value, setValue, name, required, disabled, onChange }: 
 				canvas.toBlob((blob) => {
 					if (blob) {
 						const newFile = new File([blob], file.name, { type: 'image/jpeg' });
-						setValue(URL.createObjectURL(newFile));
+						setValue(newFile);
+						setImageIsNew(false);
 					}
 				}, 'image/jpeg', 0.9);
 			};
@@ -80,7 +84,7 @@ function TypePhoto({ id, value, setValue, name, required, disabled, onChange }: 
 		<>
 			<div className='image_body'>
 				<div className='image_container' id={id+'_imageContainer'} onClick={handleClickImageContainer}>
-					{value && <img className='uploaded_image' src={value} alt='Imagen seleccionada' width='210px' height='210px' />}
+					{value && <img className='uploaded_image' src={!imageIsNew && typeof(value) !== 'string' ? URL.createObjectURL(value) : `${path}AssetsImages/${value}`} alt='Imagen seleccionada' width='210px' height='210px' />}
 				</div>
 				<p className='image_description'>Tamaño recomendado (300x300). Formatos (JPG, JPEG, PNG).</p>
 			</div>
