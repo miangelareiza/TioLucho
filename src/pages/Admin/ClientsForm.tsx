@@ -220,7 +220,7 @@ function ClientsForm() {
 
                 <Input type='text' value={name} setValue={setName} name='Nombre' />
                 <Input type='select' value={route} setValue={setRoute} name='Ruta' options={transformToOptions(optsRoute)} defaultValue={route} /> 
-                <Input type='text' value={phone} setValue={setPhone} name='Teléfono' />
+                <Input type='tel' value={phone} setValue={setPhone} name='Teléfono' />
                 <Input type='text' value={contact} setValue={setContact} name='Contacto' />
                 <Input type='geolocation' value={address} setValue={setAddress}  name='Dirección' />
                 <Input type='checkbox' value={delivery} setValue={setDelivery} name='Domicilio' />

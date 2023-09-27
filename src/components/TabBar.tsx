@@ -1,22 +1,21 @@
 import React, { useCallback, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { BiCube, BiUserPin, BiHomeAlt, BiMoneyWithdraw, BiCartDownload } from 'react-icons/bi';
 
 // Components
 import { useAppStates } from '../helpers/states';
-import { useAuth } from '../helpers/auth';
 
 // Styles
 import '../styles/TabBar.css';
 
 interface Props {
-    tabOption: 'inventory' | 'clients' | 'home' | 'transactions' | 'invoice' | 'admin'
+    tabOption: 'inventory' | 'clients' | 'home' | 'transactions' | 'sale' | 'admin'
 }
 
 function TabBar({ tabOption }: Props) {    
     const { setIsLoading } = useAppStates();
-    const { user } = useAuth();
-
+    const navigate = useNavigate();
+    
     const animationMove = useCallback((ul: HTMLUListElement, li: HTMLLIElement) => {
         if (!ul.classList.contains('move') && !li.classList.contains('active')) {
             setIsLoading(true);
@@ -71,7 +70,7 @@ function TabBar({ tabOption }: Props) {
                     </Link>
                 </li>
                 <li className='active'>
-                    <Link to={user?.roleId.toUpperCase() !== 'D1141F51-D57B-4376-915D-9D45DC29078C' ? '/home' : '/home/admin'} onClick={handleClickOpt} className='tab_home tab_admin'>
+                    <Link to='/home' onClick={handleClickOpt} className='tab_home tab_admin' onDoubleClick={()=>navigate('/home/admin')}>
                         <div>
                             <BiHomeAlt />
                         </div>
@@ -85,7 +84,7 @@ function TabBar({ tabOption }: Props) {
                     </Link>
                 </li>
                 <li>
-                    <Link to='/home/newInvoice' onClick={handleClickOpt} className='tab_invoice'>
+                    <Link to='/home/newSale' onClick={handleClickOpt} className='tab_sale'>
                         <div>
                             <BiCartDownload />
                         </div>

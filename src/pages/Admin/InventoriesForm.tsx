@@ -1,7 +1,7 @@
 import React, { memo, useCallback, useEffect, useState } from 'react';
 import { BsQuestionOctagonFill } from 'react-icons/bs';
 import { renderToString } from 'react-dom/server';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 // Components
 import { useAppStates } from '../../helpers/states';
@@ -11,95 +11,102 @@ import { Modal } from '../../components/Modal';
 import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
 // Sources
-import imgLogo from '../../assets/images/Logo.png'
 import Swal from 'sweetalert2';
-import { QRCode } from 'antd';
 
-interface NewClientData {
-    Route_Id: string
-    Name: string
-    Phone: string
-    Contact: string
-    Address: string
-    Active: boolean
-    Delivery: boolean
+interface NewInventoryData {
+    User_Id: string
+    Product_Id: string
+    Stock: number
 }
 
-interface EditClientData {
-    Client_Id: string
-    Route_Id: string
-    Name: string
-    Phone: string
-    Contact: string
-    Address: string
-    Active: boolean
-    Delivery: boolean
+interface ResupplyInventoryData {
+    User_Id: string
+    Product_Id: string
+    Reload: number
 }
 
-interface Route {
+interface User {
     Id: string
-    Name: string
-    Description: string
+    Role: string,
+    Route: string,
+    ImageUrl: string,
+    Name: string,
+    User: string,
+    Document: string,
+    Email: string,
+    Phone: string,
+    BirthDay: string,
+    Gender: string,
+    Active: boolean,
 }
 
-interface GetRoutesData {
-    routes: Array<Route>;
+interface GetUsersData {
+    users: Array<User>;
+    cod: string;
+}
+
+interface Product {
+    Id: string
+    Category: string
+    Name: string
+    Cost: number | string
+    Price: number | string
+    Active: boolean
+}
+
+interface GetProductsData {
+    products: Array<Product>;
     cod: string;
 }
 
 function InventoriesForm() {
     const { setIsLoading, addToastr } = useAppStates();
     const { postApiData, getApiData } = useApi();
-    const params = useParams();
     const navigate = useNavigate();
     const [openModal, setOpenModal] = useState(false);
-    const [route, setRoute] = useState<any>('');
-    const [name, setName] = useState('');
-    const [phone, setPhone] = useState('');
-    const [contact, setContact] = useState('');
-    const [address, setAddress] = useState('');
-    const [active, setActive] = useState(true);
-    const [delivery, setDelivery] = useState(false);    
+    const [user, setUser] = useState<any>('');
+    const [product, setProduct] = useState<any>('');
+    const [quantity, setQuantity] = useState(1);
     const MemoizedBsQuestionOctagonFill = memo(BsQuestionOctagonFill);
-    const [optsRoute, setOptsRoute] = useState<Array<Route>>([]);
-    const [QRCodeSize, setQRCodeSize] = useState(180);
+    const [optsUser, setOptsUser] = useState<Array<User>>([]);
+    const [optsProduct, setOptsProduct] = useState<Array<Product>>([]);
+    const location = useLocation();
+    const urlName = location.pathname.split('/')[location.pathname.split('/').length -1];
+    const isResupply = urlName === 'resupply' ? true : false;
 
-    const getClient = useCallback(async () => {
-        try {
-            const data = await getApiData(`Client/GetClientById?Client_Id=${params.id}`, true);
-            setRoute(data.client.Route);
-            setName(data.client.Name);
-            setPhone(data.client.Phone);
-            setContact(data.client.Contact);
-            setAddress(data.client.Address);
-            setActive(data.client.Active);
-            setDelivery(data.client.Delivery);
-        } catch (error: any) {
-            addToastr(error.message, error.type || 'error');
-            navigate('/home/admin/clients');
-        }
-    }, [getApiData, params, addToastr, navigate]);
-    
-    const getRoutes = useCallback(async () => {
-        if (optsRoute.length !== 0) {
+    const getUsers = useCallback(async () => {
+        if (optsUser.length !== 0) {
             return;
         }
         try {
-            const data: GetRoutesData = await getApiData('Route/GetRoutes', true);
-            if (!data.routes.length) {
-                addToastr('Registra tu primera ruta', 'info');
+            const data: GetUsersData = await getApiData('User/GetUsers', true);
+            if (!data.users.length) {
+                addToastr('Registra tu primer usuario', 'info');
             }                            
-            setOptsRoute(data.routes);
+            setOptsUser(data.users);
         } catch (error: any) {
             addToastr(error.message, error.type || 'error');
         }
-    }, [optsRoute, addToastr, getApiData]);
+    }, [optsUser, addToastr, getApiData]);
+
+    const getProducts = useCallback(async () => {
+        if (optsProduct.length !== 0) {
+            return;
+        }
+        try {
+            const data: GetProductsData = await getApiData('Product/GetProducts', true);
+            if (!data.products.length) {
+                addToastr('Registra tu primer producto', 'info');
+            }                            
+            setOptsProduct(data.products);
+        } catch (error: any) {
+            addToastr(error.message, error.type || 'error');
+        }
+    }, [optsProduct, addToastr, getApiData]);
 
     useEffect(() => {
-        getRoutes();
-        if (params.id) {
-            getClient();
-        }
+        getUsers();
+        getProducts()
         setTimeout(() => {
             setIsLoading(false);
             setOpenModal(true);
@@ -107,31 +114,14 @@ function InventoriesForm() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const downloadQRCode = () => {
-        setQRCodeSize(1106);
-        setTimeout(() => {
-            const canvas = document.querySelector<HTMLCanvasElement>('.QRCode_container canvas');
-            if (canvas) {
-                const url = canvas.toDataURL();
-                const a = document.createElement('a');
-                a.download = 'QRCode.png';
-                a.href = url;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                setQRCodeSize(200);
-            }   
-        }, 100);
-    };
-
     const handleSubmit = useCallback(async (e: React.FormEvent) => {
         e.preventDefault();
         const { isConfirmed } = await Swal.fire({
-            html: `${renderToString(<MemoizedBsQuestionOctagonFill size={130} color={params.id ? 'var(--principal)' : 'var(--green)'} />)}
-                   <div style='font-size: 1.5rem; font-weight: 700;'>¿Estas seguro de <b style='color:${params.id ? 'var(--principal)' : 'var(--green)'};'>${params.id ? 'Editar' : 'Crear'}</b> el cliente?</div>`,
+            html: `${renderToString(<MemoizedBsQuestionOctagonFill size={130} color='var(--green)' />)}
+                   <div style='font-size: 1.5rem; font-weight: 700;'>¿Estas seguro de <b style='color:var(--green);'>${isResupply ? 'cargar' : 'crear'}</b> el inventario?</div>`,
             showCancelButton: true,
-            confirmButtonColor: params.id ? 'var(--principal)' : 'var(--green)',
-            confirmButtonText: params.id ? 'Editar' : 'Crear',
+            confirmButtonColor: 'var(--green)',
+            confirmButtonText: 'Cargar',
             cancelButtonText: 'Cancelar',
             customClass: {
                 popup: 'swal2-background-custom'
@@ -139,62 +129,44 @@ function InventoriesForm() {
         });
 
         if (isConfirmed) {
-            if (params.id) {
+            if (isResupply) {
                 try {
-                    const body: EditClientData = {
-                        Client_Id: params.id,
-                        Route_Id: route.value, 
-                        Name: name,
-                        Phone: phone,
-                        Contact: contact,
-                        Address: address,
-                        Active: active,
-                        Delivery: delivery
+                    const body: ResupplyInventoryData = {
+                        User_Id: user.value, 
+                        Product_Id: product.value,
+                        Reload: quantity
                     };
-                    const data: ResponseApi = await postApiData('Client/UpdateClient', body, true, 'application/json');
+                    const data: ResponseApi = await postApiData('UserInventory/ReloadInventory', body, true, 'application/json');
                     addToastr(data.rpta);
-                    navigate('/home/admin/clients');
+                    navigate('/home/admin/inventories');
                 } catch (error: any) {
                     addToastr(error.message, error.type || 'error');
                 }
             } else {
                 try {
-                    const body: NewClientData = {
-                        Route_Id: route.value, 
-                        Name: name,
-                        Phone: phone,
-                        Contact: contact,
-                        Address: address,
-                        Active: active,
-                        Delivery: delivery
+                    const body: NewInventoryData = {
+                        User_Id: user.value, 
+                        Product_Id: product.value,
+                        Stock: quantity
                     };
-                    const data: ResponseApi = await postApiData('Client/CreateClient', body, true, 'application/json');
+                    const data: ResponseApi = await postApiData('UserInventory/CreateUserInventory', body, true, 'application/json');
                     addToastr(data.rpta);
-                    navigate('/home/admin/clients');
+                    navigate('/home/admin/inventories');
                 } catch (error: any) {
                     addToastr(error.message, error.type || 'error');
                 }
             }
         }
-    }, [params, route, name, phone, contact, address, active, delivery, addToastr, navigate, postApiData, MemoizedBsQuestionOctagonFill]);
+    }, [isResupply, user, product, quantity, addToastr, navigate, postApiData, MemoizedBsQuestionOctagonFill]);
     
     return (
-        <Modal isOpen={openModal} setIsOpen={setOpenModal} closeUrl='/home/admin/clients' name={`${params.id ? 'Editar' : 'Crear'} cliente`}>
+        <Modal isOpen={openModal} setIsOpen={setOpenModal} closeUrl='/home/admin/inventories' name={`${isResupply ? 'Cargar' : 'Crear'} inventario`}>
             <form className='form_inputs' onSubmit={handleSubmit}>
-                {params.id && <div className='QRCode_container'>
-                    <QRCode value={`https://tiolucho.com/#/home/newInovice/${params.id}`} bordered={false} icon={imgLogo} iconSize={QRCodeSize / 4} size={QRCodeSize} bgColor='#F2A819' errorLevel='H' />
-                    <Button name='Descargar' type='button' template='short dark' onClick={downloadQRCode} />
-                </div>}
+                <Input type='select' value={user} setValue={setUser} name='Usuario' options={transformToOptions(optsUser)} defaultValue={user} /> 
+                <Input type='select' value={product} setValue={setProduct} name='Producto' options={transformToOptions(optsProduct)} defaultValue={product} /> 
+                <Input type='number' value={quantity} setValue={setQuantity} name='Cantidad' min={1} />
 
-                <Input type='text' value={name} setValue={setName} name='Nombre' />
-                <Input type='select' value={route} setValue={setRoute} name='Ruta' options={transformToOptions(optsRoute)} defaultValue={route} /> 
-                <Input type='text' value={phone} setValue={setPhone} name='Teléfono' />
-                <Input type='text' value={contact} setValue={setContact} name='Contacto' />
-                <Input type='geolocation' value={address} setValue={setAddress}  name='Dirección' />
-                <Input type='checkbox' value={delivery} setValue={setDelivery} name='Domicilio' />
-                <Input type='checkbox' value={active} setValue={setActive} name='Activo' />
-
-                <Button name={`${params.id ? 'Editar' : 'Crear'} cliente`} type='submit' icon='send' />                
+                <Button name={`${isResupply ? 'Cargar' : 'Crear'} inventario`} type='submit' icon='send' />                
             </form>
         </Modal>
     );

@@ -225,8 +225,8 @@ function UsersForm() {
                 <Input type='text' value={userName} setValue={setUserName} name='Usuario' />
                 <Input type='password' value={password} setValue={setPassword} name='Contraseña' required={false} />
                 <Input type='text' value={document} setValue={setDocument} name='Document' />
-                <Input type='text' value={email} setValue={setEmail} name='Email' />
-                <Input type='text' value={phone} setValue={setPhone} name='Teléfono' />
+                <Input type='email' value={email} setValue={setEmail} name='Email' />
+                <Input type='tel' value={phone} setValue={setPhone} name='Teléfono' />
                 <Input type='date' value={birthDate} setValue={setBirthDate} name='Cumpleaños' />
                 <Input type='text' value={gender} setValue={setGender} name='Genero' />
                 <Input type='checkbox' value={active} setValue={setActive} name='Activo' />

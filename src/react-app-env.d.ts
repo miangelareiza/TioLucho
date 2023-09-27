@@ -1,6 +1,7 @@
 /// <reference types="react-scripts" />
 
-declare module 'uuid'
+declare module 'uuid';
+declare module 'react-qr-scanner';
 
 interface ResponseApi {
     rpta: string
