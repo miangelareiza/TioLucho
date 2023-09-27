@@ -1,21 +1,23 @@
 {
   "files": {
-    "main.css": "/static/css/main.a31ab9bf.css",
-    "main.js": "/static/js/main.72f9f190.js",
+    "main.css": "/static/css/main.1ab3341d.css",
+    "main.js": "/static/js/main.ad4e82e0.js",
     "static/js/787.12944412.chunk.js": "/static/js/787.12944412.chunk.js",
     "static/media/Logo.png": "/static/media/Logo.2e6fecf689aad6dc077d.png",
-    "static/media/Products.svg": "/static/media/Products.368b4f2613885722294d003345b92952.svg",
+    "static/media/LogoQr.png": "/static/media/LogoQr.afd14938febf93ef90c6.png",
     "static/media/Page404.png": "/static/media/Page404.9df3264bf1204c60bd91.png",
     "service-worker.js": "/service-worker.js",
-    "static/media/NotSales.svg": "/static/media/NotSales.2168dc46a2f48715c774a5dbe62649f9.svg",
-    "static/media/Liquidation.svg": "/static/media/Liquidation.1eafb7283e9e2110e07d72f1b0e6efd0.svg",
-    "static/media/Costs.svg": "/static/media/Costs.2e44f92a7de35139ace1fd3b545a1224.svg",
-    "static/media/Inventory.svg": "/static/media/Inventory.fd1d37c90b83340433842359f2cdaf4a.svg",
-    "static/media/Sales.svg": "/static/media/Sales.e65853a5757741b4293c9cb2ea389557.svg",
-    "static/media/Categories.svg": "/static/media/Categories.24ce4a1caa2043917d68d7d8c9e28b95.svg",
-    "static/media/Clients.svg": "/static/media/Clients.fe53ab7120211441527b0d3330402017.svg",
-    "static/media/Users.svg": "/static/media/Users.f9e6883864c7bbccfe81f486be2a1099.svg",
-    "static/media/Routes.svg": "/static/media/Routes.33091af5f0fba5bed65d9cfd8ab0d7e7.svg",
+    "static/media/Sales.svg": "/static/media/Sales.1d6e5ee64e644d619ccc61b6d2723d1e.svg",
+    "static/media/Inventory.svg": "/static/media/Inventory.41d4d9398917d0179681dcf0a1a16a73.svg",
+    "static/media/Clients.svg": "/static/media/Clients.4b9798e22a81a3bf9c1493687f60e27f.svg",
+    "static/media/Users.svg": "/static/media/Users.84e8da71afef95e59b35e13a77961cec.svg",
+    "static/media/Routes.svg": "/static/media/Routes.3e48f4680eeef21e61627ad0cc88d1e8.svg",
+    "static/media/NotSales.svg": "/static/media/NotSales.1a350b1159bdd46a8e7be0604acfa68f.svg",
+    "static/media/Admin.svg": "/static/media/Admin.35eaf333355d860ccc88c3720ea3995f.svg",
+    "static/media/Liquidation.svg": "/static/media/Liquidation.eae1d22f598c1965880978b6dc977585.svg",
+    "static/media/Movements.svg": "/static/media/Movements.fa98471bdf3e46c640c400e8349a671a.svg",
+    "static/media/Categories.svg": "/static/media/Categories.34d845f10dcc6b2809e0dead5d0f46f3.svg",
+    "static/media/Products.svg": "/static/media/Products.7e7c2b38f90de512d27a97134ae3d1f9.svg",
     "static/media/Expenses.svg": "/static/media/Expenses.7f71fd0a2c37af136fb7f1ba7d6f41f4.svg",
     "index.html": "/index.html",
     "static/media/Income.svg": "/static/media/Income.f1d1b4e665932e30e2648ff297738cd3.svg",
@@ -30,12 +32,12 @@
     "static/media/DefaultUser.svg": "/static/media/DefaultUser.7d2dc3e56822c71daee22915218c7b31.svg",
     "static/media/Upload.svg": "/static/media/Upload.f9b824bdb27ddca1e132.svg",
     "static/media/Menu1.svg": "/static/media/Menu1.d4e4fdc2c2bb4744a85ea39d260b4ec6.svg",
-    "main.a31ab9bf.css.map": "/static/css/main.a31ab9bf.css.map",
-    "main.72f9f190.js.map": "/static/js/main.72f9f190.js.map",
+    "main.1ab3341d.css.map": "/static/css/main.1ab3341d.css.map",
+    "main.ad4e82e0.js.map": "/static/js/main.ad4e82e0.js.map",
     "787.12944412.chunk.js.map": "/static/js/787.12944412.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a31ab9bf.css",
-    "static/js/main.72f9f190.js"
+    "static/css/main.1ab3341d.css",
+    "static/js/main.ad4e82e0.js"
   ]
 }
