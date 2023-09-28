@@ -50,8 +50,7 @@ function NewSaleReader() {
     const handleCameraChange = (event: any) => {
         const selectedCameraId = event.target.value;
         setCameraId(selectedCameraId);
-    };
-    
+    };    
 
     const handleScan = (data: any) => {
         if (data) {
@@ -78,16 +77,18 @@ function NewSaleReader() {
                             </option>
                         ))}
                     </select>
-                }                
+                }
+            </div>
+
+            <div className='qrReader'>
+                <QrReader
+                    delay={500}
+                    onError={handleError}
+                    onScan={handleScan}
+                    constraints={cameraId && { audio: false, video: { deviceId: cameraId } }}
+                />
             </div>
             
-            <QrReader
-                className='qrReader'
-                delay={500}
-                onError={handleError}
-                onScan={handleScan}
-                constraints={cameraId && { audio: false, video: { deviceId: cameraId } }}
-            />
             {result && <p>Resultado: {result}</p>}
         </div>
     );
