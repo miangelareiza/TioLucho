@@ -190,7 +190,7 @@ function NewSale() {
     return (
         <>
             <Header />
-            <TitlePage image='sales' title={`Nueva venta a ${client.Name || ''}`} />
+            <TitlePage image='sales' title={`Nueva venta a ${client ? client.Name : ''}`} />
 
             <form className='form_inputs' onSubmit={handleSubmit}>                
                 <div className='order_description'>

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import QrReader from 'react-qr-scanner';
 
@@ -9,12 +9,12 @@ import { Header } from '../components/Header';
 function NewSaleReader() {
     const { setIsLoading, addToastr, setMenuConfig } = useAppStates();
     const navigate = useNavigate();    
-    // const [cameraId, setCameraId] = useState('');
-    // const [devices, setDevices] = useState<Array<MediaDeviceInfo>>([]);
-    // const [loadingDevices, setLoadingDevices] = useState(true);
+    const [cameraId, setCameraId] = useState('');
+    const [devices, setDevices] = useState<Array<MediaDeviceInfo>>([]);
+    const [loadingDevices, setLoadingDevices] = useState(true);
 
     useEffect(() => {
-        // selectCamera();
+        selectCamera();
         
         document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#F2A819');
         document.querySelector('meta[name="background-color"]')?.setAttribute('content', '#F2A819');
@@ -29,28 +29,28 @@ function NewSaleReader() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    // const selectCamera = async () => {
-    //     try {
-    //         const devices = await navigator.mediaDevices.enumerateDevices();
-    //         const videoDevices = devices.filter((device) => device.kind === 'videoinput');
-    //         setDevices(videoDevices);
+    const selectCamera = async () => {
+        try {
+            const devices = await navigator.mediaDevices.enumerateDevices();
+            const videoDevices = devices.filter((device) => device.kind === 'videoinput');
+            setDevices(videoDevices);
 
-    //         if (videoDevices.length > 1) {
-    //             setCameraId(videoDevices[1].deviceId);
-    //         } else if (videoDevices.length > 0) {
-    //             setCameraId(videoDevices[0].deviceId);
-    //         }
-    //     } catch (error) {
-    //         console.error('Error al obtener los dispositivos de video:', error);
-    //     } finally {
-    //         setLoadingDevices(false);
-    //     }
-    // };
+            if (videoDevices.length > 1) {
+                setCameraId(videoDevices[1].deviceId);
+            } else if (videoDevices.length > 0) {
+                setCameraId(videoDevices[0].deviceId);
+            }
+        } catch (error) {
+            console.error('Error al obtener los dispositivos de video:', error);
+        } finally {
+            setLoadingDevices(false);
+        }
+    };
 
-    // const handleCameraChange = (event: any) => {
-    //     const selectedCameraId = event.target.value;
-    //     setCameraId(selectedCameraId);
-    // };    
+    const handleCameraChange = (event: any) => {
+        const selectedCameraId = event.target.value;
+        setCameraId(selectedCameraId);
+    };    
 
     const handleScan = (data: any) => {
         if (data) {
@@ -71,7 +71,7 @@ function NewSaleReader() {
             <Header />
             <h3>Lector</h3>
 
-            {/* <div className='device_selector'>
+            <div className='device_selector'>
                 { loadingDevices ? <p>Cargando dispositivos...</p>
                 :
                     <select value={cameraId} onChange={handleCameraChange}>
@@ -82,14 +82,14 @@ function NewSaleReader() {
                         ))}
                     </select>
                 }
-            </div> */}
+            </div>
 
             <div className='qrReader'>
                 <QrReader
                     delay={500}
                     onError={handleError}
                     onScan={handleScan}
-                    // constraints={cameraId && { audio: false, video: { deviceId: cameraId } }}
+                    constraints={cameraId && { audio: false, video: { deviceId: cameraId } }}
                 />
             </div>
         </div>
