@@ -2,6 +2,7 @@
 .container_qr_reader{
     width: 100vw;
     min-height: calc(100vh - 90px);
+    overflow: hidden;
     background: var(--principal);
     display: flex;
     flex-wrap: wrap;
