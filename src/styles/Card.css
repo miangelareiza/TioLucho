@@ -1,0 +1,142 @@
+/* Estilos de CardTemplate */
+.card_container{
+    width: 100%;
+    max-width: 1000px;
+    margin: 2rem auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
+}
+.card_template{
+    width: 300px;
+    margin: 1vh;
+    background: var(--cards);
+    border-radius: 1vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding: 2vh;
+}
+.card_template.order{
+    width: 500px;
+    min-width: 300px;
+    flex-wrap: wrap;
+    position: relative;
+    overflow: visible;
+}
+.card_template.invoice{
+    margin: 2vh;
+    background: var(--white);
+    border-radius: 3vh;
+    flex-wrap: wrap;    
+    position: relative;
+}
+.card_title{
+    width: calc(100% - 90px);
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+.card_remarks.order > .card_title{
+    width: calc(100% - 110px);
+    color: var(--dark);
+    font-weight: 700;
+}
+.card_template.order > .card_quantity{
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--dark);
+    margin: 0 1vh 0 auto;
+}
+.card_template.order > .card_total{
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--principal);
+    margin-left: auto;
+}
+.card_template.order > .card_remarks{
+    width: 100%;
+    margin-top: 1vh;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--dark);
+}
+.card_template.invoice >.card_serial{
+    width: 100%;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-bottom: 2vh;
+}
+.card_template.invoice >.card_info{
+    width: 50%;
+    text-align: center;
+    margin-bottom: 2.5vh;
+}
+.card_options{
+    width: 90px;
+    display: flex;
+    justify-content: flex-end;
+}
+.card_template.order > .card_options{
+    position: absolute;
+    top: -10px;
+    right: -10px;
+}
+.card_template.invoice > .card_options{
+    width: 100%;
+    margin-bottom: 2vh;
+    padding: 0 0 2.5vh;
+    justify-content: center;
+    position: relative;
+    border-bottom: 5px dotted #D9D9D9;
+}
+.option_edit{
+    color: var(--secondary);
+    transition: .6s ease-in-out;
+    cursor: pointer;
+}
+.option_delete{
+    color: var(--principal);
+    transition: .6s ease-in-out;
+    cursor: pointer;
+}
+.option_see{
+    color: var(--green);
+    transition: .6s ease-in-out;
+    cursor: pointer;
+}
+.option_edit:hover, .option_delete:hover, .option_see:hover{
+    transform: translateX(-5px) scale(1.1);
+}
+.card_template.invoice > .card_options > button{
+    width: 70%;
+    background: var(--principal);
+    border: none;
+    border-radius: 2vh;
+    padding: 1.2vh;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    color: var(--white);
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+.card_template.invoice > .card_options > button:hover > svg{
+    transition: transform .6s ease-in-out;
+    transform: scale(1.1) translate(12px) rotate(40deg);
+}
+.card_template.invoice::after, .card_template.invoice::before{
+    content: '';
+    position: absolute;
+    width: 6vh;
+    height: 6vh;
+    border-radius: 3vh;
+    background: #D9D9D9;
+    top: 8vh;
+    left: -3vh;
+}
+.card_template.invoice::before{
+    left: calc(300px - 3vh);
+}

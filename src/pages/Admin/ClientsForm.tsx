@@ -144,7 +144,7 @@ function ClientsForm() {
                         // Descarga el canvas combinado con el logotipo
                         const url = canvas.toDataURL();
                         const a = document.createElement('a');
-                        a.download = `QRCode${name}.png`;
+                        a.download = `QRCode-${name}.png`;
                         a.href = url;
                         document.body.appendChild(a);
                         a.click();
@@ -214,7 +214,7 @@ function ClientsForm() {
         <Modal isOpen={openModal} setIsOpen={setOpenModal} closeUrl='/home/admin/clients' name={`${params.id ? 'Editar' : 'Crear'} cliente`}>
             <form className='form_inputs' onSubmit={handleSubmit}>
                 {params.id && <div className='QRCode_container'>
-                    <QRCode value={`https://tiolucho.com/#/home/newInovice/${params.id}`} bordered={false} /*icon={imgLogo} iconSize={QRCodeSize / 4}*/ size={QRCodeSize} bgColor='#F2A819' errorLevel='H' />
+                    <QRCode value={`https://tiolucho.com/#/home/newSale/${params.id}`} bordered={false} /*icon={imgLogo} iconSize={QRCodeSize / 4}*/ size={QRCodeSize} bgColor='#F2A819' errorLevel='H' />
                     <Button name='Descargar' type='button' template='short dark' onClick={downloadQRCode} />
                 </div>}
 

@@ -14,6 +14,7 @@ import { ConfirmEmail } from '../pages/ConfirmEmail';
 
 import { Home } from '../pages/Home';
 import { NewSaleReader } from '../pages/NewSaleReader';
+import { NewSale } from '../pages/NewSale';
 
 import { Admin } from '../pages/Admin';
 import { Clients } from '../pages/Admin/Clients';
@@ -50,7 +51,7 @@ function AppUi() {
 							<Route path='/home' element={<AuthRoute> <Home /> </AuthRoute>} />
 							
 							<Route path='/home/newSale' element={<AuthRoute> <NewSaleReader /> </AuthRoute>} />
-							{/* <Route path='newSale/:clientId' element={<AdminRoute> <NewSale /> </AdminRoute>} /> */}
+							<Route path='/home/newSale/:clientId' element={<AdminRoute> <NewSale /> </AdminRoute>} />
 
 							<Route path='/home/transactions' element={<AuthRoute> <Transactions /> </AuthRoute>} >
 								<Route path='income' element={<AuthRoute> <IncomeAndExpense /> </AuthRoute>} />
