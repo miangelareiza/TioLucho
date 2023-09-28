@@ -59,6 +59,7 @@ function Routes() {
         document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#F2A819');
         document.querySelector('meta[name="background-color"]')?.setAttribute('content', '#F2A819');
         setMenuConfig({
+            path: '/home/admin',
             tabOption: 'admin'
         });
 
@@ -72,10 +73,12 @@ function Routes() {
     const columns: ColumnsType<Route> = [
         { 
             title: 'Nombre', 
+            width: 120,
             ...getTableColumnProps('Name', searchInput, searchedColumn, setSearchedColumn)
         },
         { 
             title: 'Descripción', 
+            width: 140,
             ...getTableColumnProps('Description', searchInput, searchedColumn, setSearchedColumn)
         },
         { 
@@ -136,7 +139,7 @@ function Routes() {
                 rowKey={record => record.Id}
                 dataSource={routes} 
                 columns={columns}
-                scroll={{x: 1300}}
+                scroll={{x: 370}}
                 style={{marginBottom: '120px'}} 
                 pagination={{ pageSize: 10, position: ['bottomCenter'] }}
                 loading={isLoadingData}

@@ -64,6 +64,7 @@ function Clients() {
         document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#F2A819');
         document.querySelector('meta[name="background-color"]')?.setAttribute('content', '#F2A819');
         setMenuConfig({
+            path: '/home/admin',
             tabOption: 'admin'
         });
 
@@ -77,30 +78,37 @@ function Clients() {
     const columns: ColumnsType<Client> = [
         { 
             title: 'Nombre', 
+            width: 140,
             ...getTableColumnProps('Name', searchInput, searchedColumn, setSearchedColumn)
         },
         { 
             title: 'Ruta', 
+            width: 110,
             ...getTableColumnProps('Route', searchInput, searchedColumn, setSearchedColumn)
         },
         { 
             title: 'Teléfono', 
+            width: 110,
             ...getTableColumnProps('Phone', searchInput, searchedColumn, setSearchedColumn)
         },
         { 
             title: 'Contacto', 
+            width: 120,
             ...getTableColumnProps('Contact', searchInput, searchedColumn, setSearchedColumn)
         },
         { 
-            title: 'Es domicilio', 
+            title: 'Domicilio', 
+            width: 110,
             ...getTableColumnProps('Delivery', searchInput, searchedColumn, setSearchedColumn),
         },
         { 
             title: 'Dirección', 
+            width: 150,
             ...getTableColumnProps('Address', searchInput, searchedColumn, setSearchedColumn)
         },
         { 
             title: 'Activo', 
+            width: 100,
             ...getTableColumnProps('Active', searchInput, searchedColumn, setSearchedColumn),
         },
         { 
@@ -161,7 +169,7 @@ function Clients() {
                 rowKey={record => record.Id}
                 dataSource={clients} 
                 columns={columns}
-                scroll={{x: 1300}}
+                scroll={{x: 950}}
                 style={{marginBottom: '120px'}} 
                 pagination={{ pageSize: 10, position: ['bottomCenter'] }}
                 loading={isLoadingData}

@@ -1,6 +1,5 @@
-import { memo, useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { BiSolidLayerPlus } from 'react-icons/bi';
 
 // Components
 import { useAppStates } from '../../helpers/states';
@@ -33,7 +32,6 @@ function Inventories() {
     const [inventories, setInventories] = useState<Array<Inventory>>([]);  
     const [searchedColumn, setSearchedColumn] = useState('');
     const searchInput = useRef<InputRef>(null);
-    const MemoizedResupply = memo(BiSolidLayerPlus);
 
     const getInventories = useCallback(async () => {
         setIsLoadingData(true);
@@ -54,6 +52,7 @@ function Inventories() {
         document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#F2A819');
         document.querySelector('meta[name="background-color"]')?.setAttribute('content', '#F2A819');
         setMenuConfig({
+            path: '/home/admin',
             tabOption: 'admin'
         });
 
@@ -67,24 +66,18 @@ function Inventories() {
     const columns: ColumnsType<Inventory> = [
         { 
             title: 'Usuario', 
+            width: 130,
             ...getTableColumnProps('User', searchInput, searchedColumn, setSearchedColumn)
         },
         { 
-            title: 'Producto', 
+            title: 'Producto',
+            width: 150, 
             ...getTableColumnProps('Product', searchInput, searchedColumn, setSearchedColumn)
         },
         { 
-            title: 'Stock', 
-            ...getTableColumnProps('Stock', searchInput, searchedColumn, setSearchedColumn)
-        },
-        { 
-            title: 'Acciones', 
+            title: 'Stock',
             width: 110,
-            render: (value) => (
-                <div className='table_action_container'>
-                    <MemoizedResupply size={30} color='var(--green)' onClick={()=> handleResupplyInventory(value.Id)} />
-                </div>
-            )
+            ...getTableColumnProps('Stock', searchInput, searchedColumn, setSearchedColumn)
         }
     ];
 
@@ -93,7 +86,7 @@ function Inventories() {
         navigate('new');
     }, [setIsLoading, navigate]);
 
-    const handleResupplyInventory = useCallback((id: string) => {
+    const handleResupplyInventory = useCallback(() => {
         setIsLoading(true);
         navigate(`resupply`);
     }, [setIsLoading, navigate]);
@@ -104,12 +97,13 @@ function Inventories() {
             <TitlePage image='inventories' title='Inventarios' />
 
             <Button name='Agregar inventario' type='button' onClick={handleAddInventory} icon='add' template='dark' />
-            
+            <Button name='Recargue' type='button' onClick={handleResupplyInventory} template='short dark' />
+
             <Table 
                 rowKey={record => record.Id}
                 dataSource={inventories} 
                 columns={columns}
-                scroll={{x: 1300}}
+                scroll={{x: 390}}
                 style={{marginBottom: '120px'}} 
                 pagination={{ pageSize: 10, position: ['bottomCenter'] }}
                 loading={isLoadingData}

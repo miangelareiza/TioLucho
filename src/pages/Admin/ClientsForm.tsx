@@ -144,7 +144,7 @@ function ClientsForm() {
                         // Descarga el canvas combinado con el logotipo
                         const url = canvas.toDataURL();
                         const a = document.createElement('a');
-                        a.download = 'QRCodeWithLogo.png';
+                        a.download = `QRCode${name}.png`;
                         a.href = url;
                         document.body.appendChild(a);
                         a.click();

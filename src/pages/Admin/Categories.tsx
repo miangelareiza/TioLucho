@@ -58,6 +58,7 @@ function Categories() {
         document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#F2A819');
         document.querySelector('meta[name="background-color"]')?.setAttribute('content', '#F2A819');
         setMenuConfig({
+            path: '/home/admin',
             tabOption: 'admin'
         });
 
@@ -71,6 +72,7 @@ function Categories() {
     const columns: ColumnsType<Category> = [
         { 
             title: 'Nombre', 
+            width: 220,
             ...getTableColumnProps('Name', searchInput, searchedColumn, setSearchedColumn)
         },
         { 
@@ -131,7 +133,7 @@ function Categories() {
                 rowKey={record => record.Id}
                 dataSource={categories} 
                 columns={columns}
-                scroll={{x: 1300}}
+                scroll={{x: 330}}
                 style={{marginBottom: '120px'}} 
                 pagination={{ pageSize: 10, position: ['bottomCenter'] }}
                 loading={isLoadingData}

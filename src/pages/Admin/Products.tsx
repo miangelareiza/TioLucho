@@ -62,6 +62,7 @@ function Products() {
         document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#F2A819');
         document.querySelector('meta[name="background-color"]')?.setAttribute('content', '#F2A819');
         setMenuConfig({
+            path: '/home/admin',
             tabOption: 'admin'
         });
 
@@ -75,22 +76,27 @@ function Products() {
     const columns: ColumnsType<Product> = [
         { 
             title: 'Nombre', 
+            width: 140,
             ...getTableColumnProps('Name', searchInput, searchedColumn, setSearchedColumn)
         },
         { 
-            title: 'Categoría', 
-            ...getTableColumnProps('Category', searchInput, searchedColumn, setSearchedColumn)
-        },
-        { 
             title: 'Costo', 
+            width: 100,
             ...getTableColumnProps('Cost', searchInput, searchedColumn, setSearchedColumn, 'money')
         },
         { 
             title: 'Precio', 
+            width: 100,
             ...getTableColumnProps('Price', searchInput, searchedColumn, setSearchedColumn, 'money')
         },
         { 
+            title: 'Categoría', 
+            width: 100,
+            ...getTableColumnProps('Category', searchInput, searchedColumn, setSearchedColumn)
+        },
+        { 
             title: 'Activo', 
+            width: 100,
             ...getTableColumnProps('Active', searchInput, searchedColumn, setSearchedColumn),
         },
         { 
@@ -151,9 +157,9 @@ function Products() {
                 rowKey={record => record.Id}
                 dataSource={products}
                 columns={columns}
-                scroll={{x: 1300}}
+                scroll={{x: 650}}
                 style={{marginBottom: '120px'}} 
-                pagination={{ pageSize: 10, position: ['bottomCenter'] }}
+                pagination={{ pageSize: 20, position: ['bottomCenter'] }}
                 loading={isLoadingData}
             />
 

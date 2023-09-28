@@ -68,6 +68,7 @@ function Users() {
         document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#F2A819');
         document.querySelector('meta[name="background-color"]')?.setAttribute('content', '#F2A819');
         setMenuConfig({
+            path: '/home/admin',
             tabOption: 'admin'
         });
 
@@ -86,42 +87,52 @@ function Users() {
         },
         { 
             title: 'Nombre', 
+            width: 120,
             ...getTableColumnProps('Name', searchInput, searchedColumn, setSearchedColumn)
         },
         { 
-            title: 'Rol', 
+            title: 'Rol',
+            width: 80, 
             ...getTableColumnProps('Role', searchInput, searchedColumn, setSearchedColumn)
         },
         { 
             title: 'Ruta', 
+            width: 110,
             ...getTableColumnProps('Route', searchInput, searchedColumn, setSearchedColumn)
         },
         { 
             title: 'Usuario', 
+            width: 110,
             ...getTableColumnProps('User', searchInput, searchedColumn, setSearchedColumn)
         },
         { 
             title: 'Documento', 
+            width: 130,
             ...getTableColumnProps('Document', searchInput, searchedColumn, setSearchedColumn)
         },
         { 
             title: 'Correo', 
+            width: 130,
             ...getTableColumnProps('Email', searchInput, searchedColumn, setSearchedColumn),
         },
         { 
             title: 'Teléfono', 
+            width: 130,
             ...getTableColumnProps('Phone', searchInput, searchedColumn, setSearchedColumn),
         },
         { 
             title: 'Cumpleaños', 
+            width: 120,
             ...getTableColumnProps('BirthDay', searchInput, searchedColumn, setSearchedColumn, 'date')
         },
         { 
             title: 'Genero', 
+            width: 100,
             ...getTableColumnProps('Gender', searchInput, searchedColumn, setSearchedColumn)
         },
         { 
             title: 'Activo', 
+            width: 100,
             ...getTableColumnProps('Active', searchInput, searchedColumn, setSearchedColumn)
         },
         { 
@@ -182,7 +193,7 @@ function Users() {
                 rowKey={record => record.Id}
                 dataSource={users} 
                 columns={columns}
-                scroll={{x: 1300}}
+                scroll={{x: 1210}}
                 style={{marginBottom: '120px'}} 
                 pagination={{ pageSize: 10, position: ['bottomCenter'] }}
                 loading={isLoadingData}

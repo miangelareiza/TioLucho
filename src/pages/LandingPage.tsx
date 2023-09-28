@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // Components
@@ -51,11 +51,6 @@ function LandingPage() {
         // eslint-disable-next-line react-hooks/exhaustive-deps        
     }, []);
 
-    const handleclickDeliveries = useCallback(() =>{
-        setIsLoading(true);
-        navigate('/delivery');
-    }, [setIsLoading, navigate]);
-
     return (
         <>
             <Header isLandingPage />
@@ -63,9 +58,9 @@ function LandingPage() {
             <div className='section home_section'>
                 <img src={imgBanner} alt='Banner inicio arepas Tío Lucho' width='350px' />
                 <div className='fastOptions'>
-                    <Button type='button' name='Clientes' icon='next' />
-                    <Button type='button' name='Domicilios' icon='next' onClick={handleclickDeliveries} template='dark' />
-                    <Button type='button' name='Empleados' icon='next' />
+                    <Button type='button' name='Aliados' icon='next' onClick={()=> window.open('https://api.whatsapp.com/send?phone=573137593407&text=%C2%A1Deseo%20solicitar%20un%20pedido!')} />
+                    <Button type='button' name='Domicilios' icon='next' onClick={()=> window.open('https://api.whatsapp.com/send?phone=573137593407&text=%C2%A1Deseo%20solicitar%20un%20servicio%20a%20domicilio!')} template='dark' />
+                    <Button type='button' name='Embajadores' icon='next' onClick={()=> navigate('/auth/login')} />
                 </div>
                 <p>¡Bienvenidos al auténtico sabor de las arepas en su máxima expresión! <br /><br />
                     En Arepas Tío Lucho, sabemos que la verdadera esencia de nuestras arepas radica en la combinación perfecta de ingredientes frescos, sazón inigualable y la rapidez que necesitas. <br />
@@ -73,7 +68,7 @@ function LandingPage() {
                     ¡Prepárate para satisfacer tus antojos y deleitarte con cada bocado de nuestras deliciosas arepas. En Arepas Tío Lucho, nos enorgullece ofrecerte autenticidad, calidad y el genuino sabor de las arepas. Ven y disfruta de una experiencia culinaria auténtica que te hará volver por más!
                 </p>
 
-                <Button type='button' name='Domicilios' icon='next' onClick={handleclickDeliveries} />
+                <Button type='button' name='Domicilios' icon='next' onClick={()=> window.open('https://api.whatsapp.com/send?phone=573137593407&text=%C2%A1Deseo%20solicitar%20un%20servicio%20a%20domicilio!')} />
             </div>
 
             <div className='section us_section'>
@@ -81,7 +76,7 @@ function LandingPage() {
                 <p>En Arepas Tío Lucho, nos apasiona brindarte una experiencia única y auténtica. Con años de experiencia en la industria, nuestro equipo de talentosos amantes de las arepas trabaja incansablemente para ofrecerte los sabores más exquisitos y una atención excepcional. <br /><br />
                     Creemos en la importancia de preservar la tradición culinaria y resaltar los ingredientes frescos y de alta calidad que hacen que nuestras arepas sean inigualables. Cada arepa que servimos es cuidadosamente preparada con pasión y creatividad, para brindarte una explosión de sabores en cada bocado.
                 </p>
-                <Button type='button' name='Domicilios' icon='next' onClick={handleclickDeliveries} template='dark' />
+                <Button type='button' name='Domicilios' icon='next' onClick={()=> window.open('https://api.whatsapp.com/send?phone=573137593407&text=%C2%A1Deseo%20solicitar%20un%20servicio%20a%20domicilio!')} template='dark' />
             </div>      
 
             <div className='section contact_section'>

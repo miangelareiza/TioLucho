@@ -103,7 +103,7 @@ function Header({ isLandingPage }: Props) {
     }
 
     const handleclickDelivery = () => {
-        setIsLoading(true);
+        window.open('https://api.whatsapp.com/send?phone=573137593407&text=%C2%A1Deseo%20solicitar%20un%20servicio%20a%20domicilio!')
     }
 
     return (
@@ -127,7 +127,7 @@ function Header({ isLandingPage }: Props) {
                         <Link className='opt_web_menu' to='/' onClick={e => handleClickBasicOpt(e, 'contact')}>Contacto</Link>
                     </li>
                     <li>
-                        <Link className='opt_web_menu' to='/delivery' onClick={handleclickDelivery}>Domicilios</Link>
+                        <Link className='opt_web_menu' to='/' onClick={handleclickDelivery}>Domicilios</Link>
                     </li>
                 </ul>
             </nav> }
@@ -146,7 +146,7 @@ function Header({ isLandingPage }: Props) {
                         <Link className='opt_mobile_menu' to='/' onClick={ e => handleClickBasicOpt(e, 'contact')}>Contacto</Link>
                     </li>
                     <li>
-                        <Link className='opt_mobile_menu' to='/delivery' onClick={handleclickDelivery}>Domicilios</Link>
+                        <Link className='opt_mobile_menu' to='/' onClick={handleclickDelivery}>Domicilios</Link>
                     </li>
                 </ul>
                 :

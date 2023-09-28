@@ -82,11 +82,15 @@ function UsersForm() {
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [birthDate, setBirthDate] = useState('');
-    const [gender, setGender] = useState('');
+    const [gender, setGender] = useState<any>([]);
     const [active, setActive] = useState(false);  
     const MemoizedBsQuestionOctagonFill = memo(BsQuestionOctagonFill);
     const [optsRole, setOptsRole] = useState<Array<Role>>([]);
     const [optsRoute, setOptsRoute] = useState<Array<Route>>([]);
+    const optsGender = [
+        {Id: 'Hombre', Name: 'Hombre'},
+        {Id: 'Mujer', Name: 'Mujer'},
+    ]
 
     const getUser = useCallback(async () => {
         try {
@@ -166,6 +170,13 @@ function UsersForm() {
         });
 
         if (isConfirmed) {
+            if (password) {
+                if (password.length < 8 || !/\d/.test(password) || !/[a-zA-Z]/.test(password)) {
+                    addToastr('La contraseña debe contener por lo menos 8 caracteres entre ellos letras y numeros.', 'warning');
+                    return;
+                }
+            }
+
             if (params.id) {
                 try {
                     const body: EditUserData = {
@@ -180,7 +191,7 @@ function UsersForm() {
                         Email: email,
                         Phone: phone,
                         BirthDate: birthDate,
-                        Gender: gender,
+                        Gender: gender.value,
                         Active: active
                     };
                     const data: ResponseApi = await postApiData('User/UpdateUser', body, true, 'multipart/form-data');
@@ -202,7 +213,7 @@ function UsersForm() {
                         Email: email,
                         Phone: phone,
                         BirthDate: birthDate,
-                        Gender: gender,
+                        Gender: gender.value,
                         Active: active
                     };
                     const data: ResponseApi = await postApiData('User/CreateUser', body, true, 'multipart/form-data');
@@ -228,7 +239,7 @@ function UsersForm() {
                 <Input type='email' value={email} setValue={setEmail} name='Email' />
                 <Input type='tel' value={phone} setValue={setPhone} name='Teléfono' />
                 <Input type='date' value={birthDate} setValue={setBirthDate} name='Cumpleaños' />
-                <Input type='text' value={gender} setValue={setGender} name='Genero' />
+                <Input type='select' value={gender} setValue={setGender} name='Genero' options={transformToOptions(optsGender)} defaultValue={gender} /> 
                 <Input type='checkbox' value={active} setValue={setActive} name='Activo' />
 
                 <Button name={`${params.id ? 'Editar' : 'Crear'} usuario`} type='submit' icon='send' />                
