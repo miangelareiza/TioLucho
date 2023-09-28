@@ -89,7 +89,7 @@ function NewSaleReader() {
                     delay={500}
                     onError={handleError}
                     onScan={handleScan}
-                    constraints={cameraId && { audio: false, video: { deviceId: cameraId } }}
+                    constraints={{ audio: false, video: { deviceId: cameraId }}}
                 />
             </div>
         </div>
