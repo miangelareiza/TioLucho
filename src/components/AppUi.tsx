@@ -49,7 +49,7 @@ function AppUi() {
 
 							<Route path='/home' element={<AuthRoute> <Home /> </AuthRoute>} />
 							
-							<Route path='/home/newSale' element={<AdminRoute> <NewSaleReader /> </AdminRoute>} />
+							<Route path='/home/newSale' element={<AuthRoute> <NewSaleReader /> </AuthRoute>} />
 							{/* <Route path='newSale/:clientId' element={<AdminRoute> <NewSale /> </AdminRoute>} /> */}
 
 							<Route path='/home/transactions' element={<AuthRoute> <Transactions /> </AuthRoute>} >
