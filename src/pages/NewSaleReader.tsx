@@ -69,7 +69,7 @@ function NewSaleReader() {
     return (
         <div className='container_qr_reader'>
             <Header />
-            <h3>Lector de clientes</h3>
+            <h3>Lector</h3>
 
             {/* <div className='device_selector'>
                 { loadingDevices ? <p>Cargando dispositivos...</p>
