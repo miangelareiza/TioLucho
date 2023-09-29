@@ -37,8 +37,6 @@ function NewSaleReader() {
 
             if (videoDevices.length > 1) {
                 setCameraId(videoDevices[1].deviceId);
-            } else if (videoDevices.length > 0) {
-                setCameraId(videoDevices[0].deviceId);
             }
         } catch (error) {
             console.error('Error al obtener los dispositivos de video:', error);
@@ -86,7 +84,7 @@ function NewSaleReader() {
 
             <div className='qrReader'>
                 <QrReader
-                    delay={500}
+                    delay={300}
                     onError={handleError}
                     onScan={handleScan}
                     constraints={{ audio: false, video: { deviceId: cameraId }}}
