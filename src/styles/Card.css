@@ -37,29 +37,28 @@
     font-size: 1.2rem;
     font-weight: 500;
 }
-.card_remarks.order > .card_title{
+.card_template.order > .card_title{
     width: calc(100% - 110px);
     color: var(--dark);
-    font-weight: 700;
+    font-weight: 600;
 }
-.card_template.order > .card_quantity{
+.card_template.order > .card_sale{
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--dark);
     margin: 0 1vh 0 auto;
+}
+.card_template.order > .card_change{
+    width: 50%;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--tertiary);
 }
 .card_template.order > .card_total{
     font-size: 1rem;
     font-weight: 700;
-    color: var(--principal);
+    color: var(--green);
     margin-left: auto;
-}
-.card_template.order > .card_remarks{
-    width: 100%;
-    margin-top: 1vh;
-    font-size: 1rem;
-    font-weight: 500;
-    color: var(--dark);
 }
 .card_template.invoice >.card_serial{
     width: 100%;
@@ -92,12 +91,12 @@
     border-bottom: 5px dotted #D9D9D9;
 }
 .option_edit{
-    color: var(--secondary);
+    color: var(--principal);
     transition: .6s ease-in-out;
     cursor: pointer;
 }
 .option_delete{
-    color: var(--principal);
+    color: var(--tertiary);
     transition: .6s ease-in-out;
     cursor: pointer;
 }

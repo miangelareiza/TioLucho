@@ -92,7 +92,6 @@ function Transactions() {
     return (
         <>
             <Header />
-            
             <div className='transactions_actions'>
                 <Link to='income' onClick={handleClickTo}>
                     <img src={imgIncome} alt='Income icon' width='45px' height='45px' />

@@ -4,7 +4,6 @@
     flex-direction: row;
     justify-content: space-between;
     position: fixed;
-    width: calc(100vw - 4rem);
     top: 2rem;
     left: 2rem;
     z-index: 1000;
@@ -37,6 +36,8 @@
 }
 .fast_option.download{
     position: relative;
+    margin-left: calc(100vw - 4rem - 120px);
+    /* width: calc(100vw - 4rem); */
 }
 .fast_option.download:before {
     align-items: center;

@@ -99,7 +99,7 @@ function StatesProvider({ children }: StatesProviderProps) {
 			<ConsentModal consent={notificationConsent} setConsent={setNotificationConsent} type='notifications' addToastr={addToastr} /> */}
 
 			<ToastContainer
-				position="bottom-right"
+				position='top-center'
 			/>
 		</statesContext.Provider>		
 	);

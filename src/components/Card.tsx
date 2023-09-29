@@ -15,9 +15,9 @@ interface BasicData {
 
 interface OrderData {
     name: string
-    quantity: number
+    sale: number
+    change: number
     total: string | number
-    remarks: string
 }
 
 interface InvoiceData {
@@ -80,9 +80,9 @@ function OrderCard({onEdit, onSee, onDelete, item}: OrderCardProps) {
     return(
         <>
             <h4 className='card_title' >{item.name}</h4>
-            <h5 className='card_quantity'>x{item.quantity}</h5>
+            <h5 className='card_sale'>x{item.sale}</h5>
+            <h5 className='card_change'>Cambios:  x{item.change}</h5>
             <h6 className='card_total'>{valueToCurrency(item.total)}</h6>
-            <p className='card_remarks'>{item.remarks}</p>
             <div className='card_options'>
                 { onEdit && <TbEdit className='option_edit' onClick={onEdit} size={27} /> }
                 { onSee && <BiBadgeCheck className='option_see' onClick={onSee} size={27} /> }
@@ -114,7 +114,7 @@ function Card({ onEdit, onSee, onDelete, type, item }: CardProps) {
         <div className={`card_template ${type}`}>
             { type === 'basic' && 'name' in item ?
                 <BasicCard onEdit={onEdit} onSee={onSee} onDelete={onDelete} item={item} />
-            : type === 'order' && 'quantity' in item ?
+            : type === 'order' && 'sale' in item ?
                 <OrderCard onEdit={onEdit} onSee={onSee} onDelete={onDelete} item={item} />
             : type === 'invoice' && 'id' in item ?
                 <InvoiceCard onEdit={onEdit} item={item} />

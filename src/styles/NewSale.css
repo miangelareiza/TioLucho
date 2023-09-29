@@ -36,7 +36,8 @@
     top: 70px;
     left: -10px;
     background: var(--principal);
-}.container_qr_reader > .qrReader::after{
+}
+.container_qr_reader > .qrReader::after{
     content: '';
     width: calc(100% - 140px);
     height: calc(100% + 20px);
@@ -50,6 +51,28 @@
     border-radius: 2vh;
     position: relative;
     z-index: 2;
+}
+.not_sale{
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    position: fixed;
+    top: calc(90px + 1rem);
+    right: 1rem;
+    z-index: 10;
+    transition: .6s ease-in-out;
+}
+.not_sale.active{
+    background: var(--white);
+    width: 317px;
+    height: 340px;
+    border-radius: 2vh;
+    box-shadow: -3px 3px 6px #0005;
+}
+.not_sale > svg{
+    display: block;
+    margin-left: auto;
+    cursor: pointer;
 }
 .order_description{
     width: 100%;

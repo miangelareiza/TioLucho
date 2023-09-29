@@ -5,8 +5,8 @@
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
-    font-family: 'Urbanist', sans-serif;
-    font-family: -apple-system, BlinkMacSystemFont, 'Urbanist', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Poppins', sans-serif;
 }
 body::-webkit-scrollbar{
     display: none;
