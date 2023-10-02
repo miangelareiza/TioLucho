@@ -80,9 +80,9 @@ function Admin() {
                     <img src={imgNotSales} alt='Opcion de no compras' draggable='false' width='75px' />
                     <h5>No compras</h5>
                 </div>
-                <div className='adminOption' onClick={() => handleClickOpt('movements')}>
-                    <img src={imgMovements} alt='Opcion de movimientos' draggable='false' width='75px' />
-                    <h5>Movimientos</h5>
+                <div className='adminOption' onClick={() => handleClickOpt('transactions')}>
+                    <img src={imgMovements} alt='Opcion de Transacciones' draggable='false' width='75px' />
+                    <h5>Transacciones</h5>
                 </div>
                 <div className='adminOption' onClick={() => handleClickOpt('liquidations')}>
                     <img src={imgLiquidations} alt='Opcion de liquidaciones' draggable='false' width='75px' />

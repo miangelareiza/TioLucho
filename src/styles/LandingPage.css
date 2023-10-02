@@ -46,12 +46,19 @@
     justify-content: center;
     align-items: center;
 }
-.home_section > img{
+.home_section > div{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.home_section > div > img{
     margin: 3vh;
     width: 350px;
     max-width: 100%;
 }
-.home_section > .fastOptions{
+.home_section > div > .principal_actions{
     margin: 3vh;
     width: 500px;
     max-width: 100%;

@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
 
 // Components
 import { useAppStates } from '../../helpers/states';
@@ -7,40 +6,39 @@ import { useApi } from '../../helpers/api';
 import { getTableColumnProps } from '../../helpers/functions';
 import { Header } from '../../components/Header';
 import { TitlePage } from '../../components/TitlePage';
-import { Button } from '../../components/Button';
 // Sources
 import { Table, InputRef } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 
-interface Inventory {
+interface NotSale {
     Id: string
     User: string
-    Product: string
-    Stock: string
+    Client: string
+    Reason: string
+    Created: string
 }
 
-interface GetInventoriesData {
-    inventory: Array<Inventory>;
+interface GetNotSalesData {
+    notSales: Array<NotSale>;
     cod: string;
 }
 
-function Inventories() {
+function NotSalesAdmin() {
     const { setIsLoading, addToastr, setMenuConfig } = useAppStates();
     const { getApiData } = useApi();
-    const navigate = useNavigate();
     const [isLoadingData, setIsLoadingData] = useState(true);
-    const [inventories, setInventories] = useState<Array<Inventory>>([]);  
+    const [notSales, setNotSales] = useState<Array<NotSale>>([]);  
     const [searchedColumn, setSearchedColumn] = useState('');
     const searchInput = useRef<InputRef>(null);
 
-    const getInventories = useCallback(async () => {
+    const getNotSales = useCallback(async () => {
         setIsLoadingData(true);
         try {
-            const data: GetInventoriesData = await getApiData('UserInventory/GetInventory', true);
-            if (!data.inventory.length) {
-                addToastr('Registra tu primer cliente', 'info');
+            const data: GetNotSalesData = await getApiData('NotSale/GetNotSales', true);
+            if (!data.notSales.length) {
+                addToastr('No se han creado no ventas', 'info');
             }
-            setInventories(data.inventory);
+            setNotSales(data.notSales);
             setIsLoadingData(false);
         } catch (error: any) {
             addToastr(error.message, error.type || 'error');
@@ -49,6 +47,7 @@ function Inventories() {
     }, [addToastr, getApiData]);
 
     useEffect(() => {
+        getNotSales();
         document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#F2A819');
         document.querySelector('meta[name="background-color"]')?.setAttribute('content', '#F2A819');
         setMenuConfig({
@@ -59,59 +58,48 @@ function Inventories() {
         setTimeout(() => {
             setIsLoading(false);
         }, 300);
-        getInventories();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [window.location.href]);
+    }, []);
     
-    const columns: ColumnsType<Inventory> = [
+    const columns: ColumnsType<NotSale> = [
+        { 
+            title: 'Cliente', 
+            width: 140,
+            ...getTableColumnProps('Client', searchInput, searchedColumn, setSearchedColumn)
+        },
+        { 
+            title: 'Motivo', 
+            width: 150,
+            ...getTableColumnProps('Reason', searchInput, searchedColumn, setSearchedColumn)
+        },
         { 
             title: 'Usuario', 
-            width: 130,
+            width: 140,
             ...getTableColumnProps('User', searchInput, searchedColumn, setSearchedColumn)
         },
         { 
-            title: 'Producto',
-            width: 150, 
-            ...getTableColumnProps('Product', searchInput, searchedColumn, setSearchedColumn)
-        },
-        { 
-            title: 'Stock',
-            width: 110,
-            ...getTableColumnProps('Stock', searchInput, searchedColumn, setSearchedColumn)
+            title: 'Fecha', 
+            width: 180,
+            ...getTableColumnProps('Created', searchInput, searchedColumn, setSearchedColumn, 'dateTime')
         }
     ];
-
-    const handleAddInventory = useCallback(() => {   
-        setIsLoading(true);
-        navigate('new');
-    }, [setIsLoading, navigate]);
-
-    const handleResupplyInventory = useCallback(() => {
-        setIsLoading(true);
-        navigate(`resupply`);
-    }, [setIsLoading, navigate]);
 
     return (
         <>
             <Header />
-            <TitlePage image='inventories' title='Inventarios' />
-
-            <Button name='Agregar inventario' type='button' onClick={handleAddInventory} icon='add' template='dark' />
-            <Button name='Recargue' type='button' onClick={handleResupplyInventory} template='short dark' />
+            <TitlePage image='notSales' title='No ventas' />
 
             <Table 
                 rowKey={record => record.Id}
-                dataSource={inventories} 
+                dataSource={notSales} 
                 columns={columns}
-                scroll={{x: 390}}
+                scroll={{x: 680}}
                 style={{marginBottom: '120px'}} 
                 pagination={{ pageSize: 10, position: ['bottomCenter'] }}
                 loading={isLoadingData}
             />
-
-            <Outlet />
         </>
     );
 }
 
-export { Inventories };
+export { NotSalesAdmin };

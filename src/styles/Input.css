@@ -1,7 +1,7 @@
 /* Input styles */
 .form_inputs{
     width: 100%;
-    max-width: 630px;
+    max-width: 650px;
     margin: 1rem auto;
     display: flex;
     flex-wrap: wrap;

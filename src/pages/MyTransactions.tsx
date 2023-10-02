@@ -4,7 +4,7 @@ import { Link, Outlet } from 'react-router-dom';
 // Components
 import { useAppStates } from '../helpers/states';
 import { useApi } from '../helpers/api';
-import { valueToCurrency } from '../helpers/functions';
+import { valueToCurrency, formatDateTime } from '../helpers/functions';
 import { Header } from '../components/Header';
 // Styles
 import '../styles/Transactions.css';
@@ -26,7 +26,7 @@ interface GetTransactionsData {
     cod: string;
 }
 
-function Transactions() {
+function MyTransactions() {
     const { setIsLoading, addToastr, setMenuConfig } = useAppStates();
     const { getApiData } = useApi();
     const [showTransactions, setShowTransactions] = useState(false);
@@ -83,7 +83,7 @@ function Transactions() {
                 <div key={Id} className={`transaction ${IsIncome ? 'income' : 'expense'}`}>
                     <span className='transaction_amount'>{valueToCurrency(Total)}</span>
                     <span className='transaction_detail'>{Remark}</span>
-                    <span className='transaction_detail'>{new Date(Created).toLocaleString()}</span>
+                    <span className='transaction_detail'>{formatDateTime(Created).complete}</span>
                 </div>
             )
         })
@@ -137,4 +137,4 @@ function Transactions() {
     );
 }
 
-export { Transactions };
+export { MyTransactions };

@@ -14,7 +14,7 @@ const valueToCurrency = (value: string | number): string => {
 const formatDateTime = (datetime: string) => {
     const newDateTime = new Date(datetime).toLocaleString('en-US');
     const formatedValue = newDateTime.replace(/:\d{2}(?=\s[A|P]M$)/, '').split(', ');
-    return {date: formatedValue[0], time: formatedValue[1]};
+    return {date: formatedValue[0], time: formatedValue[1], complete: `${formatedValue[0]} - ${formatedValue[1]}`};
 }
 
 function isValidData(data: any) {
@@ -67,7 +67,7 @@ function deleteCookie(name: string) {
     document.cookie = name + "=; expires=" + expirationDate;
 }
 
-const getTableColumnProps = (dataIndex: any, searchInput: React.RefObject<InputRef>, searchedColumn: string, setSearchedColumn: React.Dispatch<React.SetStateAction<string>>, formatValue?: 'money' | 'date' | 'photo'): ColumnType<any> => ({
+const getTableColumnProps = (dataIndex: any, searchInput: React.RefObject<InputRef>, searchedColumn: string, setSearchedColumn: React.Dispatch<React.SetStateAction<string>>, formatValue?: 'money' | 'date' | 'dateTime' | 'photo'): ColumnType<any> => ({
     dataIndex: dataIndex,
     key: dataIndex,
     ellipsis: { 
@@ -125,7 +125,8 @@ const getTableColumnProps = (dataIndex: any, searchInput: React.RefObject<InputR
             title={
                 typeof(text) === 'boolean' ? (text ? 'Si' : 'No') :
                 formatValue === 'money' ? valueToCurrency(text) :
-                formatValue === 'date' ? new Date(text).toLocaleDateString() :
+                formatValue === 'date' ? formatDateTime(text).date :
+                formatValue === 'dateTime' ? `${formatDateTime(text).date} - ${formatDateTime(text).time}` :
                 formatValue === 'photo' ? <Avatar icon={<img src={text ? `https://tiolucho.somee.com/AssetsImages/${text}` : imgDefaul} alt='imagen del usuario tio lucho' />} />:
                 text
             }
@@ -135,7 +136,8 @@ const getTableColumnProps = (dataIndex: any, searchInput: React.RefObject<InputR
                     {
                         typeof(text) === 'boolean' ? (text ? 'Si' : 'No') :
                         formatValue === 'money' ? valueToCurrency(text) :
-                        formatValue === 'date' ? new Date(text).toLocaleDateString() :
+                        formatValue === 'date' ? formatDateTime(text).date :
+                        formatValue === 'dateTime' ? `${formatDateTime(text).date} - ${formatDateTime(text).time}` :
                         formatValue === 'photo' ? <Avatar icon={<img src={text ? `https://tiolucho.somee.com/AssetsImages/${text}` : imgDefaul} alt='imagen del usuario tio lucho' />} />:
                         text
                     }
@@ -143,7 +145,8 @@ const getTableColumnProps = (dataIndex: any, searchInput: React.RefObject<InputR
             :
                 typeof(text) === 'boolean' ? (text ? 'Si' : 'No') :
                 formatValue === 'money' ? valueToCurrency(text) :
-                formatValue === 'date' ? new Date(text).toLocaleDateString() :
+                formatValue === 'date' ? formatDateTime(text).date :
+                formatValue === 'dateTime' ? `${formatDateTime(text).date} - ${formatDateTime(text).time}` :
                 formatValue === 'photo' ? <Avatar icon={<img src={text ? `https://tiolucho.somee.com/AssetsImages/${text}` : imgDefaul} alt='imagen del usuario tio lucho' />} />:
                 text
             }

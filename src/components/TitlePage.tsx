@@ -12,7 +12,7 @@ import imgUsers from '../assets/images/cards/Users.svg'
 import imgMovements from '../assets/images/cards/Movements.svg'
 
 interface Props {
-    image: 'admin' | 'clients' | 'categories' | 'products' |'routes' | 'sales' | 'notSales' | 'inventories' | 'liquidations' | 'users' | 'movements' 
+    image: 'admin' | 'clients' | 'categories' | 'products' |'routes' | 'sales' | 'notSales' | 'inventories' | 'liquidations' | 'users' | 'transactions' 
     title: string
 }
 
@@ -28,7 +28,7 @@ function TitlePage({ image, title }: Props) {
         inventories: imgInventories,
         liquidations: imgLiquidations,
         users: imgUsers,
-        movements: imgMovements,
+        transactions: imgMovements,
     };
     
     return(

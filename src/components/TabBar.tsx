@@ -56,14 +56,14 @@ function TabBar({ tabOption }: Props) {
         <div className='tabBar_container'>
             <ul className='tabBar'>
                 <li>
-                    <Link to='/home/inventory' onClick={handleClickOpt} className='tab_inventory'>
+                    <Link to='/home/myInventory' onClick={handleClickOpt} className='tab_inventory'>
                         <div>
                             <BiCube />
                         </div>
                     </Link>
                 </li>
                 <li>
-                    <Link to='/home/clients' onClick={handleClickOpt} className='tab_clients'>
+                    <Link to='/home/myClients' onClick={handleClickOpt} className='tab_clients'>
                         <div>
                             <BiUserPin />
                         </div>
@@ -77,7 +77,7 @@ function TabBar({ tabOption }: Props) {
                     </Link>
                 </li>
                 <li>
-                    <Link to='/home/transactions' onClick={handleClickOpt} className='tab_transactions'>
+                    <Link to='/home/MyTransactions' onClick={handleClickOpt} className='tab_transactions'>
                         <div>
                             <BiMoneyWithdraw />
                         </div>

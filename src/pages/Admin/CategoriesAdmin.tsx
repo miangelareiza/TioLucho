@@ -17,40 +17,36 @@ import Swal from 'sweetalert2';
 import { Table, InputRef } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 
-interface Product {
+interface Category {
     Id: string
-    Category: string
     Name: string
-    Cost: number | string
-    Price: number | string
-    Active: boolean
 }
 
-interface GetProductsData {
-    products: Array<Product>;
+interface GetCategoriesData {
+    categories: Array<Category>;
     cod: string;
 }
 
-function Products() {
+function CategoriesAdmin() {
     const { setIsLoading, addToastr, setMenuConfig } = useAppStates();
     const { getApiData, postApiData } = useApi();
     const navigate = useNavigate();
     const [isLoadingData, setIsLoadingData] = useState(true);
-    const [products, setProducts] = useState<Array<Product>>([]);  
+    const [categories, setCategories] = useState<Array<Category>>([]);  
     const [searchedColumn, setSearchedColumn] = useState('');
     const searchInput = useRef<InputRef>(null);
     const MemoizedTiDelete = memo(TiDelete);
     const MemoizedEdit = memo(BiSolidMessageSquareEdit);
     const MemoizedDelete = memo(FaDeleteLeft);
 
-    const getProducts = useCallback(async () => {
+    const getCategories = useCallback(async () => {
         setIsLoadingData(true);
         try {
-            const data: GetProductsData = await getApiData('Product/GetProducts', true);
-            if (!data.products.length) {
-                addToastr('Registra tu primer producto', 'info');
+            const data: GetCategoriesData = await getApiData('Category/GetCategories', true);
+            if (!data.categories.length) {
+                addToastr('Registra tu primer categoria', 'info');
             }
-            setProducts(data.products);
+            setCategories(data.categories);
             setIsLoadingData(false);
         } catch (error: any) {
             addToastr(error.message, error.type || 'error');
@@ -69,62 +65,42 @@ function Products() {
         setTimeout(() => {
             setIsLoading(false);
         }, 300);
-        getProducts();
+        getCategories();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [window.location.href]);
     
-    const columns: ColumnsType<Product> = [
+    const columns: ColumnsType<Category> = [
         { 
             title: 'Nombre', 
-            width: 140,
+            width: 220,
             ...getTableColumnProps('Name', searchInput, searchedColumn, setSearchedColumn)
-        },
-        { 
-            title: 'Costo', 
-            width: 100,
-            ...getTableColumnProps('Cost', searchInput, searchedColumn, setSearchedColumn, 'money')
-        },
-        { 
-            title: 'Precio', 
-            width: 100,
-            ...getTableColumnProps('Price', searchInput, searchedColumn, setSearchedColumn, 'money')
-        },
-        { 
-            title: 'Categoría', 
-            width: 100,
-            ...getTableColumnProps('Category', searchInput, searchedColumn, setSearchedColumn)
-        },
-        { 
-            title: 'Activo', 
-            width: 100,
-            ...getTableColumnProps('Active', searchInput, searchedColumn, setSearchedColumn),
         },
         { 
             title: 'Acciones', 
             width: 110,
             render: (value) => (
                 <div className='table_action_container'>
-                    <MemoizedEdit size={30} color='var(--principal)' onClick={()=> handleEditProduct(value.Id)} />
-                    <MemoizedDelete size={30} color='var(--tertiary)' onClick={()=> handleDeleteProduct(value.Id)} />
+                    <MemoizedEdit size={30} color='var(--principal)' onClick={()=> handleEditCategory(value.Id)} />
+                    <MemoizedDelete size={30} color='var(--tertiary)' onClick={()=> handleDeleteCategory(value.Id)} />
                 </div>
             )
         }
     ];
 
-    const handleAddProduct = useCallback(() => {   
+    const handleAddCategory = useCallback(() => {   
         setIsLoading(true);
         navigate('new');
     }, [setIsLoading, navigate]);
 
-    const handleEditProduct = useCallback((id: string) => {
+    const handleEditCategory = useCallback((id: string) => {
         setIsLoading(true);
         navigate(`edit/${id}`);
     }, [setIsLoading, navigate]);
 
-    const handleDeleteProduct = useCallback(async (id: string) => {
+    const handleDeleteCategory = useCallback(async (id: string) => {
         const { isConfirmed } = await Swal.fire({
             html: `${renderToString(<MemoizedTiDelete size={130} color='var(--tertiary)' />)}
-                   <div style='font-size: 1.5rem; font-weight: 700;'>¿Estas seguro de <b style='color:var(--tertiary);'>Eliminar</b> el producto?</div>`,
+                   <div style='font-size: 1.5rem; font-weight: 700;'>¿Estas seguro de <b style='color:var(--tertiary);'>Eliminar</b> la categoría?</div>`,
             showCancelButton: true,
             confirmButtonColor: 'var(--tertiary)',
             confirmButtonText: 'Eliminar',
@@ -136,9 +112,9 @@ function Products() {
 
         if (isConfirmed) {
             try {
-                const body = { 'Product_Id': id};
-                const data: ResponseApi = await postApiData('Product/DeleteProduct', body, true, 'application/json');
-                setProducts(prevProducts => prevProducts.filter(product => product.Id !== id));              
+                const body = { 'Category_Id': id};
+                const data: ResponseApi = await postApiData('Category/DeleteCategory', body, true, 'application/json');
+                setCategories(prevCategories => prevCategories.filter(category => category.Id !== id));              
                 addToastr(data.rpta);
             } catch (error: any) {
                 addToastr(error.message, error.type || 'error');
@@ -149,17 +125,17 @@ function Products() {
     return (
         <>
             <Header />
-            <TitlePage image='products' title='Productos' />
+            <TitlePage image='categories' title='Categorías' />
 
-            <Button name='Agregar producto' type='button' onClick={handleAddProduct} icon='add' template='dark' />
+            <Button name='Agregar categoría' type='button' onClick={handleAddCategory} icon='add' template='dark' />
             
             <Table 
                 rowKey={record => record.Id}
-                dataSource={products}
+                dataSource={categories} 
                 columns={columns}
-                scroll={{x: 650}}
+                scroll={{x: 330}}
                 style={{marginBottom: '120px'}} 
-                pagination={{ pageSize: 20, position: ['bottomCenter'] }}
+                pagination={{ pageSize: 10, position: ['bottomCenter'] }}
                 loading={isLoadingData}
             />
 
@@ -168,4 +144,4 @@ function Products() {
     );
 }
 
-export { Products };
+export { CategoriesAdmin };

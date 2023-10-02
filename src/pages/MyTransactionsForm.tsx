@@ -18,7 +18,7 @@ interface NewTransactionData {
     IsIncome: boolean
 }
 
-function IncomeAndExpense() {
+function MyTransactionsForm() {
     const { setIsLoading, addToastr } = useAppStates();
     const { postApiData } = useApi();
     const navigate = useNavigate();
@@ -61,7 +61,7 @@ function IncomeAndExpense() {
                 };
                 const data: ResponseApi = await postApiData('CashTransaction/CreateCashTransaction', body, true, 'application/json');
                 addToastr(data.rpta);
-                navigate('/home/transactions');
+                navigate('/home/myTransactions');
             } catch (error: any) {
                 addToastr(error.message, error.type || 'error');
             }            
@@ -69,7 +69,7 @@ function IncomeAndExpense() {
     }, [urlSName, total, remark, urlName, postApiData, addToastr, navigate, MemoizedBsQuestionOctagonFill]);
 
     return (
-        <Modal isOpen={openModal} setIsOpen={setOpenModal} closeUrl='/home/transactions' name={`Registrar ${urlSName}`}>
+        <Modal isOpen={openModal} setIsOpen={setOpenModal} closeUrl='/home/myTransactions' name={`Registrar ${urlSName}`}>
             <form className='form_inputs' onSubmit={handleSubmit}>
                 <Input type='money' value={total} setValue={setTotal} name='Valor' />
                 <Input type='textarea' value={remark} setValue={setRemark} name='Comentario' /> 
@@ -80,4 +80,4 @@ function IncomeAndExpense() {
     );
 }
 
-export { IncomeAndExpense };
+export { MyTransactionsForm };

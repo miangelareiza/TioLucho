@@ -17,37 +17,46 @@ import Swal from 'sweetalert2';
 import { Table, InputRef } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 
-interface Route {
+interface User {
     Id: string
-    Name: string
-    Description: string
+    Role: string,
+    Route: string,
+    ImageUrl: string,
+    Name: string,
+    User: string,
+    Document: string,
+    Email: string,
+    Phone: string,
+    BirthDay: string,
+    Gender: string,
+    Active: boolean,
 }
 
-interface GetRoutesData {
-    routes: Array<Route>;
+interface GetUsersData {
+    users: Array<User>;
     cod: string;
 }
 
-function Routes() {
+function UsersAdmin() {
     const { setIsLoading, addToastr, setMenuConfig } = useAppStates();
     const { getApiData, postApiData } = useApi();
     const navigate = useNavigate();
     const [isLoadingData, setIsLoadingData] = useState(true);
-    const [routes, setRoutes] = useState<Array<Route>>([]);  
+    const [users, setUsers] = useState<Array<User>>([]);
     const [searchedColumn, setSearchedColumn] = useState('');
     const searchInput = useRef<InputRef>(null);
     const MemoizedTiDelete = memo(TiDelete);
     const MemoizedEdit = memo(BiSolidMessageSquareEdit);
     const MemoizedDelete = memo(FaDeleteLeft);
 
-    const getRoutes = useCallback(async () => {
+    const getUsers = useCallback(async () => {
         setIsLoadingData(true);
         try {
-            const data: GetRoutesData = await getApiData('Route/GetRoutes', true);
-            if (!data.routes.length) {
-                addToastr('Registra tu primer ruta', 'info');
+            const data: GetUsersData = await getApiData('User/GetUsers', true);
+            if (!data.users.length) {
+                addToastr('Registra tu primer usuario', 'info');
             }
-            setRoutes(data.routes);
+            setUsers(data.users);
             setIsLoadingData(false);
         } catch (error: any) {
             addToastr(error.message, error.type || 'error');
@@ -66,47 +75,92 @@ function Routes() {
         setTimeout(() => {
             setIsLoading(false);
         }, 300);
-        getRoutes();
+        getUsers();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [window.location.href]);
     
-    const columns: ColumnsType<Route> = [
+    const columns: ColumnsType<User> = [
+        { 
+            title: 'Foto', 
+            width: 80,
+            ...getTableColumnProps('ImageUrl', searchInput, searchedColumn, setSearchedColumn, 'photo')
+        },
         { 
             title: 'Nombre', 
             width: 120,
             ...getTableColumnProps('Name', searchInput, searchedColumn, setSearchedColumn)
         },
         { 
-            title: 'Descripción', 
-            width: 140,
-            ...getTableColumnProps('Description', searchInput, searchedColumn, setSearchedColumn)
+            title: 'Rol',
+            width: 80, 
+            ...getTableColumnProps('Role', searchInput, searchedColumn, setSearchedColumn)
+        },
+        { 
+            title: 'Ruta', 
+            width: 110,
+            ...getTableColumnProps('Route', searchInput, searchedColumn, setSearchedColumn)
+        },
+        { 
+            title: 'Usuario', 
+            width: 110,
+            ...getTableColumnProps('User', searchInput, searchedColumn, setSearchedColumn)
+        },
+        { 
+            title: 'Documento', 
+            width: 130,
+            ...getTableColumnProps('Document', searchInput, searchedColumn, setSearchedColumn)
+        },
+        { 
+            title: 'Correo', 
+            width: 130,
+            ...getTableColumnProps('Email', searchInput, searchedColumn, setSearchedColumn),
+        },
+        { 
+            title: 'Teléfono', 
+            width: 130,
+            ...getTableColumnProps('Phone', searchInput, searchedColumn, setSearchedColumn),
+        },
+        { 
+            title: 'Cumpleaños', 
+            width: 120,
+            ...getTableColumnProps('BirthDay', searchInput, searchedColumn, setSearchedColumn, 'date')
+        },
+        { 
+            title: 'Genero', 
+            width: 100,
+            ...getTableColumnProps('Gender', searchInput, searchedColumn, setSearchedColumn)
+        },
+        { 
+            title: 'Activo', 
+            width: 100,
+            ...getTableColumnProps('Active', searchInput, searchedColumn, setSearchedColumn)
         },
         { 
             title: 'Acciones', 
             width: 110,
             render: (value) => (
                 <div className='table_action_container'>
-                    <MemoizedEdit size={30} color='var(--principal)' onClick={()=> handleEditRoute(value.Id)} />
-                    <MemoizedDelete size={30} color='var(--tertiary)' onClick={()=> handleDeleteRoute(value.Id)} />
+                    <MemoizedEdit size={30} color='var(--principal)' onClick={()=> handleEditUser(value.Id)} />
+                    <MemoizedDelete size={30} color='var(--tertiary)' onClick={()=> handleDeleteUser(value.Id)} />
                 </div>
             )
         }
     ];
 
-    const handleAddRoute = useCallback(() => {   
+    const handleAddUser = useCallback(() => {   
         setIsLoading(true);
         navigate('new');
     }, [setIsLoading, navigate]);
 
-    const handleEditRoute = useCallback((id: string) => {
+    const handleEditUser = useCallback((id: string) => {
         setIsLoading(true);
         navigate(`edit/${id}`);
     }, [setIsLoading, navigate]);
 
-    const handleDeleteRoute = useCallback(async (id: string) => {
+    const handleDeleteUser = useCallback(async (id: string) => {
         const { isConfirmed } = await Swal.fire({
             html: `${renderToString(<MemoizedTiDelete size={130} color='var(--tertiary)' />)}
-                   <div style='font-size: 1.5rem; font-weight: 700;'>¿Estas seguro de <b style='color:var(--tertiary);'>Eliminar</b> la ruta?</div>`,
+                   <div style='font-size: 1.5rem; font-weight: 700;'>¿Estas seguro de <b style='color:var(--tertiary);'>Eliminar</b> el usuario?</div>`,
             showCancelButton: true,
             confirmButtonColor: 'var(--tertiary)',
             confirmButtonText: 'Eliminar',
@@ -118,9 +172,9 @@ function Routes() {
 
         if (isConfirmed) {
             try {
-                const body = { 'Route_Id': id};
-                const data: ResponseApi = await postApiData('Route/DeleteRoute', body, true, 'application/json');
-                setRoutes(prevRoutes => prevRoutes.filter(route => route.Id !== id));              
+                const body = { 'User_Id': id };
+                const data: ResponseApi = await postApiData('User/DeleteUser', body, true, 'application/json');
+                setUsers(prevUsers => prevUsers.filter(user => user.Id !== id));              
                 addToastr(data.rpta);
             } catch (error: any) {
                 addToastr(error.message, error.type || 'error');
@@ -131,15 +185,15 @@ function Routes() {
     return (
         <>
             <Header />
-            <TitlePage image='routes' title='Rutas' />
+            <TitlePage image='users' title='Usuarios' />
 
-            <Button name='Agregar ruta' type='button' onClick={handleAddRoute} icon='add' template='dark' />
+            <Button name='Agregar usuario' type='button' onClick={handleAddUser} icon='add' template='dark' />
             
             <Table 
                 rowKey={record => record.Id}
-                dataSource={routes} 
+                dataSource={users} 
                 columns={columns}
-                scroll={{x: 370}}
+                scroll={{x: 1210}}
                 style={{marginBottom: '120px'}} 
                 pagination={{ pageSize: 10, position: ['bottomCenter'] }}
                 loading={isLoadingData}
@@ -150,4 +204,4 @@ function Routes() {
     );
 }
 
-export { Routes };
+export { UsersAdmin };
