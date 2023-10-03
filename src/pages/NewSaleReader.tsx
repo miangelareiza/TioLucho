@@ -14,6 +14,7 @@ function NewSaleReader() {
     const [loadingDevices, setLoadingDevices] = useState(true);
 
     useEffect(() => {
+        handleCamera();
         document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#F2A819');
         document.querySelector('meta[name="background-color"]')?.setAttribute('content', '#F2A819');
         setMenuConfig({
@@ -22,31 +23,31 @@ function NewSaleReader() {
         
         setTimeout(() => {
             setIsLoading(false);
-            selectCamera();      
         }, 300);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const selectCamera = async () => {
-        try {
-            const devices = await navigator.mediaDevices.enumerateDevices();
-            const videoDevices = devices.filter((device) => device.kind === 'videoinput');
-            setDevices(videoDevices);
-            if (!videoDevices.length) {
-                selectCamera();
-                return;    
-            }
+    const handleCamera = async () => {
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
 
-            if (videoDevices.length > 1) {
-                setCameraId(videoDevices[1].deviceId);
-            } else {
-                setCameraId(videoDevices[0].deviceId);
-            }
-        } catch (error) {
-            console.error('Error al obtener los dispositivos de video:', error);
-            alert('error en los dispositivos de video')
-        } finally {
-            setLoadingDevices(false);
+            navigator.mediaDevices.getUserMedia({ video: true }).then(async(stream) => {
+                const devices = await navigator.mediaDevices.enumerateDevices();
+                const videoDevices = devices.filter((device) => device.kind === 'videoinput');
+                setDevices(videoDevices);
+
+                if (videoDevices.length > 1) {
+                    setCameraId(videoDevices[1].deviceId);
+                } else {
+                    setCameraId(videoDevices[0].deviceId);
+                }
+                setLoadingDevices(false);
+            }).catch(() => {
+                console.error('Error al obtener permiso para los dispositivos de video');
+                navigate('/home');
+            });
+        } else {
+            addToastr('Tu dispositivo no cuenta con dispositivos de video', 'info');
+            navigate('/home');
         }
     };
 
