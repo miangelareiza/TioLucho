@@ -7,7 +7,8 @@ import { getTableColumnProps } from '../../helpers/functions';
 import { Header } from '../../components/Header';
 import { TitlePage } from '../../components/TitlePage';
 // Sources
-import { Table, InputRef } from 'antd';
+import { DownOutlined } from '@ant-design/icons';
+import { Table, InputRef, Badge, Space, Dropdown } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 
 interface Detail {
@@ -34,6 +35,13 @@ interface GetSalesData {
     cod: string;
 }
 
+interface ExpandedDataType {
+    key: React.Key;
+    date: string;
+    name: string;
+    upgradeNum: string;
+  }
+  
 function SalesAdmin() {
     const { setIsLoading, addToastr, setMenuConfig } = useAppStates();
     const { getApiData } = useApi();
@@ -105,33 +113,67 @@ function SalesAdmin() {
         }
     ];
 
-    const expandedRowRender = (sale: Sale) => {
-        const columns: ColumnsType<Detail> = [
-            {
-                title: 'Producto',
-                ...getTableColumnProps('Product', searchInput, searchedColumn, setSearchedColumn)
-            },
-            { 
-                title: 'Venta',
-                ...getTableColumnProps('Sale', searchInput, searchedColumn, setSearchedColumn)
-            },
-            { 
-                title: 'Cambios',
-                ...getTableColumnProps('Change', searchInput, searchedColumn, setSearchedColumn)
-            },
-            { 
-                title: 'Total',
-                ...getTableColumnProps('Total', searchInput, searchedColumn, setSearchedColumn, 'money')
-            }         
+    // const detailsColumns: ColumnsType<Detail> = [
+    //     {
+    //         title: 'Producto',
+    //         ...getTableColumnProps('Product', searchInput, searchedColumn, setSearchedColumn)
+    //     },
+    //     { 
+    //         title: 'Venta',
+    //         ...getTableColumnProps('Sale', searchInput, searchedColumn, setSearchedColumn)
+    //     },
+    //     { 
+    //         title: 'Cambios',
+    //         ...getTableColumnProps('Change', searchInput, searchedColumn, setSearchedColumn)
+    //     },
+    //     { 
+    //         title: 'Total',
+    //         ...getTableColumnProps('Total', searchInput, searchedColumn, setSearchedColumn, 'money')
+    //     }         
+    // ];
+
+    const expandedRowRender = () => {        
+        const items = [
+            { key: '1', label: 'Action 1' },
+            { key: '2', label: 'Action 2' },
         ];
-        return (
-            <Table 
-                // rowKey={record => record.Id}
-                dataSource={sale.Details} 
-                columns={columns} 
-                pagination={false} 
-            />
-        )
+        const columns: ColumnsType<ExpandedDataType> = [
+            { title: 'Date', dataIndex: 'date', key: 'date' },
+            { title: 'Name', dataIndex: 'name', key: 'name' },
+            {
+                title: 'Status',
+                key: 'state',
+                render: () => <Badge status="success" text="Finished" />,
+            },
+            { title: 'Upgrade Status', dataIndex: 'upgradeNum', key: 'upgradeNum' },
+            {
+                title: 'Action',
+                dataIndex: 'operation',
+                key: 'operation',
+                render: () => (
+                <Space size="middle">
+                    <a>Pause</a>
+                    <a>Stop</a>
+                    <Dropdown menu={{ items }}>
+                    <a>
+                        More <DownOutlined />
+                    </a>
+                    </Dropdown>
+                </Space>
+                ),
+            },
+        ];
+    
+        const data = [];
+        for (let i = 0; i < 3; ++i) {
+            data.push({
+                key: i.toString(),
+                date: '2014-12-24 23:12:00',
+                name: 'This is production name',
+                upgradeNum: 'Upgraded: 56',
+            });
+        }
+        return <Table columns={columns} dataSource={data} pagination={false} />;
     };
 
     return (
@@ -143,10 +185,10 @@ function SalesAdmin() {
                 rowKey={record => record.Id}
                 dataSource={sales}
                 columns={columns}
-                expandable={{
-                    expandedRowRender,
-                    defaultExpandedRowKeys: ['0']
-                }}
+                // expandable={{
+                //     expandedRowRender: (record) => <p style={{ margin: 0 }}>{record.Details.toString()}</p>                   
+                // }}
+                expandable={{ expandedRowRender, defaultExpandedRowKeys: ['0'] }}
                 scroll={{x: 680}}
                 style={{marginBottom: '120px'}}
                 pagination={{ pageSize: 10, position: ['bottomCenter'] }}
