@@ -32,6 +32,10 @@ function NewSaleReader() {
             const devices = await navigator.mediaDevices.enumerateDevices();
             const videoDevices = devices.filter((device) => device.kind === 'videoinput');
             setDevices(videoDevices);
+            if (!videoDevices.length) {
+                selectCamera();
+                return;    
+            }
 
             if (videoDevices.length > 1) {
                 setCameraId(videoDevices[1].deviceId);
@@ -68,7 +72,7 @@ function NewSaleReader() {
     return (
         <div className='container_qr_reader'>
             <Header />
-            <h3>Lector QR</h3>
+            <h3>Lector</h3>
 
             <div className='device_selector'>
                 { !loadingDevices &&
