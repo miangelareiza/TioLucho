@@ -85,7 +85,7 @@ function NewSaleReader() {
             </div>
 
             <div className='qrReader'>
-                { loadingDevices &&
+                { !loadingDevices &&
                     <QrReader
                         delay={300}
                         onError={handleError}
