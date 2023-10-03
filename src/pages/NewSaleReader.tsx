@@ -37,6 +37,8 @@ function NewSaleReader() {
 
             if (videoDevices.length > 1) {
                 setCameraId(videoDevices[1].deviceId);
+            } else {
+                setCameraId(videoDevices[0].deviceId);
             }
         } catch (error) {
             console.error('Error al obtener los dispositivos de video:', error);
@@ -83,7 +85,7 @@ function NewSaleReader() {
             </div>
 
             <div className='qrReader'>
-                { loadingDevices ? <p>Cargando lector</p> :
+                { loadingDevices &&
                     <QrReader
                         delay={300}
                         onError={handleError}
