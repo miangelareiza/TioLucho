@@ -27,7 +27,6 @@ function Home() {
             <Header />            
             <TitlePage image='liquidations' title='Preliquidación' />
             
-            
         </>
     );
 }

@@ -4,12 +4,13 @@ import { useParams } from 'react-router-dom';
 import { renderToString } from 'react-dom/server';
 import { BsQuestionOctagonFill } from 'react-icons/bs';
 import { FaShoppingCart } from 'react-icons/fa';
-import { MdContentPasteOff } from 'react-icons/md';
+import { MdContentPasteOff, MdOutlinePointOfSale } from 'react-icons/md';
 
 // Components
 import { useAppStates } from '../helpers/states';
 import { useApi } from '../helpers/api';
-import { transformToOptions } from '../helpers/functions';
+import { useAuth } from '../helpers/auth';
+import { formatDateTime, transformToOptions, valueToCurrency } from '../helpers/functions';
 import { Header } from '../components/Header';
 import { TitlePage } from '../components/TitlePage';
 import { Input } from '../components/Input';
@@ -19,6 +20,7 @@ import { Card } from '../components/Card';
 import '../styles/NewSale.css'
 // Sources
 import Swal from 'sweetalert2';
+import jsPDF from 'jspdf';
 
 interface Product {
     Id: string
@@ -47,6 +49,7 @@ interface ProductsBySale {
 function NewSale() {     
     const { setIsLoading, addToastr, setMenuConfig, newId } = useAppStates();
     const { getApiData, postApiData } = useApi();
+    const { user } = useAuth();
     const navigate = useNavigate();
     const [client, setClient] = useState<any>();
     const [notSale, setNotSale] = useState<any>('');
@@ -248,6 +251,44 @@ function NewSale() {
     //     }, 500);
     // }, [user, client, productsBySale, totalInvoice, remarksInvoice]);
 
+    const handlePDF = useCallback((serial: string) => {
+        const details = productsBySale.map(detail => 
+            `<div>
+                <h4 style='margin: 0;font-size: .9rem;display: flex;justify-content: space-between;'>${detail.Name}: <b>X${detail.Sale}</b></h4>
+                <p style='margin: 2px 0 0;font-size: .8rem;display: flex;justify-content: space-between;'>Cambios: ${detail.Change} <b style='font-size: .9rem;'>${valueToCurrency(detail.Total)}</b></p>
+                <hr>
+            </div>`
+        ).join('');
+
+        const htmlInvoice = `
+            <head>
+                <title>Factura ${client ? client.Name : 'Factura regular'}</title>
+            </head>
+            <body style='margin: 0;padding: 0;'>
+                <div style='width: 48mm;display: flex;flex-direction: column;'>
+                    <h1 style='font-size: 1.3rem;margin: 0 auto;'>Factura: # ${serial.toString().padStart(5, '0')}</h1>
+                    ${renderToString(<MdOutlinePointOfSale size={40} color='#000' style={{margin:'2px auto'}}/>)}
+                    <p style='margin: 0;font-size: .8rem;'><b style='margin-right: 10px;'>Cliente:</b>${client ? client.Name : 'Factura regular'}</p>
+                    <p style='margin: 0;font-size: .8rem;'><b style='margin-right: 10px;'>Fecha:</b>${formatDateTime(new Date().toString()).date}</p>
+                    <p style='margin: 0;font-size: .8rem;'><b style='margin-right: 10px;'>Hora:</b>${formatDateTime(new Date().toString()).time}</p>
+                    <p style='margin: 0;font-size: .8rem;'><b style='margin-right: 10px;'>Vendedor:</b>${user?.name}</p>
+                    <h2 style='font-size: 1.2rem;margin: 5px auto;'>Detalles</h2>
+                    ${details}
+                    <h4 style='margin: 4px 0 0;font-size: 1.3rem;display: flex;justify-content: space-between;'>Total:<b>${valueToCurrency(totalInvoice)}</b></h4>
+                    <p style='margin: 5px 0;font-size: .8rem;'>${remarksInvoice}</p>
+                </div>
+            </body>
+        `;
+        const pdf = new jsPDF();
+        pdf.html(htmlInvoice, {
+            callback: () => {
+                setTimeout(() => {
+                    pdf.save(`${client.Name} - ${formatDateTime(new Date().toString()).date}`);
+                }, 500);
+            }
+        });
+    }, [user, client, productsBySale, totalInvoice, remarksInvoice]);
+
     const handleSubmit: React.FormEventHandler = useCallback(async (e) => {
         e.preventDefault();
         const { isConfirmed } = await Swal.fire({
@@ -278,12 +319,13 @@ function NewSale() {
                 addToastr(data.rpta);
 
                 // handlePrint(data.serial);
-                navigate('/home');
+                handlePDF(data.serial);
+                // navigate('/home');
             } catch (error: any) {
                 addToastr(error.message, error.type || 'error');
             }
         }
-    }, [addToastr, params, remarksInvoice, productsBySale, client, postApiData, transformProductsByOrder, navigate, MemoizedBsQuestionOctagonFill])
+    }, [addToastr, params, remarksInvoice, productsBySale, client, postApiData, transformProductsByOrder, handlePDF, navigate, MemoizedBsQuestionOctagonFill])
     
     return (
         <>

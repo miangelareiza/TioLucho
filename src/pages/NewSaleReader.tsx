@@ -43,7 +43,9 @@ function NewSaleReader() {
                 } else {
                     setCameraId(videoDevices[0].deviceId);
                 }
-                setLoadingDevices(false);
+                setTimeout(() => {
+                    setLoadingDevices(false);
+                }, 500);
             }).catch(() => {
                 console.error('Error al obtener permiso para los dispositivos de video');
                 navigate('/home');
@@ -60,7 +62,7 @@ function NewSaleReader() {
     };    
 
     const handleScan = (data: any) => {
-        if (data) {debugger
+        if (data) {
             if (data.text !== prevScan) {
                 const audio = new Audio(barcodeAudio);
                 audio.play();                
@@ -76,7 +78,7 @@ function NewSaleReader() {
     };
 
     const handleError = (err: any) => {
-        console.error(err);
+        addToastr(err, 'error');
     };
 
     return (
