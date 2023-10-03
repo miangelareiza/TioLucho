@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 // Components
 import { useAppStates } from '../helpers/states';
 import { Header } from '../components/Header';
+import { TitlePage } from '../components/TitlePage';
 
 function Home() {
     const { setIsLoading, setMenuConfig } = useAppStates();
@@ -23,7 +24,9 @@ function Home() {
 
     return (
         <>
-            <Header />
+            <Header />            
+            <TitlePage image='liquidations' title='Preliquidación' />
+            
             
         </>
     );
