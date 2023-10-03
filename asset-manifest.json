@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.a993fa0e.css",
-    "main.js": "/static/js/main.8abde934.js",
+    "main.js": "/static/js/main.371eafb3.js",
     "static/js/787.12944412.chunk.js": "/static/js/787.12944412.chunk.js",
     "static/media/Logo.png": "/static/media/Logo.2e6fecf689aad6dc077d.png",
     "static/media/LogoQr.png": "/static/media/LogoQr.afd14938febf93ef90c6.png",
@@ -9,6 +9,7 @@
     "service-worker.js": "/service-worker.js",
     "static/media/Sales.svg": "/static/media/Sales.1d6e5ee64e644d619ccc61b6d2723d1e.svg",
     "static/media/Inventory.svg": "/static/media/Inventory.41d4d9398917d0179681dcf0a1a16a73.svg",
+    "static/media/barcode.wav": "/static/media/barcode.6d5ecb9614d3bdd9b4b4.wav",
     "static/media/Clients.svg": "/static/media/Clients.4b9798e22a81a3bf9c1493687f60e27f.svg",
     "static/media/Users.svg": "/static/media/Users.84e8da71afef95e59b35e13a77961cec.svg",
     "static/media/Routes.svg": "/static/media/Routes.3e48f4680eeef21e61627ad0cc88d1e8.svg",
@@ -33,11 +34,11 @@
     "static/media/Upload.svg": "/static/media/Upload.f9b824bdb27ddca1e132.svg",
     "static/media/Menu1.svg": "/static/media/Menu1.d4e4fdc2c2bb4744a85ea39d260b4ec6.svg",
     "main.a993fa0e.css.map": "/static/css/main.a993fa0e.css.map",
-    "main.8abde934.js.map": "/static/js/main.8abde934.js.map",
+    "main.371eafb3.js.map": "/static/js/main.371eafb3.js.map",
     "787.12944412.chunk.js.map": "/static/js/787.12944412.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a993fa0e.css",
-    "static/js/main.8abde934.js"
+    "static/js/main.371eafb3.js"
   ]
 }
