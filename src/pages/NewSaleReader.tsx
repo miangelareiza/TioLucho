@@ -6,7 +6,7 @@ import QrReader from 'react-qr-scanner';
 import { useAppStates } from '../helpers/states';
 import { Header } from '../components/Header';
 // Sources
-import barcodeAudio from '../assets/sounds/barcode.wav';
+import AudioQR from '../assets/sounds/barcode.wav';
 
 function NewSaleReader() {
     const { setIsLoading, addToastr, setMenuConfig } = useAppStates();
@@ -31,13 +31,12 @@ function NewSaleReader() {
     }, []);
 
     const handleCamera = async () => {
-        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-
-            navigator.mediaDevices.getUserMedia({ video: true }).then(async(stream) => {
+        try {
+            if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
                 const devices = await navigator.mediaDevices.enumerateDevices();
                 const videoDevices = devices.filter((device) => device.kind === 'videoinput');
                 setDevices(videoDevices);
-
+                
                 if (videoDevices.length > 1) {
                     setCameraId(videoDevices[1].deviceId);
                 } else {
@@ -46,12 +45,18 @@ function NewSaleReader() {
                 setTimeout(() => {
                     setLoadingDevices(false);
                 }, 500);
-            }).catch(() => {
-                console.error('Error al obtener permiso para los dispositivos de video');
+            } else {
+                addToastr('Tu dispositivo no cuenta con dispositivos de video', 'info');
                 navigate('/home');
-            });
-        } else {
-            addToastr('Tu dispositivo no cuenta con dispositivos de video', 'info');
+            }
+        } catch (error: any) {
+            if (error.name === 'NotAllowedError') {
+                addToastr('Permiso denegado para acceder a la cámara', 'info');
+            } else if (error.name === 'NotFoundError') {
+                addToastr('No se encontraron dispositivos de cámara', 'info');
+            } else {
+                addToastr('Error al obtener permiso para los dispositivos de video', 'info');
+            }    
             navigate('/home');
         }
     };
@@ -59,12 +64,12 @@ function NewSaleReader() {
     const handleCameraChange = (event: any) => {
         const selectedCameraId = event.target.value;
         setCameraId(selectedCameraId);
-    };    
+    };
 
     const handleScan = (data: any) => {
         if (data) {
             if (data.text !== prevScan) {
-                const audio = new Audio(barcodeAudio);
+                const audio = new Audio(AudioQR);
                 audio.play();                
                 setPrevScan(data.text);
 
