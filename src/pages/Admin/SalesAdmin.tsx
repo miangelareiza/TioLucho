@@ -95,7 +95,7 @@ function SalesAdmin() {
         },
         { 
             title: 'Comentarios', 
-            width: 140,
+            width: 150,
             ...getTableColumnProps('Remark', searchInput, searchedColumn, setSearchedColumn)
         },
         { 
@@ -144,7 +144,7 @@ function SalesAdmin() {
                         />
                     )                   
                 }}
-                scroll={{x: 680}}
+                scroll={{x: 790}}
                 style={{marginBottom: '120px'}}
                 pagination={{ pageSize: 10, position: ['bottomCenter'] }}
                 loading={isLoadingData}

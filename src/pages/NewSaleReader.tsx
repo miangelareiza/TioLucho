@@ -83,12 +83,14 @@ function NewSaleReader() {
             </div>
 
             <div className='qrReader'>
-                <QrReader
-                    delay={300}
-                    onError={handleError}
-                    onScan={handleScan}
-                    constraints={{ audio: false, video: { deviceId: cameraId }}}
-                />
+                { loadingDevices ? <p>Cargando lector</p> :
+                    <QrReader
+                        delay={300}
+                        onError={handleError}
+                        onScan={handleScan}
+                        constraints={{ audio: false, video: { deviceId: cameraId }}}
+                    />
+                }
             </div>
         </div>
     );

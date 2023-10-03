@@ -4,13 +4,12 @@ import { useParams } from 'react-router-dom';
 import { renderToString } from 'react-dom/server';
 import { BsQuestionOctagonFill } from 'react-icons/bs';
 import { FaShoppingCart } from 'react-icons/fa';
-import { MdContentPasteOff, MdOutlinePointOfSale } from 'react-icons/md';
+import { MdContentPasteOff } from 'react-icons/md';
 
 // Components
 import { useAppStates } from '../helpers/states';
 import { useApi } from '../helpers/api';
-import { useAuth } from '../helpers/auth';
-import { formatDateTime, transformToOptions, valueToCurrency } from '../helpers/functions';
+import { transformToOptions } from '../helpers/functions';
 import { Header } from '../components/Header';
 import { TitlePage } from '../components/TitlePage';
 import { Input } from '../components/Input';
@@ -41,12 +40,12 @@ interface ProductsBySale {
     Name: string
     Sale: number
     Change: number
+    Price: number
     Total: number
 }
 
 function NewSale() {     
     const { setIsLoading, addToastr, setMenuConfig, newId } = useAppStates();
-    const { user } = useAuth();
     const { getApiData, postApiData } = useApi();
     const navigate = useNavigate();
     const [client, setClient] = useState<any>();
@@ -56,6 +55,7 @@ function NewSale() {
     const [change, setChange] = useState(0);
     const [remarksInvoice, setRemarksInvoice] = useState('');
     const [totalInvoice, setTotalInvoice] = useState(0);
+    const [price, setPrice] = useState(0);
     const [optsProducts, setOptsProduct] = useState<Array<Product>>([]);
     const [productsBySale, setProductBySale] = useState<Array<ProductsBySale>>([]);
     const MemoizedBsQuestionOctagonFill = memo(BsQuestionOctagonFill);
@@ -158,6 +158,10 @@ function NewSale() {
             addToastr('Ya agregaste este producto a la factura', 'info');
             return
         }
+        if (client.Delivery && !price.toString().replace(/[^0-9]/g, '')) {
+            addToastr('El precio es obligatiorio', 'info');            
+            return;
+        }
 
         try {
             const body = { Product_Id: product.value };
@@ -167,13 +171,15 @@ function NewSale() {
                 return;
             }
 
-            const prod = product.complete;        
-            const newProducts: Array<ProductsBySale> = [...productsBySale, { Id: newId(), Product: prod.Id, Name: prod.Name, Sale: Number(sale), Change: Number(change), Total: prod.Price * sale}];
+            const prod = product.complete;
+            const subTotal = client.Delivery ? Number(price.toString().replace(/[^0-9]/g, '')) * sale : prod.Price * sale
+            const newProducts: Array<ProductsBySale> = [...productsBySale, { Id: newId(), Product: prod.Id, Name: prod.Name, Sale: Number(sale), Change: Number(change), Price: Number(price.toString().replace(/[^0-9]/g, '')), Total: subTotal}];
             setProductBySale(newProducts);
     
             setProduct('');
             setSale(0);
             setChange(0);
+            setPrice(0);
     
             const total = newProducts.reduce((acc, product) => {
                 return acc + product.Total;
@@ -183,7 +189,7 @@ function NewSale() {
         } catch (error: any) {
             addToastr(error.message, error.type || 'error');
         }
-    }, [addToastr, postApiData, newId, product, sale, change, productsBySale]);
+    }, [addToastr, postApiData, client, newId, product, sale, change, price, productsBySale]);
 
     const handleDelete = useCallback((id: string) => {
         const newProducts = productsBySale.filter( product => product.Id !== id);
@@ -200,46 +206,47 @@ function NewSale() {
 			return {
 				ProductFk: option.Product,
 				IntSale: option.Sale,
-                IntChange: option.Change
+                IntChange: option.Change,
+                DePrice: Number(option.Price.toString().replace(/[^0-9]/g, ''))
 			};
 		});
 	}, []);
 
-    const handlePrint = useCallback((serial: string) => {
-        const details = productsBySale.map(detail => 
-            `<div>
-                <h4 style='margin: 0;font-size: .9rem;display: flex;justify-content: space-between;'>${detail.Name}: <b>X${detail.Sale}</b></h4>
-                <p style='margin: 2px 0 0;font-size: .8rem;display: flex;justify-content: space-between;'>Cambios: ${detail.Change} <b style='font-size: .9rem;'>${valueToCurrency(detail.Total)}</b></p>
-                <hr>
-            </div>`
-        ).join('');
+    // const handlePrint = useCallback((serial: string) => {
+    //     const details = productsBySale.map(detail => 
+    //         `<div>
+    //             <h4 style='margin: 0;font-size: .9rem;display: flex;justify-content: space-between;'>${detail.Name}: <b>X${detail.Sale}</b></h4>
+    //             <p style='margin: 2px 0 0;font-size: .8rem;display: flex;justify-content: space-between;'>Cambios: ${detail.Change} <b style='font-size: .9rem;'>${valueToCurrency(detail.Total)}</b></p>
+    //             <hr>
+    //         </div>`
+    //     ).join('');
         
-        const newWindow = window.open('print', `Factura ${client ? client.Name : 'Factura regular'}`, 'width=500,height=500'); 
-        newWindow?.document.write(`
-        <head>
-            <title>Factura ${client ? client.Name : 'Factura regular'}</title>
-        </head>
-        <body style='margin: 0;padding: 0;'>
-            <div style='width: 48mm;display: flex;flex-direction: column;'>
-                <h1 style='font-size: 1.3rem;margin: 0 auto;'>Factura: # ${serial.toString().padStart(5, '0')}</h1>
-                ${renderToString(<MdOutlinePointOfSale size={40} color='#000' style={{margin:'2px auto'}}/>)}
-                <p style='margin: 0;font-size: .8rem;'><b style='margin-right: 10px;'>Cliente:</b>${client ? client.Name : 'Factura regular'}</p>
-                <p style='margin: 0;font-size: .8rem;'><b style='margin-right: 10px;'>Fecha:</b>${formatDateTime(new Date().toString()).date}</p>
-                <p style='margin: 0;font-size: .8rem;'><b style='margin-right: 10px;'>Hora:</b>${formatDateTime(new Date().toString()).time}</p>
-                <p style='margin: 0;font-size: .8rem;'><b style='margin-right: 10px;'>Vendedor:</b>${user?.name}</p>
-                <h2 style='font-size: 1.2rem;margin: 5px auto;'>Detalles</h2>
-                ${details}
-                <h4 style='margin: 4px 0 0;font-size: 1.3rem;display: flex;justify-content: space-between;'>Total:<b>${valueToCurrency(totalInvoice)}</b></h4>
-                <p style='margin: 5px 0;font-size: .8rem;'>${remarksInvoice}</p>
-            </div>
-        </body>`);
-        setTimeout(() => {
-            newWindow?.document.close();
-            newWindow?.focus();
-            newWindow?.print();
-            newWindow?.close();            
-        }, 500);
-    }, [user, client, productsBySale, totalInvoice, remarksInvoice]);
+    //     const newWindow = window.open('print', `Factura ${client ? client.Name : 'Factura regular'}`, 'width=500,height=500'); 
+    //     newWindow?.document.write(`
+    //     <head>
+    //         <title>Factura ${client ? client.Name : 'Factura regular'}</title>
+    //     </head>
+    //     <body style='margin: 0;padding: 0;'>
+    //         <div style='width: 48mm;display: flex;flex-direction: column;'>
+    //             <h1 style='font-size: 1.3rem;margin: 0 auto;'>Factura: # ${serial.toString().padStart(5, '0')}</h1>
+    //             ${renderToString(<MdOutlinePointOfSale size={40} color='#000' style={{margin:'2px auto'}}/>)}
+    //             <p style='margin: 0;font-size: .8rem;'><b style='margin-right: 10px;'>Cliente:</b>${client ? client.Name : 'Factura regular'}</p>
+    //             <p style='margin: 0;font-size: .8rem;'><b style='margin-right: 10px;'>Fecha:</b>${formatDateTime(new Date().toString()).date}</p>
+    //             <p style='margin: 0;font-size: .8rem;'><b style='margin-right: 10px;'>Hora:</b>${formatDateTime(new Date().toString()).time}</p>
+    //             <p style='margin: 0;font-size: .8rem;'><b style='margin-right: 10px;'>Vendedor:</b>${user?.name}</p>
+    //             <h2 style='font-size: 1.2rem;margin: 5px auto;'>Detalles</h2>
+    //             ${details}
+    //             <h4 style='margin: 4px 0 0;font-size: 1.3rem;display: flex;justify-content: space-between;'>Total:<b>${valueToCurrency(totalInvoice)}</b></h4>
+    //             <p style='margin: 5px 0;font-size: .8rem;'>${remarksInvoice}</p>
+    //         </div>
+    //     </body>`);
+    //     setTimeout(() => {
+    //         newWindow?.document.close();
+    //         newWindow?.focus();
+    //         newWindow?.print();
+    //         newWindow?.close();            
+    //     }, 500);
+    // }, [user, client, productsBySale, totalInvoice, remarksInvoice]);
 
     const handleSubmit: React.FormEventHandler = useCallback(async (e) => {
         e.preventDefault();
@@ -264,18 +271,19 @@ function NewSale() {
                 const body = {
                     Client_Id: params.clientId,
                     Remark: remarksInvoice,
-                    productsByInvoice: transformProductsByOrder(productsBySale)
+                    ProductsByInvoice: transformProductsByOrder(productsBySale),
+                    Delivery: client.Delivery
                 };
                 const data = await postApiData('Invoice/CreateOrderInvoice', body, true, 'application/json');
                 addToastr(data.rpta);
 
-                handlePrint(data.serial);
+                // handlePrint(data.serial);
                 navigate('/home');
             } catch (error: any) {
                 addToastr(error.message, error.type || 'error');
             }
         }
-    }, [addToastr, params, remarksInvoice, productsBySale, postApiData, transformProductsByOrder, handlePrint, navigate, MemoizedBsQuestionOctagonFill])
+    }, [addToastr, params, remarksInvoice, productsBySale, client, postApiData, transformProductsByOrder, navigate, MemoizedBsQuestionOctagonFill])
     
     return (
         <>
@@ -293,6 +301,7 @@ function NewSale() {
             <form className='form_inputs' onSubmit={handleSubmit} style={{marginBottom: '120px'}}>                
                 <div className='order_description'>
                     <Input type='select' value={product} setValue={setProduct} name='Producto' options={transformToOptions(optsProducts)} required={false} /> 
+                    {client && client.Delivery && <Input type='money' value={price} setValue={setPrice} name='Precio' />}
                     <Input type='number' value={sale} setValue={setSale} name='Cantidad' min={0} required={false} />
                     <Input type='number' value={change} setValue={setChange} name='Cambios' min={0} required={false} />
 

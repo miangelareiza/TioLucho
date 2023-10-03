@@ -1,7 +1,7 @@
 /* TakeOrder styles */
 .container_qr_reader{
     width: 100vw;
-    height: calc(100vh - 90px);
+    min-height: calc(100vh - 90px);
     background: var(--principal);
     display: flex;
     flex-wrap: wrap;
