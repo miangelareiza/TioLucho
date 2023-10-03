@@ -5,6 +5,8 @@ import QrReader from 'react-qr-scanner';
 // Components
 import { useAppStates } from '../helpers/states';
 import { Header } from '../components/Header';
+// Sources
+import barcodeAudio from '../assets/sounds/barcode.wav';
 
 function NewSaleReader() {
     const { setIsLoading, addToastr, setMenuConfig } = useAppStates();
@@ -12,6 +14,7 @@ function NewSaleReader() {
     const [cameraId, setCameraId] = useState('');
     const [devices, setDevices] = useState<Array<MediaDeviceInfo>>([]);
     const [loadingDevices, setLoadingDevices] = useState(true);
+    const [prevScan, setPrevScan] = useState('');
 
     useEffect(() => {
         handleCamera();
@@ -57,12 +60,18 @@ function NewSaleReader() {
     };    
 
     const handleScan = (data: any) => {
-        if (data) {
-            if (!data.text.includes('https://tiolucho.com/#/home/newSale/') || !data.text.split('/')[6]) {
-                addToastr('Cliente no valido');                
-                return;
+        if (data) {debugger
+            if (data.text !== prevScan) {
+                const audio = new Audio(barcodeAudio);
+                audio.play();                
+                setPrevScan(data.text);
+
+                if (!data.text.includes('https://tiolucho.com/#/home/newSale/') || !data.text.split('/')[6]) {
+                    addToastr('Cliente no valido');
+                } else {
+                    navigate(data.text.split('/')[6]);
+                }
             }
-            navigate(data.text.split('/')[6]);
         }
     };
 
@@ -90,7 +99,7 @@ function NewSaleReader() {
             <div className='qrReader'>
                 { !loadingDevices &&
                     <QrReader
-                        delay={300}
+                        delay={500}
                         onError={handleError}
                         onScan={handleScan}
                         constraints={{ audio: false, video: { deviceId: cameraId }}}

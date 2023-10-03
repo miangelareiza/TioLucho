@@ -2,6 +2,7 @@
 
 declare module 'uuid';
 declare module 'react-qr-scanner';
+declare module '*.wav';
 
 interface ResponseApi {
     rpta: string
