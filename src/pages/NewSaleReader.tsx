@@ -14,18 +14,16 @@ function NewSaleReader() {
     const [loadingDevices, setLoadingDevices] = useState(true);
 
     useEffect(() => {
-        selectCamera();
-        
         document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#F2A819');
         document.querySelector('meta[name="background-color"]')?.setAttribute('content', '#F2A819');
         setMenuConfig({
             tabOption: 'sale'
         });
-
+        
         setTimeout(() => {
             setIsLoading(false);
+            selectCamera();      
         }, 300);
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -42,6 +40,7 @@ function NewSaleReader() {
             }
         } catch (error) {
             console.error('Error al obtener los dispositivos de video:', error);
+            alert('error en los dispositivos de video')
         } finally {
             setLoadingDevices(false);
         }
@@ -69,11 +68,10 @@ function NewSaleReader() {
     return (
         <div className='container_qr_reader'>
             <Header />
-            <h3>Lector</h3>
+            <h3>Lector QR</h3>
 
             <div className='device_selector'>
-                { loadingDevices ? <p>Cargando dispositivos...</p>
-                :
+                { !loadingDevices &&
                     <select value={cameraId} onChange={handleCameraChange}>
                         {devices.map((device) => (
                             <option key={device.deviceId} value={device.deviceId}>
