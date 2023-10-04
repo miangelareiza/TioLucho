@@ -3,6 +3,7 @@
 declare module 'uuid';
 declare module 'react-qr-scanner';
 declare module '*.wav';
+declare module 'html2pdf.js';
 
 interface ResponseApi {
     rpta: string

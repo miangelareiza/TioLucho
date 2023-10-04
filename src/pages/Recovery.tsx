@@ -59,8 +59,8 @@ function Recovery() {
                 'userName': userName
             };
             const data:ResponseApi = await postApiData('Auth/GetOTP', body, false, 'application/json');
-            e.currentTarget.style.display = 'none';
-            (e.currentTarget.nextElementSibling as HTMLElement).style.display = 'block';
+            (e.target as HTMLFormElement).style.display = 'none';
+            ((e.target as HTMLFormElement).nextElementSibling as HTMLElement).style.display = 'block';
             addToastr(data.rpta);
         } catch (error: any) {
             addToastr(error.message, error.type || 'error');
@@ -81,8 +81,8 @@ function Recovery() {
                 'codeOTP': otp
             };
             const data = await postApiData('Auth/ValidateOTP', body, false, 'application/json');
-            e.currentTarget.style.display = 'none';
-            (e.currentTarget.nextElementSibling as HTMLElement).style.display = 'block';
+            (e.target as HTMLFormElement).style.display = 'none';
+            ((e.target as HTMLFormElement).nextElementSibling as HTMLElement).style.display = 'block';
             
             setUserId(data.id);
             addToastr(data.rpta);
@@ -141,7 +141,7 @@ function Recovery() {
 
             <form className='auth_form form_code' onSubmit={handleSubmitOTP}>
                 <img className='auth_image' src={imgLogo} alt="Logo Tío Lucho" draggable='false' width='140px' />
-                <h2 className='auth_title'>Restablecer contraseña</h2>
+                <h2 className='auth_title'>Recuperar contraseña</h2>
                 <input 
                     className='auth_input code' 
                     id='input_code'
@@ -157,7 +157,7 @@ function Recovery() {
 
             <form className='auth_form form_pass' onSubmit={handleSubmitPass}>
                 <img className='auth_image' src={imgLogo} alt="Logo Tío Lucho" draggable='false' width='140px' />
-                <h2 className='auth_title'>Restablecer contraseña</h2>                
+                <h2 className='auth_title'>Recuperar contraseña</h2>               
                 <input 
                     className='auth_input password'
                     id='input_pass1'
