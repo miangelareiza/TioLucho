@@ -268,7 +268,7 @@ function NewSale() {
             const imgX = (pdfWidth - imgWidth * ratio) / 2;
             const imgY = 0;
             pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth * ratio, imgHeigtht * ratio);
-            pdf.save(`Factura${client.Name}.pdf`);
+            pdf.save(`Factura-${serial}.pdf`);
         })        
     }, [serial]);
 
