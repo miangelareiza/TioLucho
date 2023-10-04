@@ -305,7 +305,7 @@ function NewSale() {
                 setSerial(data.serial);
                 setTimeout(() => {
                     handlePDF();
-                }, 1000);
+                }, 600);
                 // navigate('/home');
             } catch (error: any) {
                 addToastr(error.message, error.type || 'error');
@@ -360,8 +360,8 @@ function NewSale() {
                 <Input name='Comentarios del pedido' type='textarea' value={remarksInvoice} setValue={setRemarksInvoice} required={false} />
 
                 <Button name='Confirmar pedido' type='submit' icon='next' />
-                <div style={{position: 'absolute', zIndex: '-999999999'}}>
-                    <div style={{width: '1000px', display: 'flex', flexDirection: 'column', margin: 'auto', padding: '50px'}} ref={divRef}>
+                <div style={{position: 'absolute', zIndex: '-999999999', left: '-800px'}}>
+                    <div style={{width: '800px', display: 'flex', flexDirection: 'column', margin: 'auto', padding: '50px'}} ref={divRef}>
                         <h1 style={{fontSize: '2rem', margin: '0 auto'}}>Arepas Del Tío Lucho</h1>
                         <img style={{width: '170px', margin: 'auto'}} src={imgLogo} alt='Logo tio lucho' />
                         <p style={{margin: 0, fontSize: '1.2rem'}}><b style={{marginRight: '10px'}}>NIT:</b>1036612492-2</p>
