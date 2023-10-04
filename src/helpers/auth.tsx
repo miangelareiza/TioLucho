@@ -53,8 +53,7 @@ function AuthProvider({ children }: AuthProviderProps) {
 		setCookie('token', JSON.stringify(token), 1);
 		navigate('/home');
 	};
-	
-	
+		
 	const logout = () => {
 		setIsLoading(true);
 		setUser(null);

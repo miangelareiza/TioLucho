@@ -102,6 +102,13 @@ function NewSaleReader() {
                     </select>
                 }
             </div>
+            <button 
+                style={{position: 'absolute'}}
+                onClick={()=>{
+                    setLoadingDevices(true);
+                    handleCamera();
+                }}
+            >Reload</button>
 
             <div className='qrReader'>
                 { !loadingDevices &&
