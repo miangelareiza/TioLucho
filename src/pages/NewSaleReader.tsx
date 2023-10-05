@@ -102,7 +102,7 @@ function NewSaleReader() {
                     </select>
                 }
             </div>
-            <button 
+            <button
                 style={{position: 'absolute'}}
                 onClick={()=>{
                     setLoadingDevices(true);

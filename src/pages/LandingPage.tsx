@@ -59,9 +59,9 @@ function LandingPage() {
                 <div>
                     <img src={imgBanner} alt='Banner inicio arepas Tío Lucho' width='350px' />
                     <div className='principal_actions'>
-                        <Button type='button' name='Aliados' icon='next' onClick={()=> window.open('https://api.whatsapp.com/send?phone=573137593407&text=%C2%A1Deseo%20solicitar%20un%20pedido!')} />
-                        <Button type='button' name='Domicilios' icon='next' onClick={()=> window.open('https://api.whatsapp.com/send?phone=573137593407&text=%C2%A1Deseo%20solicitar%20un%20servicio%20a%20domicilio!')} template='dark' />
                         <Button type='button' name='Embajadores' icon='next' onClick={()=> navigate('/auth/login')} />
+                        <Button type='button' name='Domicilios' icon='next' onClick={()=> window.open('https://api.whatsapp.com/send?phone=573137593407&text=%C2%A1Deseo%20solicitar%20un%20servicio%20a%20domicilio!')} template='dark' />
+                        <Button type='button' name='Aliados' icon='next' onClick={()=> window.open('https://api.whatsapp.com/send?phone=573137593407&text=%C2%A1Deseo%20solicitar%20un%20pedido!')} />
                     </div>
                 </div>
                 <p>¡Bienvenidos al auténtico sabor de las arepas en su máxima expresión! <br /><br />

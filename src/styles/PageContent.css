@@ -23,6 +23,19 @@
     font-weight: 900;
     color: var(--principal);
 }
+.calculated_value{
+    width: 220px;
+    margin-left: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+.calculated_value > span{
+    font-weight: 500;
+    font-size: 1rem;
+}
 .table_action_container{
     width: 100%;
     display: flex;

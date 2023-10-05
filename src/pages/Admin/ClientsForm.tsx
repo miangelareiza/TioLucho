@@ -118,21 +118,21 @@ function ClientsForm() {
                 
                 qrCodeImage.onload = () => {
                     const canvas = document.createElement('canvas');
-                    canvas.width = qrCodeCanvas.width + 200;
+                    canvas.width = qrCodeCanvas.width + 300;
                     canvas.height = qrCodeCanvas.height + 300;
                     const ctx = canvas.getContext('2d');
                     
-                    if(ctx?.fillStyle) ctx.fillStyle = '#F2A819'
+                    if(ctx?.fillStyle) ctx.fillStyle = '#FFFFFF'
                     ctx?.fillRect(0, 0, canvas.width, canvas.height);
 
                     if(ctx?.fillStyle) ctx.fillStyle = 'rgba(0, 0, 0)';
-                    if(ctx?.font) ctx.font = 'bold 150px Urbanist';
+                    if(ctx?.font) ctx.font = 'bold 100px Urbanist';
                     const watermarkText = name;
                     const textWidth = ctx?.measureText(watermarkText).width;
                     const textX = (canvas.width - textWidth!) / 2;
                     ctx?.fillText(watermarkText, textX, (canvas.height - 50));
 
-                    ctx?.drawImage(qrCodeImage, 100, 100);
+                    ctx?.drawImage(qrCodeImage, 150, 100);
                                     
                     const image = new Image();
                     image.src = imgLogo;
@@ -214,7 +214,7 @@ function ClientsForm() {
         <Modal isOpen={openModal} setIsOpen={setOpenModal} closeUrl='/home/admin/clients' name={`${params.id ? 'Editar' : 'Crear'} cliente`}>
             <form className='form_inputs' onSubmit={handleSubmit}>
                 {params.id && <div className='QRCode_container'>
-                    <QRCode value={`https://tiolucho.com/#/home/newSale/${params.id}`} bordered={false} /*icon={imgLogo} iconSize={QRCodeSize / 4}*/ size={QRCodeSize} bgColor='#F2A819' errorLevel='H' />
+                    <QRCode value={`https://tiolucho.com/#/home/newSale/${params.id}`} bordered={false} size={QRCodeSize} bgColor='#FFFFFF' errorLevel='H' />
                     <Button name='Descargar' type='button' template='short dark' onClick={downloadQRCode} />
                 </div>}
 
