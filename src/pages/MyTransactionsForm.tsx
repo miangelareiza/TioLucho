@@ -42,7 +42,7 @@ function MyTransactionsForm() {
         e.preventDefault();
         const { isConfirmed } = await Swal.fire({
             html: `${renderToString(<MemoizedBsQuestionOctagonFill size={130} color='var(--principal)' />)}
-                   <div style='font-size: 1.5rem; font-weight: 700;'>¿Estas seguro de <b style='color:var(--principal);'>Crear</b> la ${urlSName}?</div>`,
+                   <div style='font-size: 1.5rem; font-weight: 700;'>¿Estas seguro de <b style='color:var(--principal);'>Crear</b> el ${urlSName}?</div>`,
             showCancelButton: true,
             confirmButtonColor: '#27A64A',
             confirmButtonText: 'Crear',

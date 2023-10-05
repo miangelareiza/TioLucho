@@ -13,7 +13,6 @@ function NewSaleReader() {
     const { setIsLoading, addToastr, setMenuConfig } = useAppStates();
     const navigate = useNavigate();    
     const [cameraId, setCameraId] = useState('');
-    const [devices, setDevices] = useState<Array<MediaDeviceInfo>>([]);
     const [loadingDevices, setLoadingDevices] = useState(true);
     const [prevScan, setPrevScan] = useState('');
 
@@ -37,7 +36,6 @@ function NewSaleReader() {
             if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
                 const devices = await navigator.mediaDevices.enumerateDevices();
                 const videoDevices = devices.filter((device) => device.kind === 'videoinput');
-                setDevices(videoDevices);
                 
                 if (videoDevices.length > 1) {
                     setCameraId(videoDevices[1].deviceId);
@@ -62,11 +60,6 @@ function NewSaleReader() {
             navigate('/home');
         }
     };
-
-    // const handleCameraChange = (event: any) => {
-    //     const selectedCameraId = event.target.value;
-    //     setCameraId(selectedCameraId);
-    // };
 
     const handleScan = (data: any) => {
         if (data) {
@@ -93,20 +86,8 @@ function NewSaleReader() {
             <Header />
             <h3>Lector</h3>
 
-            {/* <div className='device_selector'>
-                { !loadingDevices &&
-                    <select value={cameraId} onChange={handleCameraChange}>
-                        {devices.map((device) => (
-                            <option key={device.deviceId} value={device.deviceId}>
-                                {device.label || `Cámara ${device.deviceId}`}
-                            </option>
-                        ))}
-                    </select>
-                }
-            </div> */}
-
             <div className='qrReader'>
-                <TfiReload className={loadingDevices && devices ? 'reload active' : 'reload'} size={40} onClick={handleCamera}/>
+                <TfiReload className={loadingDevices ? 'reload active' : 'reload'} size={40} onClick={handleCamera}/>
                 
                 { !loadingDevices &&
                     <QrReader

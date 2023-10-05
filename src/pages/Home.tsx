@@ -1,14 +1,18 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
+import { renderToString } from 'react-dom/server';
+import { BsQuestionOctagonFill } from 'react-icons/bs';
 
 // Components
 import { useAppStates } from '../helpers/states';
-import { getTableColumnProps, valueToCurrency } from '../helpers/functions'
 import { useApi } from '../helpers/api';
+import { getTableColumnProps, valueToCurrency } from '../helpers/functions'
 import { Header } from '../components/Header';
 import { TitlePage } from '../components/TitlePage';
 // Sources
 import { InputRef, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
+import { Button } from '../components/Button';
+import Swal from 'sweetalert2';
 
 interface Sales {
     Product: string
@@ -34,7 +38,7 @@ interface GetPreliquidationData {
 
 function Home() {
     const { setIsLoading, addToastr, setMenuConfig } = useAppStates();
-    const { getApiData } = useApi();
+    const { getApiData, postApiData } = useApi();
     const [isLoadingData, setIsLoadingData] = useState(true);
     const [sales, setSales] = useState<Array<Sales>>([]);
     const [income, setIncome] = useState(0);
@@ -42,7 +46,8 @@ function Home() {
     const [subtotal, setSubtotal] = useState(0);
     const [searchedColumn, setSearchedColumn] = useState('');
     const searchInput = useRef<InputRef>(null);
-
+    const MemoizedBsQuestionOctagonFill = memo(BsQuestionOctagonFill);
+    
     const getPreliquidation = useCallback(async () => {
         setIsLoadingData(true);
         try {
@@ -112,11 +117,36 @@ function Home() {
         }
     ];
 
+    const handleLiquidate = useCallback(async () => {
+        const { isConfirmed } = await Swal.fire({
+            html: `${renderToString(<MemoizedBsQuestionOctagonFill size={130} color='var(--tertiary)' />)}
+                   <div style='font-size: 1.5rem; font-weight: 700;'>¿Estas seguro de <b style='color:var(--tertiary);'>Generar</b> la liquidación?</div>`,
+            showCancelButton: true,
+            confirmButtonColor: 'var(--tertiary)',
+            confirmButtonText: 'Generar',
+            cancelButtonText: 'Cancelar',
+            customClass: {
+                popup: 'swal2-background-custom'
+            }
+        });
+
+        if (isConfirmed) {
+            try {
+                const data: ResponseApi = await postApiData('Liquidation/CreateLiquidation', {}, true, 'application/json');
+                addToastr(data.rpta);
+            } catch (error: any) {
+                addToastr(error.message, error.type || 'error');
+            }
+        }
+    }, [postApiData, addToastr, MemoizedBsQuestionOctagonFill]);
+
     return (
         <>
             <Header />            
             <TitlePage image='liquidations' title='Preliquidación' />
-                        
+                   
+            <Button name='Liquidar' type='button' onClick={handleLiquidate} icon='send' template='dark' />
+
             <Table 
                 rowKey={record => record.Product}
                 dataSource={sales} 
@@ -128,7 +158,7 @@ function Home() {
                 footer={(e)=> 
                     <div>
                         <div className='calculated_value'>
-                            SubTotal:
+                            Ventas:
                             <span style={{color: 'var(--green)'}}>
                                 {valueToCurrency(subtotal)}
                             </span>
