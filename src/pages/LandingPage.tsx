@@ -64,10 +64,9 @@ function LandingPage() {
                         <Button type='button' name='Aliados' icon='next' onClick={()=> window.open('https://api.whatsapp.com/send?phone=573137593407&text=%C2%A1Deseo%20solicitar%20un%20pedido!')} />
                     </div>
                 </div>
-                <p>¡Bienvenidos al auténtico sabor de las arepas en su máxima expresión! <br /><br />
-                    En Arepas Tío Lucho, sabemos que la verdadera esencia de nuestras arepas radica en la combinación perfecta de ingredientes frescos, sazón inigualable y la rapidez que necesitas. <br />
-                    Nuestra aplicación te permitirá descubrir nuestras irresistibles arepas, desde las clásicas hasta las más creativas y llenas de sabor. Realizar tus pedidos con solo unos pocos toques ahora es posible a través de nuestra app. <br />
-                    ¡Prepárate para satisfacer tus antojos y deleitarte con cada bocado de nuestras deliciosas arepas. En Arepas Tío Lucho, nos enorgullece ofrecerte autenticidad, calidad y el genuino sabor de las arepas. Ven y disfruta de una experiencia culinaria auténtica que te hará volver por más!
+                <p>¡Bienvenidos al portal de Arepas del tío Lucho!<br /><br />
+                    En Arepas de Tío Lucho, estamos convencidos que para hacer buenas arepas se necesita de un maíz fresco y de excelente calidad.  
+                    Nuestra aplicación le permite solicitar servicio a domicilio.    
                 </p>
 
                 <Button type='button' name='Domicilios' icon='next' onClick={()=> window.open('https://api.whatsapp.com/send?phone=573137593407&text=%C2%A1Deseo%20solicitar%20un%20servicio%20a%20domicilio!')} />
@@ -75,8 +74,8 @@ function LandingPage() {
 
             <div className='section us_section'>
                 <h2 className='section_title reverse'>Nosotros</h2>                
-                <p>En Arepas Tío Lucho, nos apasiona brindarte una experiencia única y auténtica. Con años de experiencia en la industria, nuestro equipo de talentosos amantes de las arepas trabaja incansablemente para ofrecerte los sabores más exquisitos y una atención excepcional. <br /><br />
-                    Creemos en la importancia de preservar la tradición culinaria y resaltar los ingredientes frescos y de alta calidad que hacen que nuestras arepas sean inigualables. Cada arepa que servimos es cuidadosamente preparada con pasión y creatividad, para brindarte una explosión de sabores en cada bocado.
+                <p>En Arepas Tío Lucho, nos apasiona brindarte una experiencia auténtica. Con más de 12 años de experiencia en la industria, nuestro equipo de talentosos amantes de las arepas trabaja incansablemente para ofrecerte un producto de excelente calidad.<br /><br />
+                    Creemos en la importancia de preservar la tradición Antioqueña.  La arepa es un producto muy autentico de esta región y nos sentimos muy orgullosos de nuestra trayectoria en el mercado.
                 </p>
                 <Button type='button' name='Domicilios' icon='next' onClick={()=> window.open('https://api.whatsapp.com/send?phone=573137593407&text=%C2%A1Deseo%20solicitar%20un%20servicio%20a%20domicilio!')} />
             </div>      

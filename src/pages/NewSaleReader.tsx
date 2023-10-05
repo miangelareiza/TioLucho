@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import QrReader from 'react-qr-scanner';
+import { TfiReload } from 'react-icons/tfi';
 
 // Components
 import { useAppStates } from '../helpers/states';
@@ -32,6 +33,7 @@ function NewSaleReader() {
 
     const handleCamera = async () => {
         try {
+            setLoadingDevices(true);
             if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
                 const devices = await navigator.mediaDevices.enumerateDevices();
                 const videoDevices = devices.filter((device) => device.kind === 'videoinput');
@@ -61,10 +63,10 @@ function NewSaleReader() {
         }
     };
 
-    const handleCameraChange = (event: any) => {
-        const selectedCameraId = event.target.value;
-        setCameraId(selectedCameraId);
-    };
+    // const handleCameraChange = (event: any) => {
+    //     const selectedCameraId = event.target.value;
+    //     setCameraId(selectedCameraId);
+    // };
 
     const handleScan = (data: any) => {
         if (data) {
@@ -91,7 +93,7 @@ function NewSaleReader() {
             <Header />
             <h3>Lector</h3>
 
-            <div className='device_selector'>
+            {/* <div className='device_selector'>
                 { !loadingDevices &&
                     <select value={cameraId} onChange={handleCameraChange}>
                         {devices.map((device) => (
@@ -101,16 +103,11 @@ function NewSaleReader() {
                         ))}
                     </select>
                 }
-            </div>
-            <button
-                style={{position: 'absolute'}}
-                onClick={()=>{
-                    setLoadingDevices(true);
-                    handleCamera();
-                }}
-            >Reload</button>
+            </div> */}
 
             <div className='qrReader'>
+                <TfiReload className={loadingDevices && devices ? 'reload active' : 'reload'} size={40} onClick={handleCamera}/>
+                
                 { !loadingDevices &&
                     <QrReader
                         delay={500}

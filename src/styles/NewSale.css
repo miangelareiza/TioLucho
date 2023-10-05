@@ -25,7 +25,7 @@
     margin: 3vh 0 120px;
     padding: 3vh;
     border: 10px solid var(--white);
-    border-radius: 5vh;
+    border-radius: 4vh;
     position: relative;
 }
 .container_qr_reader > .qrReader::before{
@@ -45,6 +45,21 @@
     top: -10px;
     left: 70px;
     background: var(--principal);
+}
+.container_qr_reader > .qrReader > .reload{
+    position: absolute;
+    top: -40px;
+    left: calc(50% - 20px);
+    z-index: 2;
+    fill: var(--white);
+    stroke-width: 1;
+    stroke: var(--white);
+    cursor: pointer;
+    transition: .6s ease-in-out;
+}
+.container_qr_reader > .qrReader > .reload.active{
+    -webkit-animation: reload 1.2s infinite;
+            animation: reload 1.2s infinite;
 }
 .container_qr_reader > .qrReader > video{
     max-width: 100%;
@@ -105,4 +120,23 @@
     top: 0;
     left: 0;
     transform: translateY(-50%);
+}
+
+/* Animations */
+
+@-webkit-keyframes reload {
+    to {
+        transform: rotate(0deg);
+    }
+    from {
+        transform: rotate(360deg);
+    }
+}
+@keyframes reload {
+    to {
+        transform: rotate(0deg);
+    }
+    from {
+        transform: rotate(360deg);
+    }
 }

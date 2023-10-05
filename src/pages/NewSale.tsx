@@ -302,15 +302,14 @@ function NewSale() {
                 addToastr(data.rpta);
 
                 setSerial(data.serial);
-                setTimeout(() => {
-                    handlePDF(data.serial);
-                }, 600);
-                // navigate('/home');
+                handlePDF(data.serial);
+
+                navigate('/home');
             } catch (error: any) {
                 addToastr(error.message, error.type || 'error');
             }
         }
-    }, [addToastr, params, remarksInvoice, productsBySale, client, postApiData, transformProductsByOrder, handlePDF, MemoizedBsQuestionOctagonFill])
+    }, [addToastr, params, remarksInvoice, productsBySale, client, postApiData, transformProductsByOrder, handlePDF, navigate, MemoizedBsQuestionOctagonFill])
     
     return (
         <>
