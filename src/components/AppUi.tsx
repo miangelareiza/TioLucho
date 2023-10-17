@@ -34,7 +34,7 @@ import { InventoriesForm } from '../pages/Admin/InventoriesForm';
 import { SalesAdmin } from '../pages/Admin/SalesAdmin';
 import { NotSalesAdmin } from '../pages/Admin/NotSalesAdmin';
 import { TransactionsAdmin } from '../pages/Admin/TransactionsAdmin';
-// import { LiquidationsAdmin } from '../pages/Admin/LiquidationsAdmin';
+import { LiquidationsAdmin } from '../pages/Admin/LiquidationsAdmin';
 
 import { MyTransactions } from '../pages/MyTransactions';
 import { MyTransactionsForm } from '../pages/MyTransactionsForm';
@@ -92,7 +92,7 @@ function AppUi() {
 							<Route path='/home/admin/sales' element={<AdminRoute> <SalesAdmin /> </AdminRoute>} />
 							<Route path='/home/admin/notSales' element={<AdminRoute> <NotSalesAdmin /> </AdminRoute>} />
 							<Route path='/home/admin/transactions' element={<AdminRoute> <TransactionsAdmin /> </AdminRoute>} />
-							{/* <Route path='/home/admin/liquidations' element={<AdminRoute> <LiquidationsAdmin /> </AdminRoute>} /> */}
+							<Route path='/home/admin/liquidations' element={<AdminRoute> <LiquidationsAdmin /> </AdminRoute>} />
 
 							<Route path='*' element={<Default />} />
 						</RoutesContainer>
