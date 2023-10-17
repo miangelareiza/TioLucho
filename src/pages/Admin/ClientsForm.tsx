@@ -118,21 +118,21 @@ function ClientsForm() {
                 
                 qrCodeImage.onload = () => {
                     const canvas = document.createElement('canvas');
-                    canvas.width = qrCodeCanvas.width + 300;
+                    canvas.width = qrCodeCanvas.width + 200;
                     canvas.height = qrCodeCanvas.height + 300;
                     const ctx = canvas.getContext('2d');
                     
-                    if(ctx?.fillStyle) ctx.fillStyle = '#FFFFFF'
+                    if(ctx?.fillStyle) ctx.fillStyle = '#FFFFFF';
                     ctx?.fillRect(0, 0, canvas.width, canvas.height);
 
                     if(ctx?.fillStyle) ctx.fillStyle = 'rgba(0, 0, 0)';
-                    if(ctx?.font) ctx.font = 'bold 100px Urbanist';
-                    const watermarkText = name;
+                    if(ctx?.font) ctx.font = 'bold 80px Urbanist';
+                    const watermarkText = name.toUpperCase();
                     const textWidth = ctx?.measureText(watermarkText).width;
                     const textX = (canvas.width - textWidth!) / 2;
-                    ctx?.fillText(watermarkText, textX, (canvas.height - 50));
+                    ctx?.fillText(watermarkText, textX, (canvas.height - 60));
 
-                    ctx?.drawImage(qrCodeImage, 150, 100);
+                    ctx?.drawImage(qrCodeImage, 100, 100);
                                     
                     const image = new Image();
                     image.src = imgLogo;

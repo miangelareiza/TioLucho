@@ -142,18 +142,18 @@ function ClientsAdmin() {
                     canvas.height = qrCodeCanvas.height + 300;
                     const ctx = canvas.getContext('2d');
                     
-                    if(ctx?.fillStyle) ctx.fillStyle = '#FFFFFF'
+                    if(ctx?.fillStyle) ctx.fillStyle = '#FFFFFF';
                     ctx?.fillRect(0, 0, canvas.width, canvas.height);
 
                     if(ctx?.fillStyle) ctx.fillStyle = 'rgba(0, 0, 0)';
                     if(ctx?.font) ctx.font = 'bold 80px Urbanist';
-                    const watermarkText = name;
+                    const watermarkText = name.toUpperCase();
                     const textWidth = ctx?.measureText(watermarkText).width;
                     const textX = (canvas.width - textWidth!) / 2;
                     ctx?.fillText(watermarkText, textX, (canvas.height - 60));
-
+                    
                     ctx?.drawImage(qrCodeImage, 100, 100);
-                                    
+                    
                     const image = new Image();
                     image.src = imgLogo;
                     image.onload = () => {
