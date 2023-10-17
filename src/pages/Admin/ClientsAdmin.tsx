@@ -146,11 +146,11 @@ function ClientsAdmin() {
                     ctx?.fillRect(0, 0, canvas.width, canvas.height);
 
                     if(ctx?.fillStyle) ctx.fillStyle = 'rgba(0, 0, 0)';
-                    if(ctx?.font) ctx.font = 'bold 80px Urbanist';
+                    if(ctx?.font) ctx.font = 'bold 50px Urbanist';
                     const watermarkText = name.toUpperCase();
                     const textWidth = ctx?.measureText(watermarkText).width;
                     const textX = (canvas.width - textWidth!) / 2;
-                    ctx?.fillText(watermarkText, textX, (canvas.height - 60));
+                    ctx?.fillText(watermarkText, textX, (canvas.height - 75));
                     
                     ctx?.drawImage(qrCodeImage, 100, 100);
                     
