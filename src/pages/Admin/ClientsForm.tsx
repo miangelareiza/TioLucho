@@ -11,7 +11,7 @@ import { Modal } from '../../components/Modal';
 import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
 // Sources
-import imgLogo from '../../assets/images/LogoQr.png'
+import imgLogo from '../../assets/images/LogoQr.png';
 import Swal from 'sweetalert2';
 import { QRCode } from 'antd';
 

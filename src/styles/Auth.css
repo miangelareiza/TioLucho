@@ -10,6 +10,7 @@
     margin-top: -90px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
 }
 .auth_form.form_code, .auth_form.form_pass{
     display: none;
@@ -38,7 +39,7 @@
 .auth_image{
     display: block;
     width: 140px;
-    margin: 4vh auto 2vh;
+    margin: 0 auto 2vh;
 }
 .auth_title{
     display: block;
@@ -79,7 +80,7 @@
 .recovery_link{
     display: block;
     color: var(--white);
-    margin: -1vh auto;
+    margin: -1vh auto 0;
     font-size: 1.1rem;
     font-weight: 500;
     text-decoration: none;

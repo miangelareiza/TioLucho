@@ -62,7 +62,6 @@ function getCookie(name: string) {
 }
 
 function deleteCookie(name: string) {
-    // Establece la fecha de expiración en el pasado (1 de enero de 1970)
     var expirationDate = new Date(0).toUTCString();
     document.cookie = name + "=; expires=" + expirationDate;
 }
