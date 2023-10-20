@@ -304,9 +304,11 @@ function NewSale() {
                 setSerial(data.serial);                   
                 setTimeout(() => {
                     handlePDF(data.serial);
+                    setTimeout(() => {
+                        navigate('/home');
+                    }, 200);
                 }, 1000);
 
-                navigate('/home');
             } catch (error: any) {
                 addToastr(error.message, error.type || 'error');
             }
