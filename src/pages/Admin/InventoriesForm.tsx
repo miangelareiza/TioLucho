@@ -164,7 +164,7 @@ function InventoriesForm() {
             <form className='form_inputs' onSubmit={handleSubmit}>
                 <Input type='select' value={user} setValue={setUser} name='Usuario' options={transformToOptions(optsUser)} defaultValue={user} /> 
                 <Input type='select' value={product} setValue={setProduct} name='Producto' options={transformToOptions(optsProduct)} defaultValue={product} /> 
-                <Input type='number' value={quantity} setValue={setQuantity} name='Cantidad' min={1} />
+                <Input type='number' value={quantity} setValue={setQuantity} name='Cantidad' />
 
                 <Button name={`${isResupply ? 'Cargar' : 'Crear'} inventario`} type='submit' icon='send' />                
             </form>

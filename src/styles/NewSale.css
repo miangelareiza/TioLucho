@@ -16,9 +16,6 @@
     font-weight: 900;
     color: var(--dark);
 }
-.container_qr_reader > .device_selector{
-    width: 100%;
-}
 .container_qr_reader > .qrReader{
     width: 400px;
     max-width: 94%;

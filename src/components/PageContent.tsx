@@ -3,11 +3,11 @@ import React from 'react';
 // Styles
 import '../styles/PageContent.css';
 
-interface Prop {
+interface Props {
     children: React.ReactNode
 }
 
-function PageContent({children}: Prop) {
+function PageContent({children}: Props) {
     return (           
         <main className='page_content'>
             {children}

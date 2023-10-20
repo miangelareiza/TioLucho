@@ -8,7 +8,7 @@ import { useAuth } from '../helpers/auth';
 import { valueToCurrency } from '../helpers/functions';
 import { Map } from './Map';
 // Styles
-import '../styles/Input.css'
+import '../styles/Input.css';
 // Sources
 import { Autocomplete } from '@react-google-maps/api';
 
