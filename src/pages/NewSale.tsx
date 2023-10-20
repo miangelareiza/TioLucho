@@ -301,8 +301,10 @@ function NewSale() {
                 const data = await postApiData('Invoice/CreateOrderInvoice', body, true, 'application/json');
                 addToastr(data.rpta);
 
-                setSerial(data.serial);
-                handlePDF(data.serial);
+                setSerial(data.serial);                   
+                setTimeout(() => {
+                    handlePDF(data.serial);
+                }, 500);
 
                 navigate('/home');
             } catch (error: any) {
