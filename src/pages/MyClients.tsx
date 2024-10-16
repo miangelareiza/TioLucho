@@ -81,7 +81,7 @@ function MyClients() {
         { 
             title: 'Dirección', 
             width: 150,
-            ...getTableColumnProps('Address', searchInput, searchedColumn, setSearchedColumn)
+            ...getTableColumnProps('Address', searchInput, searchedColumn, setSearchedColumn, 'geolocation')
         }
     ];
 

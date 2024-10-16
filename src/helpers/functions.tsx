@@ -66,7 +66,7 @@ function deleteCookie(name: string) {
     document.cookie = name + "=; expires=" + expirationDate;
 }
 
-const getTableColumnProps = (dataIndex: any, searchInput: React.RefObject<InputRef>, searchedColumn: string, setSearchedColumn: React.Dispatch<React.SetStateAction<string>>, formatValue?: 'money' | 'date' | 'dateTime' | 'photo'): ColumnType<any> => ({
+const getTableColumnProps = (dataIndex: any, searchInput: React.RefObject<InputRef>, searchedColumn: string, setSearchedColumn: React.Dispatch<React.SetStateAction<string>>, formatValue?: 'money' | 'date' | 'dateTime' | 'photo' | 'geolocation'): ColumnType<any> => ({
     dataIndex: dataIndex,
     key: dataIndex,
     ellipsis: { 
@@ -127,6 +127,7 @@ const getTableColumnProps = (dataIndex: any, searchInput: React.RefObject<InputR
                 formatValue === 'date' ? formatDateTime(text).date :
                 formatValue === 'dateTime' ? `${formatDateTime(text).date} - ${formatDateTime(text).time}` :
                 formatValue === 'photo' ? <Avatar icon={<img src={text ? `https://tiolucho.somee.com/AssetsImages/${text}` : imgDefaul} alt='imagen del usuario tio lucho' />} />:
+                formatValue === 'geolocation' ? <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(text)}`} target='_blank' rel='noreferrer'>{text}</a> :
                 text
             }
         >
@@ -138,6 +139,7 @@ const getTableColumnProps = (dataIndex: any, searchInput: React.RefObject<InputR
                         formatValue === 'date' ? formatDateTime(text).date :
                         formatValue === 'dateTime' ? `${formatDateTime(text).date} - ${formatDateTime(text).time}` :
                         formatValue === 'photo' ? <Avatar icon={<img src={text ? `https://tiolucho.somee.com/AssetsImages/${text}` : imgDefaul} alt='imagen del usuario tio lucho' />} />:
+                        formatValue === 'geolocation' ? <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(text)}`} target='_blank' rel='noreferrer'>{text}</a> :
                         text
                     }
                 </b>
@@ -147,6 +149,7 @@ const getTableColumnProps = (dataIndex: any, searchInput: React.RefObject<InputR
                 formatValue === 'date' ? formatDateTime(text).date :
                 formatValue === 'dateTime' ? `${formatDateTime(text).date} - ${formatDateTime(text).time}` :
                 formatValue === 'photo' ? <Avatar icon={<img src={text ? `https://tiolucho.somee.com/AssetsImages/${text}` : imgDefaul} alt='imagen del usuario tio lucho' />} />:
+                formatValue === 'geolocation' ? <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(text)}`} target='_blank' rel='noreferrer'>{text}</a> :
                 text
             }
         </Tooltip>
