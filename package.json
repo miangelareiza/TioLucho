@@ -34,7 +34,7 @@
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
-		"predeploy": "npm run build && echo tiolucho.com > ./build/CNAME",
+		"predeploy": "npm run build && echo tiolucho.pdido.com > ./build/CNAME",
 		"deploy": "gh-pages -d build"
 	},
 	"eslintConfig": {
